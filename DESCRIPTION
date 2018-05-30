@@ -1,0 +1,19 @@
+Package: tiler
+Version: 0.0.0.9000
+Title: Create Non-Geographic Map Tiles from an Image File
+Description: Creates simple coordinate reference system (CRS) map tiles for non-geographic images. It uses an alternative version of 'gdal2tiles.py' to work with images like PNG files that are non-geographic, meaning they do not have an geospatial projection.
+    These tiles can be used with the 'leaflet' package using the simple CRS Leaflet option.
+Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@alaska.edu", role = c("aut", "cre"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+URL: https://github.com/leonawicz/tiler
+BugReports: https://github.com/leonawicz/tiler/issues
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown,
+    lintr,
+    covr
+VignetteBuilder: knitr
