@@ -3,6 +3,11 @@
 language: R
 sudo: false
 cache: packages
+addons:
+  apt:
+    packages:
+      - libgdal-dev
+      - libproj-dev
 
 after_success:
     - Rscript -e 'covr::codecov()'
