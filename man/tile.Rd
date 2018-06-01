@@ -4,16 +4,21 @@
 \alias{tile}
 \title{Create map tiles from an image}
 \usage{
-tile(file, tile_dir, zoom, crs = NULL, ...)
+tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
+  resume = FALSE, ...)
 }
 \arguments{
-\item{file}{character, image file.}
+\item{file}{character, input file.}
 
-\item{tile_dir}{character, output directory for generated tiles.}
+\item{tiles}{character, output directory for generated tiles.}
 
-\item{zoom}{character, zoom levels. Example format" \code{"3-7"}.}
+\item{zoom}{character, zoom levels. Example format" \code{"3-7"}. See details.}
 
-\item{crs}{character, proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.}
+\item{crs}{character, Proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.}
+
+\item{format}{character, XYZ or TMS tile format. See details.}
+
+\item{resume}{logical, only generate missing tiles.}
 
 \item{...}{additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details.}
 }
@@ -29,31 +34,42 @@ When \code{file} is a simple image file such as \code{png}, \code{tile} generate
 Files that can be loaded by the \code{raster} package yield geographic tiles, as long as \code{file} has projection information.
 If the raster object's proj4 string is \code{NA}, it falls back on non-geographic tile generation and a warning is thrown.
 
+Choice of appropriate zoom levels for non-geographic image files may depend on the size of the image. A \code{zoom} value may be partially ignored for image files under certain conditions.
+For instance using the example \code{map.png} below, when passing strictly \code{zoom = n} where \code{n} is less than 3, this still generates tiles for zoom \code{n} up through 3.
+
+\subsection{Supported file types}{
 Supported simple CRS/non-geographic image file types include \code{png}, \code{jpg} and \code{bmp}.
 For projected map data, supported file types include three types readable by the \code{raster} package: \code{grd}, \code{tif}, and \code{nc} (requires \code{ncdf4}).
 Other currently unsupported file types passed to \code{file} throw an error.
-
+}
+\subsection{Raster file inputs}{
 If a map file loadable by \code{raster} is a single-layer raster object, tile coloring is applied.
 To override default coloring of data and \code{noData} pixels, pass the additional arguments \code{col} and \code{colNA} to \code{...}.
 Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, assumed to represent red, green, blue and alpha channels, respectively.
 In this case, processing will continue but coloring is ignored as unnecessary.
 
-Prior to tiling, a geographically-projected raster layer is reprojected to have the proj4 string: \code{+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs}, only if it has some other projection.
-Otherwise no reprojection is needed.
+Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
 The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the \code{tile} function. Then no reprojection is performed by \code{tile}.
+}
+\subsection{Tiles and Leaflet}{
+\code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
 
-Working with the \code{leaflet} package. In contrast to non-geographic tiles, for geographic tiles you may need to set \code{tms: true} in your Leaflet code for tiles to arrange properly.
+This function is supported by three different versions of \code{gdal2tiles}. There is the standard version, which generates geospatial tiles in TMS format.
+One alternative generates tiles in XYZ format. This is the default for \code{tile}. It may be more familiar to R users working with the \code{leaflet} package.
+There is no real benefit of using one version over the other for tiling spatial maps.
+If you set \code{format = "tms"} you may need to do similarly in your raw Leaflet code or your \code{leaflet} R code for tiles to arrange and display with the proper orientation.
+
+The third version of \code{gdal2tiles} handles basic image files like a matrix of rows and columns, using a simple Cartesian coordinate system based on pixel dimensions of the image file.
 See the Leaflet JS library and \code{leaflet} package documentation for working with custom tiles in Leaflet.
+}
 }
 \examples{
 # non-geographic/simple CRS
 x <- system.file("maps/map.png", package = "tiler")
-tile(x, tempdir(), "0")
+tile(x, tempdir(), "2-3")
 
 # projected map
-\dontrun{
-x <- system.file("maps/map.tif", package = "tiler")
-tile(x, tempdir(), "0")
-}
+x <- system.file("maps/map_wgs84.tif", package = "tiler")
+tile(x, tempdir(), 0)
 }
