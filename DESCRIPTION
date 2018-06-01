@@ -17,7 +17,7 @@ LazyData: true
 ByteCompile: true
 URL: https://github.com/leonawicz/tiler
 BugReports: https://github.com/leonawicz/tiler/issues
-SystemRequirements: Python (>= 2.7), python gdal library (For Windows systems, gdal installed via OSGeo4W recommended <https://trac.osgeo.org/osgeo4w/>)
+SystemRequirements: Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)
   clipboard
 Suggests:
     testthat,
