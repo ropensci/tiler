@@ -24,8 +24,7 @@ Suggests:
     knitr,
     rmarkdown,
     lintr,
-    covr,
-    ncdf4
+    covr
 Imports:
     sp,
     rgdal,
