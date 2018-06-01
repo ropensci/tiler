@@ -1,19 +1,34 @@
 Package: tiler
-Version: 0.0.0.9000
-Title: Create Non-Geographic Map Tiles from an Image File
-Description: Creates simple coordinate reference system (CRS) map tiles for non-geographic images. It uses an alternative version of 'gdal2tiles.py' to work with images like PNG files that are non-geographic, meaning they do not have an geospatial projection.
-    These tiles can be used with the 'leaflet' package using the simple CRS Leaflet option.
-Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@alaska.edu", role = c("aut", "cre"))
+Version: 0.1.0
+Title: Create Geographic and Non-Geographic Map Tiles
+Description: Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. 
+    This package provides a map tile-generator function for creating map tile sets for use with packages such as 'leaflet'. 
+    In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
+    These map tiles, which have a 'simple CRS', a non-geographic simple Cartesian coordinate reference system, can also be used with 'leaflet' when applying the simple CRS option.
+    Map tiles can be created from a input file with any of the following extensions: 'tif', 'grd' and 'nc' for spatial maps and 'png', 'jpg' and 'bmp' for basic images.
+    This package requires Python and the 'gdal' library for Python. 
+    Windows users are recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an easy way to obtain the required 'gdal' support for Python in Windows.
+Authors@R: c(person("Matthew", "Leonawicz", email = "mfleonawicz@alaska.edu", role = c("aut", "cre")),
+    person("Scenarios Network for Alaska and Arctic Planning", role = c("cph", "fnd"))
+    )
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 URL: https://github.com/leonawicz/tiler
 BugReports: https://github.com/leonawicz/tiler/issues
+SystemRequirements: Python (>= 2.7), python-gdal (For Windows systems, gdal installed via OSGeo4W recommended)
+  clipboard
 Suggests:
     testthat,
     knitr,
     rmarkdown,
     lintr,
-    covr
+    covr,
+    ncdf4
+Imports:
+    sp,
+    rgdal,
+    raster
 VignetteBuilder: knitr
+RoxygenNote: 6.0.1
