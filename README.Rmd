@@ -46,7 +46,7 @@ is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_i
 ```
 
 ```{r md_vig_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('See the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.')
+cat('## Examples\n\nSee the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.')
 ```
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}

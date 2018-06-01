@@ -26,6 +26,9 @@ devtools::install_github("leonawicz/tiler")
 
 This package requires Python and the `gdal` library for Python. Windows users are recommended to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/) as an easy way to obtain the required `gdal` support for Python in Windows.
 
+Examples
+--------
+
 See the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.
 
 Reference
