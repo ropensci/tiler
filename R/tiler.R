@@ -80,12 +80,12 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
   if(ext %in% .supported_filetypes$ras) file <- file.path(tempdir(), "tmp_raster.tif")
   if(projected){
     format <- match.arg(format, c("xyz", "tms"))
-    gdal2tiles <- switch(format, xyz = "gdal2tiles.py", tms = "gdal2tilesXYZ.py")
+    gdal2tiles <- switch(format, xyz = "python/gdal2tilesXYZ.py", tms = "python/gdal2tiles.py")
     g2t <- system.file(gdal2tiles, package = "tiler")
     ex <- paste0(ex, " \"", g2t, "\" -z ", zoom, " -w none ", ifelse(resume, "-e ", ""), "\"",
                 normalizePath(file), "\" \"", normalizePath(tiles), "\"")
   } else {
-    g2t <- system.file("gdal2tilesIMG.py", package = "tiler")
+    g2t <- system.file("python/gdal2tilesIMG.py", package = "tiler")
     ex <- paste0(ex, " \"", g2t, "\" --leaflet -p raster -z ", zoom, " -w none ",
                  ifelse(resume, "-e ", ""), "\"", normalizePath(file), "\" \"", normalizePath(tiles), "\"")
   }
