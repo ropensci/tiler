@@ -47,19 +47,19 @@ If a map file loadable by \code{raster} is a single-layer raster object, tile co
 To override default coloring of data and \code{noData} pixels, pass the additional arguments \code{col} and \code{colNA} to \code{...}.
 Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
 In this case, processing will continue but coloring arguments are ignored as unnecessary.
-
+\cr\cr
 Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
 The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the \code{tile} function. Then no reprojection is performed by \code{tile}.
 }
 \subsection{Tiles and Leaflet}{
 \code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
-
+\cr\cr
 This function is supported by three different versions of \code{gdal2tiles}. There is the standard version, which generates geospatial tiles in TMS format.
 One alternative generates tiles in XYZ format. This is the default for \code{tile}. It may be more familiar to R users working with the \code{leaflet} package.
 There is no real benefit of using one version over the other for tiling spatial maps.
 If you set \code{format = "tms"} you may need to do similarly in your raw Leaflet code or your \code{leaflet} R code for tiles to arrange and display with the proper orientation.
-
+\cr\cr
 The third version of \code{gdal2tiles} handles basic image files like a matrix of rows and columns, using a simple Cartesian coordinate system based on pixel dimensions of the image file.
 See the Leaflet JS library and \code{leaflet} package documentation for working with custom tiles in Leaflet.
 }
