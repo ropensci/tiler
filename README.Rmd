@@ -11,14 +11,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tiler
+# tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler-small.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
 
+[![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
+[![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tiler)](https://cran.r-project.org/package=tiler) 
+[![Rdoc](http://www.rdocumentation.org/badges/version/tiler)](http://www.rdocumentation.org/packages/tiler)
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tiler.svg?branch=master)](https://travis-ci.org/leonawicz/tiler)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
 [![Coverage Status](https://img.shields.io/codecov/c/github/leonawicz/tiler/master.svg)](https://codecov.io/github/leonawicz/tiler?branch=master)
-  
-Generate map tiles from an image file.
+[![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 
+### Generate map tiles from an image file
+
+The `tiler` package provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a "simple CRS", a non-geographic simple Cartesian coordinate reference system, can also be used with `leaflet` when applying the simple CRS option. 
+
+Map tiles can be created from a input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
+    
 ## Installation
 
 Install the development version from GitHub with:
@@ -26,4 +34,16 @@ Install the development version from GitHub with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("leonawicz/tiler")
+```
+
+```{r is_md, echo = FALSE}
+is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_identifiers"
+```
+
+```{r md_vig_ref, echo = FALSE, results = "asis", eval = is_md}
+cat('See the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.')
+```
+
+```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
+cat('## Reference\n\n[Complete package reference and function documentation](https://leonawicz.github.io/tiler/)')
 ```
