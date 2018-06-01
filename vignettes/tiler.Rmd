@@ -58,6 +58,8 @@ unlink(tile_dir, recursive = TRUE, force = TRUE)
 
 Listing the files in `tile_dir` shows the top level map tiles directories, 0-3 as expected.
 
+Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by `tile`. When you run this example yourself you will see a bit more information at the console.
+
 ### Projected maps
 
 The previous example used a map with a geospatial coordinate reference system (CRS) but it was not projected. That map would be ready to view with the `leaflet` package for example, as would the tiles generated based on it. The next example uses a similar map that is projected. In order to generate map tiles that can be used with `leaflet` in the standard CRS, the map must be reprojected first. Then the same map tiles are generated as before.
@@ -76,7 +78,7 @@ list.files(tile_dir)
 unlink(tile_dir, recursive = TRUE, force = TRUE)
 ```
 
-Note that `tile` will overwrite existing files. The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile` reprojects the raster layer internally. This can be seen in the log output printed to the console.
+The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile` reprojects the raster layer internally. This can be seen in the log output printed to the console.
 
 ### Missing CRS
 
