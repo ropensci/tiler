@@ -12,3 +12,128 @@ knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE
 )
 ```
+
+The `tiler` package provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a "simple CRS", a non-geographic simple Cartesian coordinate reference system, can also be used with `leaflet` when applying the simple CRS option. Map tiles can be created from a input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
+
+## Geographic map tiles
+
+Map tiles are generated with `tile`. `tile` takes an input file name `file` for the source map and a `tiles` destination path for where to save map tiles. The only other required argument is `zoom`, the range of zoom levels for the tiles. This is a string of the form, e.g. `3:7`.
+
+For the sake of simple, expedient examples, the map tiles generated below all use small zoom level ranges and are based on small source maps included in `tiler`. There is also no reason to attempt displaying the tiles here. To make these examples more informative, each raster is loaded and plotted for context, though this is not necessary to the tiling process. Loading the `raster` package is only needed here for the print and plot calls. Finally, the plots themselves are not representative of large, high resolution imagery that benefits from tiling. These example maps are very small in order to minimize package size and ensure examples run quickly. But the procedures demonstrated are the same as would be applied to larger images.
+
+### Basic example
+
+```{r ex1}
+library(tiler)
+library(raster)
+tile_dir <- file.path(tempdir(), "tiles")
+map <- system.file("maps/map_wgs84.tif", package = "tiler")
+(r <- raster(map))
+plot(r)
+
+tile(map, tile_dir, "0-3")
+
+list.files(tile_dir)
+```
+
+```{r unlink1, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+Listing the files in `tile_dir` shows the top level map tiles directories, 0-3 as expected.
+
+### Projected maps
+
+The previous example used a map with a geospatial coordinate reference system (CRS) but it was not projected. That map would be ready to view with the `leaflet` package for example, as would the tiles generated based on it. The next example uses a similar map that is projected. In order to generate map tiles that can be used with `leaflet` in the standard CRS, the map must be reprojected first. Then the same map tiles are generated as before.
+
+```{r ex2}
+map <- system.file("maps/map_albers.tif", package = "tiler")
+(r <- raster(map))
+plot(r)
+
+tile(map, tile_dir, "0-3")
+
+list.files(tile_dir)
+```
+
+```{r unlink2, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+Note that `tile` will overwrite existing files. The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile` reprojects the raster layer internally. This can be seen in the log output printed to the console.
+
+### Missing CRS
+
+If the CRS of the raster is `NA`, there are two options. By default, `tile` will fall back on processing the raster layer as if it were a simple image file with no geospatial projection information (see the next section on simple CRS/non-geographic map tiles). These tiles are not the same as the previous sets.
+
+```{r ex3}
+map <- system.file("maps/map_albers_NA.tif", package = "tiler")
+(r <- raster(map))
+plot(r)
+
+tile(map, tile_dir, "0-3")
+
+list.files(tile_dir)
+```
+
+```{r unlink3, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated.
+
+```{r ex4}
+crs <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"
+tile(map, tile_dir, "0-3", crs)
+
+list.files(tile_dir)
+```
+
+```{r unlink4, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+A note on reprojection: Depending on the nature of the data in a raster, the `...` argument to `tile` allows you to pass through the `method` argument to `raster::projectRaster`. This is `bilinear` by default for bilinear interpolation, appropriate for continuous data. It can be set to `ngb` for nearest neighbor, appropriate for discrete or categorical data. If more control is needed over the reprojection, you should just prepare your raster file first before using `tile`. `tiler` is not intended to substitute for or wrap general geospatial processing tasks that can easily be done with other packages.
+
+### Coloring tiles
+
+Being able to change the default color palette is important, or where color breaks occur. All other optional `...` arguments to `tile` are passed to `raster::RGB` to provide control over the creation of an intermediary RGB raster. Most arguments to `RGB` can usually be ignored. The most useful ones are `col` and `colNA` for the data values color palette and the `noData` color, respectively. Coloring tiles differently for the original example is as simple as the following.
+
+```{r ex5}
+map <- system.file("maps/map_wgs84.tif", package = "tiler")
+pal <- colorRampPalette(c("darkblue", "lightblue"))(20)
+nodata <- "tomato"
+tile(map, tile_dir, "0-3", col = pal, colNA = nodata)
+
+list.files(tile_dir)
+```
+
+```{r unlink5, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+## Simple CRS/non-geographic map tiles
+
+Almost all map tiles you encounter are for geographic maps. They have a geographic coordinate reference system (CRS). Software used to display these map tiles, such as Leaflet, is similarly focused on these kinds of map tiles. Everything is geared towards the dominant use case involving geospatial coordinate systems. 
+
+However, there are edge cases where non-geographic maps are required. These can be maps of outer space, game board maps, etc. The base map used to generate map tiles is usually a simple image like a `png`, `jpg` or `bmp` file. The coordinate reference system is a simple Cartesian coordinate system based on the matrix of pixels or grid cells that represent the image.
+
+There is no longitude or latitude or more complex geospatial projection associated with these maps, which is why they are said to have a "simple CRS". Simple does not necessarily mean easier to work with, however, because geospatial tools, like Leaflet for example, do not cater naturally to non-geographic coordinate systems. Using these map tiles in Leaflet is possible, but takes a bit of non-standard effort.
+
+## Basic example
+
+One example was shown previously where a spatial map lacking critical spatial reference information was processed as a simple image. In the example below, this is the intent. Here, the map is a `png` file. It is a previously saved plot of the Albers-projected US map used in the earlier projected geotiff example. You can see it has a color key legend. As a simple image, all of this will be tiled.
+
+```{r ex6}
+map <- system.file("maps/map.png", package = "tiler")
+plotRGB(brick(map))
+tile(map, tile_dir, "0-3")
+
+list.files(tile_dir)
+```
+
+```{r unlink6, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
+
+The `tile` function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generating from regular image files can be used with `leaflet` if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in `leaflet` for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of `tiler`. See the Leaflet JS and `leaflet` package documentation for details on using simple CRS/non-geographic tiles.
