@@ -7,14 +7,13 @@ template:
 authors:
   Matthew Leonawicz:
     href: http://leonawicz.github.io/
+  Scenarios Network for Alaska and Arctic Planning:
+    href: http://snap.uaf.edu/
+    html: <img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24" />  Scenarios Network for Alaska and Arctic Planning
 
 navbar:
   type: inverse
   right:
-    - text: "Stellar Cartography"
-      href: "articles/sc.html"
-    - text: "R & R... & R"
-      href: "articles/rr.html"
     - text: "Online"
       menu:
         - text: "GitHub"
