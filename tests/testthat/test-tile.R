@@ -1,4 +1,5 @@
 context("tile")
+library(raster)
 
 test_that("tile works on different inputs", {
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE)
@@ -8,7 +9,22 @@ test_that("tile works on different inputs", {
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
 
-  # test png
+  # Test RGB/RGBA multi-band rasters
+  idx <- grep("rgb", files)
+  for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL")
+
+  files <- files[-idx]
+
+  # Test rejection of file with number of layers other than 1, 3 or 4
+  r <- raster(files[2])
+  r <- stack(r, r)
+  tmp <- file.path(tempdir(), "tmp_raster.tif")
+  writeRaster(r, tmp)
+  err <- "`file` is multi-band but does not appear to be RGB or RGBA layers."
+  expect_error(tile(tmp, "tmp_raster", "0"), err)
+  unlink(c(tmp, "tmp_raster"), recursive = TRUE, force = TRUE)
+
+  # test png (jpg and bmp tested elsewhere)
   expect_is(tile(files[1], tiles[1], "0"), "NULL")
 
   # missing CRS
@@ -22,6 +38,19 @@ test_that("tile works on different inputs", {
   # test remaining geographic maps
   idx <- c(2, 4, 8:10, 12)
   suppressWarnings( for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
+
+  unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
+
+  # colors
+  expect_is(tile(files[i], tiles[i], "0", col = clrs, colNA = nacol), "NULL")
+
+  # resume
+  expect_is(tile(files[i], tiles[i], "0-1", resume = TRUE), "NULL")
+
+  unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
+
+  # format, method, alpha
+  expect_is(tile(files[i], tiles[i], "0", format = "tms", method = "ngb", alpha = TRUE), "NULL")
 
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
 })
