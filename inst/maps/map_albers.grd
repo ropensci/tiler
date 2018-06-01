@@ -1,0 +1,26 @@
+[general]
+creator=R package 'raster'
+created=2018-05-31 14:40:55
+[georeference]
+nrows=32
+ncols=71
+xmin=-2976297.19226054
+ymin=-1577299.73099349
+xmax=3059536.24725961
+ymax=1730341.50435762
+projection=+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0
+[data]
+datatype=FLT4S
+byteorder=little
+nbands=1
+bandorder=BIL
+categorical=FALSE
+minvalue=-0.593978046748997
+maxvalue=5.5447241741639
+nodatavalue=-3.4e+38
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=map_original
