@@ -9,9 +9,12 @@ test_that("tile works on different inputs", {
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
 
+  # A non-problematic warning is thrown only when running some testthat tests non-interactively
+  # "no non-missing arguments to" min and max. The tests pass but the extra warning needs to be suppressed.
+
   # Test RGB/RGBA multi-band rasters
   idx <- grep("rgb", files)
-  for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL")
+  suppressWarnings( for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
 
   files <- files[-idx]
 
