@@ -27,13 +27,17 @@ You should not rely on a gratuitous check like this; `tiler` is being overly gen
 
 ## Geographic map tiles
 
-Map tiles are generated with `tile`. `tile` takes an input file name `file` for the source map and a `tiles` destination path for where to save map tiles. The only other required argument is `zoom`, the range of zoom levels for the tiles. This is a string of the form, e.g. `3:7`.
+### Context
 
-For the sake of simple, expedient examples, the map tiles generated below all use small zoom level ranges and are based on small source maps included in `tiler`. There is also no reason to attempt displaying the tiles here. To make these examples more informative, each raster is loaded and plotted for context, though this is not necessary to the tiling process. Loading the `raster` package is only needed here for the print and plot calls.
+For the sake of simple, expedient examples, the map tiles generated below all use small zoom level ranges. There is also no reason to attempt displaying the tiles here. To make these examples more informative, each raster is loaded and plotted for context, though this is not necessary to the tiling process. Loading the `raster` package is only needed here for the print and plot calls.
 
-Finally, the plots themselves are not representative of large, high resolution imagery that benefits from tiling. These example maps are very small in order to minimize package size and ensure examples run quickly. But the procedures demonstrated are the same as would be applied to larger images.
+The example maps packaged with `tiler` are not representative of large, high resolution imagery that benefits from tiling. These maps are very small in order to minimize package size and ensure examples run quickly. But the tiling procedures demonstrated are the same as would be applied to larger images.
+
+Lastly, consider the power of your system before attempting to make a ton of tiles for large images at very high resolutions. You could find that the system could hang at any one of a number of choke points. If you are attempting to make thousands of tiles for a large, high resolution image and your system is struggling, it is recommended to (1) try making tiles for only one zoom level at a time, starting from zero and then increasing while monitoring your system resources. (2) If this is not enough, find a better system.
 
 ### Basic example
+
+Map tiles are generated with `tile`. `tile` takes an input file name `file` for the source map and a `tiles` destination path for where to save map tiles. The only other required argument is `zoom`, the range of zoom levels for the tiles. This is a string of the form, e.g. `3:7`. In this and the subsequent examples zoom levels 0-3 are used.
 
 ```{r ex1}
 library(tiler)
