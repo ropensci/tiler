@@ -15,9 +15,9 @@
 #' @name tiler
 NULL
 
-#' Create map tiles from an image
+#' Create map tiles
 #'
-#' Create geographic and non-geographic map tiles from an image file.
+#' Create geographic and non-geographic map tiles from a file.
 #'
 #' @details
 #' This function supports both geographic and non-geographic tile generation.

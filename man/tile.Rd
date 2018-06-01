@@ -2,7 +2,7 @@
 % Please edit documentation in R/tiler.R
 \name{tile}
 \alias{tile}
-\title{Create map tiles from an image}
+\title{Create map tiles}
 \usage{
 tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
   resume = FALSE, ...)
@@ -26,7 +26,7 @@ tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
 nothing is returned but tiles are written to disk.
 }
 \description{
-Create geographic and non-geographic map tiles from an image file.
+Create geographic and non-geographic map tiles from a file.
 }
 \details{
 This function supports both geographic and non-geographic tile generation.
