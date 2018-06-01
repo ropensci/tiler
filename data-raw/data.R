@@ -18,12 +18,13 @@ r_albers <- raster::projectRaster(r, e_albers)
 col <- colorRampPalette(
   c("#7F3B08", "#B35806", "#E08214", "#FDB863", "#FEE0B6",
     "#F7F7F7", "#D8DAEB", "#B2ABD2", "#8073AC", "#542788", "#2D004B"))(30)
-nacol <- "#333333"
+nacol <- c("#333333", "#DDDDDD", "green", "#FEFF00")
 
-r_wgs84_rgb <- raster::RGB(r_wgs84, col = col, alpha = FALSE, colNA = nacol)
-r_wgs84_rgba <- raster::RGB(r_wgs84, col = col, alpha = TRUE, colNA = nacol)
-r_albers_rgb <- raster::RGB(r_albers, col = col, alpha = FALSE, colNA = nacol)
-r_albers_rgba <- raster::RGB(r_albers, col = col, alpha = TRUE, colNA = nacol)
+r_wgs84_rgb <- raster::RGB(r_wgs84, col = col, alpha = FALSE, colNA = nacol[1])
+r_wgs84_rgba <- raster::RGB(r_wgs84, col = col, alpha = TRUE, colNA = nacol[2])
+r_albers_rgb <- raster::RGB(r_albers, col = col, alpha = FALSE, colNA = nacol[3])
+r_albers_rgba <- raster::RGB(r_albers, col = col, alpha = TRUE, colNA = nacol[4])
+r_albers_rgba <- setValues(r_albers_rgba, rep(100L, ncell(r_albers_rgba)), layer = 4)
 
 writeRaster(r_wgs84_rgb, paste0(pfx, "wgs84_rgb.tif"), overwrite = TRUE)
 writeRaster(r_wgs84_rgba, paste0(pfx, "wgs84_rgba.tif"), overwrite = TRUE)
@@ -70,7 +71,7 @@ clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
 nacol <- "#FFFF00"
 
 # test images: png, jpg, bmp
-for(i in 1:3) tile(files[i], tiles[i], "0", col = clrs, colNA = nacol)
+for(i in 1:3) tile(files[i], tiles[i], "0-3", col = clrs, colNA = nacol)
 
 # Compare CRS read failure by raster of nc file with force set CRS override
 tile(files[5], tiles[5], "1", col = clrs, colNA = nacol)
@@ -80,7 +81,11 @@ unlink("data-raw/maps/tiles/map_*", recursive = TRUE, force = TRUE)
 
 # Test RGB/RGBA multi-band rasters
 idx <- grep("rgb", files)
-for(i in idx[3:4]) tile(files[i], tiles[i], "3-5")
+for(i in idx) tile(files[i], tiles[i], "0-3")
+
+# Compare XYZ vs. TMS format
+tile(files[4], tiles[4], "0-3", format = "tms")
+tile(files[4], tiles[4], "0-3")
 
 unlink("data-raw/maps/tiles/map_*", recursive = TRUE, force = TRUE)
 
