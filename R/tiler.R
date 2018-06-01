@@ -1,8 +1,8 @@
-#' tiler: Create map tiles from images.
+#' tiler: Create map tiles from R
 #'
-#' The tiler package creates map tiles for geographic and non-geographic ("simple CRS") images.
+#' The tiler package creates map tiles from geographic maps and and non-geographic ("simple CRS") images.
 #'
-#' This package provides a map tile-generator function for creating map tile sets for use with packages such as \code{leaflet}.
+#' This package provides a tile generator function for creating map tile sets for use with packages such as \code{leaflet}.
 #' In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
 #' These map tiles, which have a 'simple CRS', a non-geographic simple Cartesian coordinate reference system, can also be used with \code{leaflet} when applying the simple CRS option.
 #' \cr\cr

@@ -12,7 +12,7 @@
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Create Geographic and Non-Geographic Map Tiles">
 <meta property="og:description" content="Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. 
-    This package provides a map tile-generator function for creating map tile sets for use with packages such as 'leaflet'. 
+    This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. 
     In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
     These map tiles, which have a 'simple CRS', a non-geographic simple Cartesian coordinate reference system, can also be used with 'leaflet' when applying the simple CRS option.
     Map tiles can be created from a input file with any of the following extensions: 'tif', 'grd' and 'nc' for spatial maps and 'png', 'jpg' and 'bmp' for basic images.
@@ -143,10 +143,10 @@
 <a href="#tiler" class="anchor"></a>tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/inst/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
 </h1></div>
 
-<div id="generate-map-tiles-from-an-image-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#generate-map-tiles-from-an-image-file" class="anchor"></a>Generate map tiles from an image file</h3>
-<p>The <code>tiler</code> package provides a map tile-generator function for creating map tile sets for use with packages such as <code>leaflet</code>. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a “simple CRS”, a non-geographic simple Cartesian coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
+<div id="create-geographic-and-non-geographic-map-tiles" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-geographic-and-non-geographic-map-tiles" class="anchor"></a>Create geographic and non-geographic map tiles</h2>
+<p>The <code>tiler</code> package provides a tile generator function for creating map tile sets for use with packages such as <code>leaflet</code>. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a “simple CRS”, a non-geographic simple Cartesian coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
 <p>Map tiles can be created from a input file with any of the following extensions: <code>tif</code>, <code>grd</code> and <code>nc</code> for spatial maps and <code>png</code>, <code>jpg</code> and <code>bmp</code> for basic images.</p>
 </div>
 <div id="installation" class="section level2">
@@ -158,7 +158,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="system-requirements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#system-requirements" class="anchor"></a>System requirements</h3>
-<p>This package requires Python and the  library for Python. Windows users are recommended to install  as an easy way to obtain the required  support for Python in Windows.</p>
+<p>This package requires Python and the <code>gdal</code> library for Python. Windows users are recommended to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a> as an easy way to obtain the required <code>gdal</code> support for Python in Windows.</p>
 <hr>
 <p>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
