@@ -128,7 +128,7 @@ Multi-band rasters are supported as long as they have three or four layers, in w
 
 ```{r ex6}
 map <- system.file("maps/map_albers_rgb.tif", package = "tiler")
-(r <- raster(map))
+(r <- brick(map))
 plot(r)
 
 tile(map, tile_dir, "0-3")
@@ -138,7 +138,7 @@ tile(map, tile_dir, "0-3")
 unlink(tile_dir, recursive = TRUE, force = TRUE)
 ```
 
-## Simple CRS/non-geographic map tiles
+## Non-geographic map tiles
 
 Almost all map tiles you encounter are for geographic maps. They have a geographic coordinate reference system (CRS). Software used to display these map tiles, such as Leaflet, is similarly focused on these kinds of map tiles. Everything is geared towards the dominant use case involving geospatial coordinate systems. 
 
@@ -173,7 +173,11 @@ Other arguments to `tile` include `format` and `resume`.
 
 ## Serving map tiles
 
-Map tiles must be served online to be of much use. Serving map tiles is not the purpose of `tiler` but using your GitHub account is an easy way to do this. Create a GitHub repository, enable GitHub pages for the repository in the repository settings. If the repository is exclusively for serving your map tiles, just set the master branch as the source for your GitHub pages. After committing and pushing your tiles to GitHub, you can access them using a URL of the form `https://<your account name>.github.io/maptiles/tiles/{z}/{x}/{y}.png`, if you store your tiles in a folder named `tiles` in a repository named `maptiles` for example.
+Map tiles must be served online to be of much use. Serving map tiles is not the purpose of `tiler` but using your GitHub account is an easy way to do this. Create a GitHub repository, enable GitHub pages for the repository in the repository settings. If the repository is exclusively for serving your map tiles, just set the master branch as the source for your GitHub pages. After committing and pushing your tiles to GitHub, you can access them using a URL of the form
+
+`https://<your account name>.github.io/maptiles/tiles/{z}/{x}/{y}.png`
+
+if you store your tiles in a folder named `tiles` in a repository named `maptiles` for example.
 
 Here are some [examples of non-geographic tile sets](https://github.com/leonawicz/tiles/) hosted on GitHub using Star Trek galaxy maps generated with `tiler` and here they are used in [Leaflet maps](https://leonawicz.github.io/rtrek/articles/sc.html).
 
