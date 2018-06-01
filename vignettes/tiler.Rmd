@@ -9,7 +9,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE, comment = "#>", message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE
+  collapse = TRUE, comment = "#>", message = FALSE, error = FALSE, tidy = TRUE
 )
 ```
 
@@ -115,7 +115,7 @@ A note on reprojection: Depending on the nature of the data in a raster, the `..
 
 ### Coloring tiles
 
-Being able to change the default color palette is important, or where color breaks occur. All other optional `...` arguments to `tile` are passed to `raster::RGB` to provide control over the creation of an intermediary RGB raster. Most arguments to `RGB` can usually be ignored. The most useful ones are `col` and `colNA` for the data values color palette and the `noData` color, respectively. Coloring tiles differently for the original example is as simple as the following.
+Being able to change the default color palette or specify color breaks is important. All other optional `...` arguments to `tile` are passed to `raster::RGB` to provide control over the creation of an intermediary RGB raster. Most arguments to `RGB` can usually be ignored. The most useful ones are `col` and `colNA` for the data values color palette and the `noData` color, respectively. Coloring tiles differently for the original example is as simple as the following.
 
 ```{r ex5}
 map <- system.file("maps/map_wgs84.tif", package = "tiler")
@@ -154,4 +154,4 @@ list.files(tile_dir)
 unlink(tile_dir, recursive = TRUE, force = TRUE)
 ```
 
-The `tile` function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generating from regular image files can be used with `leaflet` if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in `leaflet` for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of `tiler`. See the Leaflet JS and `leaflet` package documentation for details on using simple CRS/non-geographic tiles.
+The `tile` function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generated from regular image files can be used with `leaflet` if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in `leaflet` for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of `tiler`. See the Leaflet JS and `leaflet` package documentation for details on using simple CRS/non-geographic tiles.
