@@ -45,8 +45,8 @@ Other currently unsupported file types passed to \code{file} throw an error.
 \subsection{Raster file inputs}{
 If a map file loadable by \code{raster} is a single-layer raster object, tile coloring is applied.
 To override default coloring of data and \code{noData} pixels, pass the additional arguments \code{col} and \code{colNA} to \code{...}.
-Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, assumed to represent red, green, blue and alpha channels, respectively.
-In this case, processing will continue but coloring is ignored as unnecessary.
+Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
+In this case, processing will continue but coloring arguments are ignored as unnecessary.
 
 Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
 The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
