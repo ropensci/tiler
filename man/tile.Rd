@@ -51,6 +51,11 @@ In this case, processing will continue but coloring arguments are ignored as unn
 Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
 The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the \code{tile} function. Then no reprojection is performed by \code{tile}.
+When \code{file} consists of RGB or RGBA bands, \code{method} is ignored if provided and reprojection uses nearest neighbor.
+\cr\cr
+It is recommended to avoid using a projected 4-band RGBA raster file or \code{gdal2tiles}. However, the alpha channel appears to be ignored anyway. \code{gdal2tiles} gives an internal waring.
+Instead, create your RGBA raster file in unprojected form and it should seamlessly pass through to \code{gdal2tiles} without any issues.
+Three-band RGB raster files appear are unaffected by reprojection.  The alpha channel appears to be completely ignored in the tiling process anyway, so it is fine to just use RGB rasters.
 }
 \subsection{Tiles and Leaflet}{
 \code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
