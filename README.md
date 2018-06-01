@@ -21,6 +21,10 @@ Install the development version from GitHub with:
 devtools::install_github("leonawicz/tiler")
 ```
 
+### System requirements
+
+This package requires Python and the library for Python. Windows users are recommended to install as an easy way to obtain the required support for Python in Windows.
+
 See the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.
 
 Reference
