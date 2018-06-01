@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="kw">list.files</span>(tile_dir)
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
 <span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
-<p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected.</p>
+<p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
 <div id="projected-maps" class="section level3">
@@ -209,11 +209,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; Creating tiles. Please wait...</span>
-
-<span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
 <p>The tiles generated this time are the same as before, that is, ready for <code>leaflet</code>. <code>tile</code> reprojects the raster layer internally. This can be seen in the log output printed to the console.</p>
 </div>
 <div id="missing-crs" class="section level3">
@@ -238,22 +234,14 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; Creating tiles. Please wait...</span>
-
-<span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
 <p>This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs &lt;-<span class="st"> "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, crs)
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; Creating tiles. Please wait...</span>
-
-<span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
 <p>A note on reprojection: Depending on the nature of the data in a raster, the <code>...</code> argument to <code>tile</code> allows you to pass through the <code>method</code> argument to <code><a href="http://www.rdocumentation.org/packages/raster/topics/projectRaster">raster::projectRaster</a></code>. This is <code>bilinear</code> by default for bilinear interpolation, appropriate for continuous data. It can be set to <code>ngb</code> for nearest neighbor, appropriate for discrete or categorical data. If more control is needed over the reprojection, you should just prepare your raster file first before using <code>tile</code>. <code>tiler</code> is not intended to substitute for or wrap general geospatial processing tasks that can easily be done with other packages.</p>
 </div>
 <div id="coloring-tiles" class="section level3">
@@ -266,11 +254,30 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">col =</span> pal, <span class="dt">colNA =</span> nodata)
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; Creating tiles. Please wait...</span>
-
-<span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
+</div>
+<div id="rgb-and-rgba-rasters" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rgb-and-rgba-rasters" class="anchor"></a>RGB and RGBA rasters</h3>
+<p>Multi-band rasters are supported as long as they have three or four layers, in which case <code>tile</code> assumes these represent red, green, blue and alpha channel, respectively. Internally, single-layer raster files are colored and converted to a three- or four-band RGB/A raster object prior to tile generation. If <code>file</code> is already such a raster, this step is simply skipped. Optional arguments like data and <code>noData</code> color, break points, etc., are ignored since this type of raster contains its own color information.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"maps/map_albers_rgb.tif"</span>, <span class="dt">package =</span> <span class="st">"tiler"</span>)
+(r &lt;-<span class="st"> </span><span class="kw">raster</span>(map))
+<span class="co">#&gt; class       : RasterLayer </span>
+<span class="co">#&gt; band        : 1  (of  3  bands)</span>
+<span class="co">#&gt; dimensions  : 32, 71, 2272  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
+<span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
+<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers_rgb.tif </span>
+<span class="co">#&gt; names       : map_albers_rgb </span>
+<span class="co">#&gt; values      : 45, 253  (min, max)</span>
+<span class="kw">plot</span>(r)</code></pre></div>
+<p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Reprojecting raster...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
 </div>
 </div>
 <div id="simple-crsnon-geographic-map-tiles" class="section level2">
@@ -279,21 +286,32 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p>Almost all map tiles you encounter are for geographic maps. They have a geographic coordinate reference system (CRS). Software used to display these map tiles, such as Leaflet, is similarly focused on these kinds of map tiles. Everything is geared towards the dominant use case involving geospatial coordinate systems.</p>
 <p>However, there are edge cases where non-geographic maps are required. These can be maps of outer space, game board maps, etc. The base map used to generate map tiles is usually a simple image like a <code>png</code>, <code>jpg</code> or <code>bmp</code> file. The coordinate reference system is a simple Cartesian coordinate system based on the matrix of pixels or grid cells that represent the image.</p>
 <p>There is no longitude or latitude or more complex geospatial projection associated with these maps, which is why they are said to have a “simple CRS”. Simple does not necessarily mean easier to work with, however, because geospatial tools, like Leaflet for example, do not cater naturally to non-geographic coordinate systems. Using these map tiles in Leaflet is possible, but takes a bit of non-standard effort.</p>
-</div>
-<div id="basic-example-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-example-1" class="anchor"></a>Basic example</h2>
+<div id="basic-example-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#basic-example-1" class="anchor"></a>Basic example</h3>
 <p>One example was shown previously where a spatial map lacking critical spatial reference information was processed as a simple image. In the example below, this is the intent. Here, the map is a <code>png</code> file. It is a previously saved plot of the Albers-projected US map used in the earlier projected geotiff example. You can see it has a color key legend. As a simple image, all of this will be tiled.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"maps/map.png"</span>, <span class="dt">package =</span> <span class="st">"tiler"</span>)
 <span class="kw">plotRGB</span>(<span class="kw">brick</span>(map))</code></pre></div>
-<p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Creating tiles. Please wait...</span>
-
-<span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<p><img src="tiler_files/figure-html/ex7-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Creating tiles. Please wait...</span></code></pre></div>
 <p>The <code>tile</code> function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generated from regular image files can be used with <code>leaflet</code> if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in <code>leaflet</code> for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of <code>tiler</code>. See the Leaflet JS and <code>leaflet</code> package documentation for details on using simple CRS/non-geographic tiles.</p>
+</div>
+</div>
+<div id="additional-arguments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-arguments" class="anchor"></a>Additional arguments</h2>
+<p>Other arguments to <code>tile</code> include <code>format</code> and <code>resume</code>.</p>
+<p><code>format</code> is either <code>xyz</code> (default) or <code>tms</code>. <code>gdal2tiles</code> generates TMS tiles, but XYZ may be more familiar. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. If setting <code>format = "tms"</code> you may need to do something similar in your Leaflet JavaScript or <code>leaflet</code> package R code for tiles to display with the proper orientation.</p>
+<p><code>resume = TRUE</code> simply avoids overwriting tiles by picking up where you left off without changing your set zoom levels and output path.</p>
+</div>
+<div id="serving-map-tiles" class="section level2">
+<h2 class="hasAnchor">
+<a href="#serving-map-tiles" class="anchor"></a>Serving map tiles</h2>
+<p>Map tiles must be served online to be of much use. Serving map tiles is not the purpose of <code>tiler</code> but using your GitHub account is an easy way to do this. Create a GitHub repository, enable GitHub pages for the repository in the repository settings. If the repository is exclusively for serving your map tiles, just set the master branch as the source for your GitHub pages. After committing and pushing your tiles to GitHub, you can access them using a URL of the form <code>https://&lt;your account name&gt;.github.io/maptiles/tiles/{z}/{x}/{y}.png</code>, if you store your tiles in a folder named <code>tiles</code> in a repository named <code>maptiles</code> for example.</p>
+<p>Here are some <a href="https://github.com/leonawicz/tiles/">examples of non-geographic tile sets</a> hosted on GitHub using Star Trek galaxy maps generated with <code>tiler</code> and here they are used in <a href="https://leonawicz.github.io/rtrek/articles/sc.html">Leaflet maps</a>.</p>
+<p>The <code>leaflet</code> R code need to use custom non-geographic tiles like these requires setting <code>leafletOptions(crs = leafletCRS("L.CRS.Simple")</code> as well as calling <code>addTiles(urlTemplate = url)</code> where <code>url</code> is like the example URL shown above. Setting the focus of the map can be a bit tricky for non-geographic map tiles based on an arbitrary image file. It may take some trial and error to get a sense for the custom coordinate system.</p>
 </div>
   </div>
 
@@ -305,7 +323,8 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <li><a href="#setup-windows-users">Setup (Windows users)</a></li>
       <li><a href="#geographic-map-tiles">Geographic map tiles</a></li>
       <li><a href="#simple-crsnon-geographic-map-tiles">Simple CRS/non-geographic map tiles</a></li>
-      <li><a href="#basic-example-1">Basic example</a></li>
+      <li><a href="#additional-arguments">Additional arguments</a></li>
+      <li><a href="#serving-map-tiles">Serving map tiles</a></li>
       </ul>
 </div>
       </div>

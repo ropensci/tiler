@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.5</span>
       </span>
     </div>
 
@@ -174,26 +174,35 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>tile</span>(<span class='no'>file</span>, <span class='no'>tile_dir</span>, <span class='no'>zoom</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>tile</span>(<span class='no'>file</span>, <span class='no'>tiles</span>, <span class='no'>zoom</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"xyz"</span>, <span class='st'>"tms"</span>),
+  <span class='kw'>resume</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>character, image file.</p></td>
+      <td><p>character, input file.</p></td>
     </tr>
     <tr>
-      <th>tile_dir</th>
+      <th>tiles</th>
       <td><p>character, output directory for generated tiles.</p></td>
     </tr>
     <tr>
       <th>zoom</th>
-      <td><p>character, zoom levels. Example format" <code>"3-7"</code>.</p></td>
+      <td><p>character, zoom levels. Example format" <code>"3-7"</code>. See details.</p></td>
     </tr>
     <tr>
       <th>crs</th>
-      <td><p>character, proj4 string. Use this to force set the CRS of a loaded raster object from <code>file</code> in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.</p></td>
+      <td><p>character, Proj4 string. Use this to force set the CRS of a loaded raster object from <code>file</code> in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>character, XYZ or TMS tile format. See details.</p></td>
+    </tr>
+    <tr>
+      <th>resume</th>
+      <td><p>logical, only generate missing tiles.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -211,30 +220,42 @@
 When <code>file</code> is a simple image file such as <code>png</code>, <code>tile</code> generates non-geographic, simple CRS tiles.
 Files that can be loaded by the <code>raster</code> package yield geographic tiles, as long as <code>file</code> has projection information.
 If the raster object's proj4 string is <code>NA</code>, it falls back on non-geographic tile generation and a warning is thrown.</p>
-<p>Supported simple CRS/non-geographic image file types include <code>png</code>, <code>jpg</code> and <code>bmp</code>.
+<p>Choice of appropriate zoom levels for non-geographic image files may depend on the size of the image. A <code>zoom</code> value may be partially ignored for image files under certain conditions.
+For instance using the example <code>map.png</code> below, when passing strictly <code>zoom = n</code> where <code>n</code> is less than 3, this still generates tiles for zoom <code>n</code> up through 3.</p>
+<h3>Supported file types</h3>
+    Supported simple CRS/non-geographic image file types include <code>png</code>, <code>jpg</code> and <code>bmp</code>.
 For projected map data, supported file types include three types readable by the <code>raster</code> package: <code>grd</code>, <code>tif</code>, and <code>nc</code> (requires <code>ncdf4</code>).
-Other currently unsupported file types passed to <code>file</code> throw an error.</p>
-<p>If a map file loadable by <code>raster</code> is a single-layer raster object, tile coloring is applied.
+Other currently unsupported file types passed to <code>file</code> throw an error.
+    <h3>Raster file inputs</h3>
+    If a map file loadable by <code>raster</code> is a single-layer raster object, tile coloring is applied.
 To override default coloring of data and <code>noData</code> pixels, pass the additional arguments <code>col</code> and <code>colNA</code> to <code>...</code>.
-Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, assumed to represent red, green, blue and alpha channels, respectively.
-In this case, processing will continue but coloring is ignored as unnecessary.</p>
-<p>Prior to tiling, a geographically-projected raster layer is reprojected to have the proj4 string: <code>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</code>, only if it has some other projection.
-Otherwise no reprojection is needed.
+Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
+In this case, processing will continue but coloring arguments are ignored as unnecessary.
+<br /><br />
+Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
 The only reprojection argument available through <code>...</code> is <code>method</code>, which can be <code>"bilinear"</code> (default) or<code>"ngb"</code>.
-If complete control over reprojection is required, this should be done prior to passing the rasterized file to the <code>tile</code> function. Then no reprojection is performed by <code>tile</code>.</p>
-<p>Working with the <code>leaflet</code> package. In contrast to non-geographic tiles, for geographic tiles you may need to set <code>tms: true</code> in your Leaflet code for tiles to arrange properly.
-See the Leaflet JS library and <code>leaflet</code> package documentation for working with custom tiles in Leaflet.</p>
+If complete control over reprojection is required, this should be done prior to passing the rasterized file to the <code>tile</code> function. Then no reprojection is performed by <code>tile</code>.
+    <h3>Tiles and Leaflet</h3>
+    <code>gdal2tiles</code> generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
+<br /><br />
+This function is supported by three different versions of <code>gdal2tiles</code>. There is the standard version, which generates geospatial tiles in TMS format.
+One alternative generates tiles in XYZ format. This is the default for <code>tile</code>. It may be more familiar to R users working with the <code>leaflet</code> package.
+There is no real benefit of using one version over the other for tiling spatial maps.
+If you set <code>format = "tms"</code> you may need to do similarly in your raw Leaflet code or your <code>leaflet</code> R code for tiles to arrange and display with the proper orientation.
+<br /><br />
+The third version of <code>gdal2tiles</code> handles basic image files like a matrix of rows and columns, using a simple Cartesian coordinate system based on pixel dimensions of the image file.
+See the Leaflet JS library and <code>leaflet</code> package documentation for working with custom tiles in Leaflet.
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># non-geographic/simple CRS</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map.png"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='st'>"0"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...</div><div class='input'>
-# projected map
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='st'>"0"</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...</div><div class='input'>
+<span class='co'># projected map</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map_wgs84.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
+<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='fl'>0</span>)</div><div class='output co'>#&gt; Coloring raster...
+#&gt; Preparing for tiling...
+#&gt; Creating tiles. Please wait...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
