@@ -1,3 +1,10 @@
+# tiler 0.1.5
+
+* Refactored `tile`, added arguments including `resume` and `format`, changed some argument names.
+* Added default support for XYZ format tiles in addition to TMS. This brings in another version of `gdal2tiles`.
+* Updated documentation.
+* Added unit tests.
+
 # tiler 0.1.0
 
 * Created `tile` function for generating map tiles from geographic or non-geographic maps/images.
