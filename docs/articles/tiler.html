@@ -186,6 +186,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
 <span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected.</p>
+<p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
 <div id="projected-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -213,7 +214,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="kw">list.files</span>(tile_dir)
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
 <span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
-<p>Note that <code>tile</code> will overwrite existing files. The tiles generated this time are the same as before, that is, ready for <code>leaflet</code>. <code>tile</code> reprojects the raster layer internally. This can be seen in the log output printed to the console.</p>
+<p>The tiles generated this time are the same as before, that is, ready for <code>leaflet</code>. <code>tile</code> reprojects the raster layer internally. This can be seen in the log output printed to the console.</p>
 </div>
 <div id="missing-crs" class="section level3">
 <h3 class="hasAnchor">
@@ -233,6 +234,8 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p><img src="tiler_files/figure-html/ex3-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Warning in .proj_check(file, crs, ...): Projection expected but is missing.</span>
+<span class="co">#&gt; Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
@@ -256,7 +259,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div id="coloring-tiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#coloring-tiles" class="anchor"></a>Coloring tiles</h3>
-<p>Being able to change the default color palette is important, or where color breaks occur. All other optional <code>...</code> arguments to <code>tile</code> are passed to <code><a href="http://www.rdocumentation.org/packages/raster/topics/RGB">raster::RGB</a></code> to provide control over the creation of an intermediary RGB raster. Most arguments to <code>RGB</code> can usually be ignored. The most useful ones are <code>col</code> and <code>colNA</code> for the data values color palette and the <code>noData</code> color, respectively. Coloring tiles differently for the original example is as simple as the following.</p>
+<p>Being able to change the default color palette or specify color breaks is important. All other optional <code>...</code> arguments to <code>tile</code> are passed to <code><a href="http://www.rdocumentation.org/packages/raster/topics/RGB">raster::RGB</a></code> to provide control over the creation of an intermediary RGB raster. Most arguments to <code>RGB</code> can usually be ignored. The most useful ones are <code>col</code> and <code>colNA</code> for the data values color palette and the <code>noData</code> color, respectively. Coloring tiles differently for the original example is as simple as the following.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"maps/map_wgs84.tif"</span>, <span class="dt">package =</span> <span class="st">"tiler"</span>)
 pal &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">"darkblue"</span>, <span class="st">"lightblue"</span>))(<span class="dv">20</span>)
 nodata &lt;-<span class="st"> "tomato"</span>
@@ -290,7 +293,7 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw">list.files</span>(tile_dir)
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
 <span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
-<p>The <code>tile</code> function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generating from regular image files can be used with <code>leaflet</code> if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in <code>leaflet</code> for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of <code>tiler</code>. See the Leaflet JS and <code>leaflet</code> package documentation for details on using simple CRS/non-geographic tiles.</p>
+<p>The <code>tile</code> function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generated from regular image files can be used with <code>leaflet</code> if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in <code>leaflet</code> for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of <code>tiler</code>. See the Leaflet JS and <code>leaflet</code> package documentation for details on using simple CRS/non-geographic tiles.</p>
 </div>
   </div>
 
