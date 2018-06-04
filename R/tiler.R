@@ -1,12 +1,12 @@
 #' tiler: Create map tiles from R
 #'
-#' The tiler package creates map tiles from geographic maps and and non-geographic ("simple CRS") images.
+#' The tiler package creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files.
 #'
 #' This package provides a tile generator function for creating map tile sets for use with packages such as \code{leaflet}.
 #' In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
-#' These map tiles, which have a 'simple CRS', a non-geographic simple Cartesian coordinate reference system, can also be used with \code{leaflet} when applying the simple CRS option.
+#' These map tiles, which have a non-geographic simple coordinate reference system (CRS), can also be used with \code{leaflet} when applying the simple CRS option.
 #' \cr\cr
-#' Map tiles can be created from a input file with any of the following extensions: 'tif', 'grd' and 'nc' for spatial maps and 'png', 'jpg' and 'bmp' for basic images.
+#' Map tiles can be created from a input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.
 #' \cr\cr
 #' This package requires Python and the \code{gdal} library for Python.
 #' Windows users are recommended to install \href{OSGeo4W}{https://trac.osgeo.org/osgeo4w/} as an easy way to obtain the required \code{gdal} support for Python in Windows.
