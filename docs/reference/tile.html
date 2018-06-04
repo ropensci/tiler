@@ -237,7 +237,7 @@ The only reprojection argument available through <code>...</code> is <code>metho
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the <code>tile</code> function. Then no reprojection is performed by <code>tile</code>.
 When <code>file</code> consists of RGB or RGBA bands, <code>method</code> is ignored if provided and reprojection uses nearest neighbor.
 <br /><br />
-It is recommended to avoid using a projected 4-band RGBA raster file or <code>gdal2tiles</code>. However, the alpha channel appears to be ignored anyway. <code>gdal2tiles</code> gives an internal waring.
+It is recommended to avoid using a projected 4-band RGBA raster file or <code>gdal2tiles</code>. However, the alpha channel appears to be ignored anyway. <code>gdal2tiles</code> gives an internal warning.
 Instead, create your RGBA raster file in unprojected form and it should seamlessly pass through to <code>gdal2tiles</code> without any issues.
 Three-band RGB raster files appear are unaffected by reprojection.  The alpha channel appears to be completely ignored in the tiling process anyway, so it is fine to just use RGB rasters.
     <h3>Tiles and Leaflet</h3>
