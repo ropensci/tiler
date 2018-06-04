@@ -7,14 +7,18 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+* This is a new release; resubmission.
 
-This package requies Python and python-gdal. These are specified in the DESCRIPTION System Requirements field as well as the Description text, but I am not sure if the formatting is acceptable.
+This resubmission makes the requested text formatting changes to the DESCRIPTION file.
+
+---
+
+This package requies Python and python-gdal. These are specified in the DESCRIPTION System Requirements field as well as the Description text.
 
 I have tested locally with installations of both Python 2.7 and Python 3.6 sucessfully in Windows (all examples and unit tests). 
 Similarly for Travis-CI, Appveyor and CRAN Win-Builder devel and release, using whichever version of Python was on each system.
 
 ## Downstream dependencies
-I have also run R CMD check on downstream dependencies of tabr 
-(https://github.com/leonawicz/tabr/blob/master/revdep/checks.rds). 
+I have also run R CMD check on downstream dependencies of tiler 
+(https://github.com/leonawicz/tiler/blob/master/revdep/checks.rds). 
 All packages passed.

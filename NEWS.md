@@ -1,3 +1,7 @@
+# tiler 0.1.6
+
+* Made minor formatting changes per CRAN request for resubmission.
+
 # tiler 0.1.5
 
 * Refactored `tile`, added arguments including `resume` and `format`, changed some argument names.
