@@ -45,14 +45,17 @@
 #'
 #' @param file character, input file.
 #' @param tiles character, output directory for generated tiles.
-#' @param zoom character, zoom levels. Example format" \code{"3-7"}. See details.
+#' @param zoom character, zoom levels. Example format: \code{"3-7"}. See details.
 #' @param crs character, Proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.
 #' @param format character, XYZ or TMS tile format. See details.
 #' @param resume logical, only generate missing tiles.
-#' @param ... additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details.
+#' @param viewer logical, also create \code{preview.html} adjacent to \code{tiles} directory for previewing tiles in the browser using Leaflet.
+#' @param georef logical, for non-geographic tiles only. If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will add map markers with coordinate labels on mouse click to assist with georeferencing of non-geographic tiles.
+#' @param ... additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details. Other additional arguments \code{lng} and \code{lat} can also be passed to the tile previewer. See \code{\link{tile_viewer}} for details.
 #'
 #' @return nothing is returned but tiles are written to disk.
 #' @export
+#' @seealso \code{\link{view_tiles}}, \code{\link{tile_viewer}}
 #'
 #' @examples
 #' # non-geographic/simple CRS
@@ -62,8 +65,17 @@
 #' # projected map
 #' x <- system.file("maps/map_wgs84.tif", package = "tiler")
 #' tile(x, tempdir(), 0)
-tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE, ...){
+tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE,
+                 viewer = TRUE, georef = TRUE, ...){
   ext <- .get_ext(file)
+  if(ext == "jpg" && !requireNamespace("jpeg", quietly = TRUE)){
+    message("jpg files are optionally supported (png recommended). Install `jpeg` package to use jpg images.")
+    return(invisible())
+  }
+  if(ext == "bmp" && !requireNamespace("bmp", quietly = TRUE)){
+    message("bmp files are optionally supported (png recommended). Install `bmp` package to use bmp images.")
+    return(invisible())
+  }
   if(!ext %in% unlist(.supported_filetypes))
     stop(paste0("File type .", ext, " not supported."))
   ex <- tiler_options()$python
@@ -89,6 +101,28 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
   }
   cat("Creating tiles. Please wait...\n")
   system(ex, ignore.stderr = TRUE)
+  if(viewer){
+    cat("Creating tile viewer...\n")
+    w <- h <- NULL
+    if(!projected){
+      if(file == file.path(tempdir(), "tmp_raster.tif")){
+        x <- raster::raster(file)
+        w <- ncol(x)
+        h <- nrow(x)
+      } else {
+        if(ext == "png") f <- png::readPNG else
+          if(ext == "jpg") f <- jpeg::readJPEG else f <- bmp::read.bmp
+        x <- f(file)
+        w <- dim(x)[2]
+        h <- dim(x)[1]
+      }
+    }
+    viewer_args <- c(
+      list(tiles = tiles, zoom = zoom, width = w, height = h, georef = georef, format = format),
+      list(...))
+    do.call(tile_viewer, viewer_args)
+    cat("Complete.\n")
+  }
   if(ext %in% .supported_filetypes$ras) unlink(file)
   invisible()
 }
@@ -141,7 +175,7 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
 
 .get_ext <- function(file) utils::tail(strsplit(file, "\\.")[[1]], 1)
 
-.supported_filetypes <- list(img = c("bmp", "jpg", "jpeg", "png"), ras = c("grd", "tif", "nc"))
+.supported_filetypes <- list(img = c("bmp", "jpg", "png"), ras = c("grd", "tif", "nc"))
 
 .is_wgs84 <- function(x){
   grepl("+proj=longlat", x) & grepl("+datum=WGS84", x) &

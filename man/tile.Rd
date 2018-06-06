@@ -5,14 +5,14 @@
 \title{Create map tiles}
 \usage{
 tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
-  resume = FALSE, ...)
+  resume = FALSE, viewer = TRUE, georef = TRUE, ...)
 }
 \arguments{
 \item{file}{character, input file.}
 
 \item{tiles}{character, output directory for generated tiles.}
 
-\item{zoom}{character, zoom levels. Example format" \code{"3-7"}. See details.}
+\item{zoom}{character, zoom levels. Example format: \code{"3-7"}. See details.}
 
 \item{crs}{character, Proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.}
 
@@ -20,7 +20,11 @@ tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
 
 \item{resume}{logical, only generate missing tiles.}
 
-\item{...}{additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details.}
+\item{viewer}{logical, also create \code{preview.html} adjacent to \code{tiles} directory for previewing tiles in the browser using Leaflet.}
+
+\item{georef}{logical, for non-geographic tiles only. If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will add map markers with coordinate labels on mouse click to assist with georeferencing of non-geographic tiles.}
+
+\item{...}{additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details. Other additional arguments \code{lng} and \code{lat} can also be passed to the tile previewer. See \code{\link{tile_viewer}} for details.}
 }
 \value{
 nothing is returned but tiles are written to disk.
@@ -77,4 +81,7 @@ tile(x, tempdir(), "2-3")
 # projected map
 x <- system.file("maps/map_wgs84.tif", package = "tiler")
 tile(x, tempdir(), 0)
+}
+\seealso{
+\code{\link{view_tiles}}, \code{\link{tile_viewer}}
 }
