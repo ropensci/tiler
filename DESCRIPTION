@@ -24,10 +24,13 @@ Suggests:
     knitr,
     rmarkdown,
     lintr,
-    covr
+    covr,
+    jpeg,
+    bmp
 Imports:
     sp,
     rgdal,
-    raster
+    raster,
+    png
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
