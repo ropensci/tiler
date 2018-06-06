@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.6.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.9</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create map tiles</h1>
-    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tiler/blob/master/R/tiler.R'><code>R/tiler.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tiler/blob/master/R/tile.R'><code>R/tile.R</code></a></small>
     <div class="hidden name"><code>tile.Rd</code></div>
     </div>
 
@@ -175,7 +175,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>tile</span>(<span class='no'>file</span>, <span class='no'>tiles</span>, <span class='no'>zoom</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"xyz"</span>, <span class='st'>"tms"</span>),
-  <span class='kw'>resume</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>resume</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>viewer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>georef</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,7 +190,7 @@
     </tr>
     <tr>
       <th>zoom</th>
-      <td><p>character, zoom levels. Example format" <code>"3-7"</code>. See details.</p></td>
+      <td><p>character, zoom levels. Example format: <code>"3-7"</code>. See details.</p></td>
     </tr>
     <tr>
       <th>crs</th>
@@ -205,8 +205,16 @@
       <td><p>logical, only generate missing tiles.</p></td>
     </tr>
     <tr>
+      <th>viewer</th>
+      <td><p>logical, also create <code>preview.html</code> adjacent to <code>tiles</code> directory for previewing tiles in the browser using Leaflet.</p></td>
+    </tr>
+    <tr>
+      <th>georef</th>
+      <td><p>logical, for non-geographic tiles only. If <code>viewer = TRUE</code>, then the Leaflet widget in <code>preview.html</code> will add map markers with coordinate labels on mouse click to assist with georeferencing of non-geographic tiles.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>additional arguments for projected maps: reprojection method or any arguments to <code><a href='http://www.rdocumentation.org/packages/raster/topics/RGB'>raster::RGB</a></code>, e.g. <code>col</code> and <code>colNA</code>. See details.</p></td>
+      <td><p>additional arguments for projected maps: reprojection method or any arguments to <code><a href='http://www.rdocumentation.org/packages/raster/topics/RGB'>raster::RGB</a></code>, e.g. <code>col</code> and <code>colNA</code>. See details. Other additional arguments <code>lng</code> and <code>lat</code> can also be passed to the tile previewer. See <code><a href='tile_viewer.html'>tile_viewer</a></code> for details.</p></td>
     </tr>
     </table>
     
@@ -251,16 +259,24 @@ If you set <code>format = "tms"</code> you may need to do similarly in your raw 
 The third version of <code>gdal2tiles</code> handles basic image files like a matrix of rows and columns, using a simple Cartesian coordinate system based on pixel dimensions of the image file.
 See the Leaflet JS library and <code>leaflet</code> package documentation for working with custom tiles in Leaflet.
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='view_tiles.html'>view_tiles</a></code>, <code><a href='tile_viewer.html'>tile_viewer</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># non-geographic/simple CRS</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map.png"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...</div><div class='input'>
+<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...
+#&gt; Creating tile viewer...
+#&gt; Complete.</div><div class='input'>
 <span class='co'># projected map</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map_wgs84.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
 <span class='fu'>tile</span>(<span class='no'>x</span>, <span class='fu'>tempdir</span>(), <span class='fl'>0</span>)</div><div class='output co'>#&gt; Coloring raster...
 #&gt; Preparing for tiling...
-#&gt; Creating tiles. Please wait...</div></pre>
+#&gt; Creating tiles. Please wait...
+#&gt; Creating tile viewer...
+#&gt; Complete.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -270,6 +286,8 @@ See the Leaflet JS library and <code>leaflet</code> package documentation for wo
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

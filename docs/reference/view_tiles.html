@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • tiler</title>
+<title>View map tiles with Leaflet — view_tiles • tiler</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,15 +22,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
 
 
 
-  <link href="extra.css" rel="stylesheet">
+  <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="View map tiles with Leaflet — view_tiles" />
+
+<meta property="og:description" content="View map tiles in the browser using leaflet." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -55,7 +58,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -66,7 +69,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">tiler</a>
+        <a class="navbar-link" href="../index.html">tiler</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.9</span>
       </span>
     </div>
@@ -74,19 +77,19 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/tiler.html">Get started</a>
+  <a href="../articles/tiler.html">Get started</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -158,26 +161,64 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>View map tiles with Leaflet</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tiler/blob/master/R/viewer.R'><code>R/viewer.R</code></a></small>
+    <div class="hidden name"><code>view_tiles.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong><a href='http://leonawicz.github.io/'>Matthew Leonawicz</a></strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong><a href='http://snap.uaf.edu/'><img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24" />  Scenarios Network for Alaska and Arctic Planning</a></strong>. Copyright holder, funder. 
-        </p>
-      </li>
+    <div class="ref-description">
+    
+    <p>View map tiles in the browser using leaflet.</p>
+    
+    </div>
+
+    <pre class="usage"><span class='fu'>view_tiles</span>(<span class='no'>tiles</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tiles</th>
+      <td><p>character, directory where tiles are stored.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>nothing is returned, but the default browser is launched.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function opens <code>preview.html</code> in a web browser. This file displays map tiles in a Leaflet widget.
+The file is created when <code>tile</code> is called to generate the map tiles, unless <code>viewer = FALSE</code>.
+Alternatively, it is created (or re-created) subsequent to tile creation using <code>tile_viewer</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='tile_viewer.html'>tile_viewer</a></code>, <code><a href='tile.html'>tile</a></code></p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>view_tiles</span>(<span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"tiles"</span>)) <span class='co'># requires an existing tile set</span></div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="copyright">

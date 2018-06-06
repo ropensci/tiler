@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • tiler</title>
+<title>Create an HTML tile preview — tile_viewer • tiler</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Create an HTML tile preview — tile_viewer" />
+
+<meta property="og:description" content="Create an HTML file that displays a tile preview using Leaflet." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -55,7 +58,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -160,17 +163,86 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Create an HTML tile preview</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tiler/blob/master/R/viewer.R'><code>R/viewer.R</code></a></small>
+    <div class="hidden name"><code>tile_viewer.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="tiler.html">Introduction to tiler</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>Create an HTML file that displays a tile preview using Leaflet.</p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>tile_viewer</span>(<span class='no'>tiles</span>, <span class='no'>zoom</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>georef</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tiles</th>
+      <td><p>character, directory where tiles are stored.</p></td>
+    </tr>
+    <tr>
+      <th>zoom</th>
+      <td><p>character, zoom levels full range. Example format: <code>"3-7"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p><code>NULL</code> (default) for geospatial map tiles. The original image width in pixels for non-geographic, simple CRS tiles.</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p><code>NULL</code> (default) for geospatial map tiles. The original image height in pixels for non-geographic, simple CRS tiles.</p></td>
+    </tr>
+    <tr>
+      <th>georef</th>
+      <td><p>logical, for non-geographic tiles only. If <code>viewer = TRUE</code>, then the Leaflet widget in <code>preview.html</code> will add map markers with coordinate labels on mouse click to assist with georeferencing of non-geographic tiles.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional optional arguments include <code>format = "tms"</code> if necessary, and <code>lng</code> and <code>lat</code> for setting the view longitude and latitude. These three arguments only apply to geographic tiles. Viewer centering is <code>0, 0</code> by default.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>nothing is returned, but a file is written to disk.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function creates a file <code>preview.html</code> adjacent to the <code>tiles</code> base directory.
+When loaded in the browser, this file displays map tiles from the adjacent folder.
+For example, if tiles are stored in <code>project/tiles</code>, this function creates <code>project/preview.html</code>.</p>
+<p>By default, <code>tile</code> creates this file. The only reasons to call <code>tile_viewer</code> directly after producing map tiles are:
+(1) if <code>viewer = FALSE</code> was set in the call to <code>tile</code>,
+(2) if <code>tile</code> was called multiple times, e.g., for different batches of zoom levels, and thus the most recent call did not use the full zoom range,
+or (3) <code>preview.html</code> was deleted for some other reason.</p>
+<p>If calling this function directly, ensure that the min and max zoom, and original image pixel dimensions if applicable, match the generated tiles.
+These arguments are passed to <code>tile_viewer</code> automatically when called within <code>tile</code>, based on the source file provided to <code>tile</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='view_tiles.html'>view_tiles</a></code>, <code><a href='tile.html'>tile</a></code></p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>tile_viewer</span>(<span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"tiles"</span>), <span class='st'>"3-7"</span>) <span class='co'># requires an existing tile set</span></div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
