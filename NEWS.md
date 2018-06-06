@@ -1,5 +1,8 @@
-# tiler 0.1.6.9000
+# tiler 0.1.9
 
+* Added functions `tile_viewer` and `view_tiles` and other supporting functions for generating HTML Leaflet tile preview web page.
+* Added arguments to `tile`. `tile` now generates previewer by default.
+* Added unit tests.
 * Updated vignette.
 
 
