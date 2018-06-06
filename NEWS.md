@@ -1,4 +1,9 @@
-# tiler 0.1.6
+# tiler 0.1.6.9000
+
+* Updated vignette.
+
+
+# tiler 0.1.6 (Release date: 2018-06-06)
 
 * Made minor formatting changes per CRAN request for resubmission.
 

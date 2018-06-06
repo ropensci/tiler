@@ -313,7 +313,7 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><code>https://&lt;your account name&gt;.github.io/maptiles/tiles/{z}/{x}/{y}.png</code></p>
 <p>if you store your tiles in a folder named <code>tiles</code> in a repository named <code>maptiles</code> for example.</p>
 <p>Here are some <a href="https://github.com/leonawicz/tiles/">examples of non-geographic tile sets</a> hosted on GitHub using Star Trek galaxy maps generated with <code>tiler</code> and here they are used in <a href="https://leonawicz.github.io/rtrek/articles/sc.html">Leaflet maps</a>.</p>
-<p>The <code>leaflet</code> R code need to use custom non-geographic tiles like these requires setting <code>leafletOptions(crs = leafletCRS("L.CRS.Simple")</code> as well as calling <code>addTiles(urlTemplate = url)</code> where <code>url</code> is like the example URL shown above. Setting the focus of the map can be a bit tricky for non-geographic map tiles based on an arbitrary image file. It may take some trial and error to get a sense for the custom coordinate system.</p>
+<p>The <code>leaflet</code> R code needed in order to use custom non-geographic tiles like these requires setting <code>leafletOptions(crs = leafletCRS("L.CRS.Simple"))</code> as well as calling <code>addTiles(urlTemplate = url)</code> where <code>url</code> is like the example URL shown above. Setting the focus of the map can be a bit tricky for non-geographic map tiles based on an arbitrary image file. It may take some trial and error to get a sense for the custom coordinate system.</p>
 </div>
   </div>
 
