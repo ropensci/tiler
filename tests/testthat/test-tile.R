@@ -67,4 +67,5 @@ test_that("tile works on different inputs", {
   )
 
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
+  unlink(file.path(tempdir(), "preview.html"), force = TRUE)
 })
