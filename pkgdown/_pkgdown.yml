@@ -18,6 +18,10 @@ reference:
 - title: Map tile generator
   contents:
   - tile
+- title: Tile preview
+  contents:
+  - view_tiles
+  - tile_viewer
 - title: Other functions
   contents:
   - tiler_options
