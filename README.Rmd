@@ -13,6 +13,10 @@ knitr::opts_chunk$set(
 
 # tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/inst/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
 
+<br/>
+**Author:** [Matthew Leonawicz](https://leonawicz.github.io/blog/)<br/>
+**License:** [MIT](https://opensource.org/licenses/MIT)<br/>
+
 [![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tiler)](https://cran.r-project.org/package=tiler) 
 [![Rdoc](http://www.rdocumentation.org/badges/version/tiler)](http://www.rdocumentation.org/packages/tiler)
