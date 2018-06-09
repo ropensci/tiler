@@ -19,6 +19,9 @@ Therefore, the temporary sub-directory does not even exist for the full duration
 
 Tested: I have tested this and it appears to be successfully writing any temp files from the python scripts to this R session temp sub-directory and removing it as part of any `tile` call.
 
+Examples have also been updated to use better temp paths and temp file cleanup.
+The example that requires an existing tile set and would launch a preview in a web browser is no longer run.
+
 This update release also adds some additional functionality and documentation.
 
 ---
