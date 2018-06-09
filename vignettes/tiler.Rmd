@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, error = FALSE, tidy = TRUE
 )
-tmpfiles <- list.files(tempdir()) # any pre-existing temp files
+tmpfiles <- list.files(tempdir(), full.names = TRUE) # any pre-existing temp files
 ```
 
 The `tiler` package provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`.
@@ -213,8 +213,6 @@ The `leaflet` R code needed in order to use custom non-geographic tiles like the
 
 ```{r cleanup, echo=FALSE}
 # supplemental check for excess temp files
-tmpfiles
-extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
-extrafiles
+extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
 if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 ```
