@@ -499,9 +499,7 @@ class GDAL2Tiles(object):
         if '_' in os.environ:
             # tempfile.mktemp() crashes on some Wine versions (the one of Ubuntu 12.04 particularly)
             if os.environ['_'].find('wine') >= 0:
-                tmpdir = '.'
-                if 'TMP' in os.environ:
-                    tmpdir = os.environ['TMP']
+                tmpdir = self.tmpdir
                 import time
                 import random
                 random.seed(time.time())
@@ -509,7 +507,7 @@ class GDAL2Tiles(object):
                 return os.path.join(tmpdir, random_part + suffix)
 
         import tempfile
-        return tempfile.mktemp(suffix)
+        return tempfile.mktemp(suffix, 'tmp', self.tmpdir)
 
     def stop(self):
         """Stop the rendering immediately"""
@@ -610,6 +608,8 @@ class GDAL2Tiles(object):
             self.options.url += os.path.basename(self.output) + '/'
 
         # Supported options
+
+        self.tmpdir = self.options.tmpdir
 
         self.resampling = None
 
@@ -717,6 +717,8 @@ class GDAL2Tiles(object):
         p.add_option("-q", "--quiet",
                      action="store_true", dest="quiet",
                      help="Disable messages and status to stdout")
+        p.add_option('-x', '--tmpdir', dest="tmpdir",
+                     help="Temporary files directory. Passed by R.")
 
         # KML options
         g = OptionGroup(p, "KML (Google Earth) options",

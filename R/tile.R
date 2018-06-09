@@ -94,20 +94,24 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
   projected <- .proj_check(file, crs, ...)
   if(ext %in% .supported_filetypes$ras) file <- file.path(tempdir(), "tmp_raster.tif")
+  dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"), showWarnings = FALSE, recursive = TRUE)
   if(projected){
     format <- match.arg(format, c("xyz", "tms"))
     gdal2tiles <- switch(format, xyz = "python/gdal2tilesXYZ.py", tms = "python/gdal2tiles.py")
     g2t <- system.file(gdal2tiles, package = "tiler")
-    ex <- paste0(ex, " \"", g2t, "\" -z ", zoom, " -w none ", ifelse(resume, "-e ", ""), "\"",
+    ex <- paste0(ex, " \"", g2t, "\" -z ", zoom, " -w none ", "--tmpdir \"",
+                 normalizePath(g2t_tmp_dir), "\" ", ifelse(resume, "-e ", ""), "\"",
                  normalizePath(file), "\" \"", normalizePath(tiles), "\"")
   } else {
     g2t <- system.file("python/gdal2tilesIMG.py", package = "tiler")
     ex <- paste0(ex, " \"", g2t, "\" --leaflet -p raster -z ", zoom, " -w none ",
+                 "--tmpdir \"", normalizePath(g2t_tmp_dir), "\" ",
                  ifelse(resume, "-e ", ""), "\"", normalizePath(file), "\" \"",
                  normalizePath(tiles), "\"")
   }
   cat("Creating tiles. Please wait...\n")
-  system(ex, ignore.stderr = TRUE)
+  system(ex)#, ignore.stderr = TRUE)
+  unlink(g2t_tmp_dir, recursive = TRUE, force = TRUE)
   if(viewer){
     cat("Creating tile viewer...\n")
     w <- h <- NULL

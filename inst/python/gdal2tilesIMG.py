@@ -732,6 +732,8 @@ gdal_vrtmerge.py -o merged.vrt %s"""
 
         # Supported options
 
+        self.tmpdir = self.options.tmpdir
+
         self.resampling = None
 
         if self.options.resampling == 'average':
@@ -848,6 +850,8 @@ gdal_vrtmerge.py -o merged.vrt %s"""
         p.add_option('-v', '--verbose', action='store_true',
                      dest='verbose',
                      help='Print status messages to stdout')
+        p.add_option('-x', '--tmpdir', dest="tmpdir",
+                     help="Temporary files directory. Passed by R.")
 
         # KML options
 
@@ -1070,8 +1074,7 @@ gdal2tiles temp.vrt"""
 
                     if self.in_nodata != []:
                         import tempfile
-                        tempfilename = tempfile.mktemp('-gdal2tiles.vrt'
-                                )
+                        tempfilename = tempfile.mktemp('-gdal2tiles.vrt', 'tmp', self.tmpdir)
                         self.out_ds.GetDriver().CreateCopy(tempfilename,
                                 self.out_ds)
 
@@ -1130,8 +1133,7 @@ gdal2tiles temp.vrt"""
                     if self.in_nodata == [] and self.out_ds.RasterCount \
                         in [1, 3]:
                         import tempfile
-                        tempfilename = tempfile.mktemp('-gdal2tiles.vrt'
-                                )
+                        tempfilename = tempfile.mktemp('-gdal2tiles.vrt', 'tmp', self.tmpdir)
                         self.out_ds.GetDriver().CreateCopy(tempfilename,
                                 self.out_ds)
 
