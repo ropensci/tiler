@@ -110,7 +110,7 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
                  normalizePath(tiles), "\"")
   }
   cat("Creating tiles. Please wait...\n")
-  system(ex)#, ignore.stderr = TRUE)
+  system(ex, ignore.stderr = TRUE)
   unlink(g2t_tmp_dir, recursive = TRUE, force = TRUE)
   if(viewer){
     cat("Creating tile viewer...\n")
