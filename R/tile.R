@@ -58,7 +58,7 @@
 #' @seealso \code{\link{view_tiles}}, \code{\link{tile_viewer}}
 #'
 #' @examples
-#' \dontshow{tmpfiles <- list.files(tempdir())}
+#' \dontshow{tmpfiles <- list.files(tempdir(), full.names = TRUE)}
 #' # non-geographic/simple CRS
 #' x <- system.file("maps/map.png", package = "tiler")
 #' tiles <- file.path(tempdir(), "tiles")
@@ -69,7 +69,7 @@
 #' tile(x, tiles, 0)
 #' \dontshow{
 #' unlink(c(tiles, file.path(tempdir(), "preview.html")), recursive = TRUE, force = TRUE)
-#' extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
+#' extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
 tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE,

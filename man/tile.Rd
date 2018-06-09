@@ -74,7 +74,7 @@ See the Leaflet JS library and \code{leaflet} package documentation for working 
 }
 }
 \examples{
-\dontshow{tmpfiles <- list.files(tempdir())}
+\dontshow{tmpfiles <- list.files(tempdir(), full.names = TRUE)}
 # non-geographic/simple CRS
 x <- system.file("maps/map.png", package = "tiler")
 tiles <- file.path(tempdir(), "tiles")
@@ -85,7 +85,7 @@ x <- system.file("maps/map_wgs84.tif", package = "tiler")
 tile(x, tiles, 0)
 \dontshow{
 unlink(c(tiles, file.path(tempdir(), "preview.html")), recursive = TRUE, force = TRUE)
-extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
+extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
 if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 }
 }
