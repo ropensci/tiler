@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -164,11 +164,12 @@
       <small>Source: <a href='https://github.com/leonawicz/tiler/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tiler-0-1-9" class="section level1">
+    <div id="tiler-0-2-0" class="section level1">
 <h1 class="page-header">
-<a href="#tiler-0-1-9" class="anchor"></a>tiler 0.1.9<small> Unreleased </small>
+<a href="#tiler-0-2-0" class="anchor"></a>tiler 0.2.0<small> Unreleased </small>
 </h1>
 <ul>
+<li>All three <code>gdal2tiles*</code> scripts have been updated to accept a command line argument when called by R that provides a path for any temporary files, i.e., <code>tmp.*.vrt</code> files created by the <code>gdal2tiles*</code> scripts. These were previously accumulating in the system temp folder. The new temporary directory is a sub-directory inside <code>tempdir()</code>. Therefore, it is cleaned up when exiting R. Nevertheless, <code>tile</code> also force deletes this subdirectory immediately after its internal system call to one of the <code>gdal2tiles*</code> scripts returns, so the temporary sub-directory does not even exist for the full duration of the <code>tile</code> call.</li>
 <li>Added functions <code>tile_viewer</code> and <code>view_tiles</code> and other supporting functions for generating HTML Leaflet tile preview web page.</li>
 <li>Added arguments to <code>tile</code>. <code>tile</code> now generates previewer by default.</li>
 <li>Added unit tests.</li>
@@ -219,7 +220,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tiler-0-1-9">0.1.9</a></li>
+        <li><a href="#tiler-0-2-0">0.2.0</a></li>
         <li><a href="#tiler-0-1-6-release-date-2018-06-06">0.1.6</a></li>
         <li><a href="#tiler-0-1-5">0.1.5</a></li>
         <li><a href="#tiler-0-1-0">0.1.0</a></li>
