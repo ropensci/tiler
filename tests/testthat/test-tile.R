@@ -1,6 +1,8 @@
 context("tile")
 library(raster)
 
+tmpfiles <- list.files(tempdir()) # any pre-existing temp files
+
 test_that("tile works on different inputs", {
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE)
   files <- files[!grepl("gri$", files)]
@@ -69,3 +71,7 @@ test_that("tile works on different inputs", {
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
   unlink(file.path(tempdir(), "preview.html"), force = TRUE)
 })
+
+# supplemental check for excess temp files
+extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
+if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)

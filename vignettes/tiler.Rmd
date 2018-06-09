@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, error = FALSE, tidy = TRUE
 )
+tmpfiles <- list.files(tempdir()) # any pre-existing temp files
 ```
 
 The `tiler` package provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`.
@@ -195,17 +196,25 @@ By default `tile` also creates `preview.html` as noted above. This can also be c
 
 If you have tiles in a directory `"project/tiles"`, creating `preview.html` directly can be done as follows. The arguments shown are just for illustration.
 
-```{r ex8, eval = FALSE}
+```{r ex8, eval=FALSE}
 tile_viewer("project/tiles", "3-7") # geographic tiles
 tile_viewer("project/tiles", "3-7", width = 1000, height = 1000) # non-geographic tiles
 ```
 
 However the tile preview document is created, it can be viewed by passing the same `tiles` directory to `view_tiles`.
 
-```{r ex9, eval = FALSE}
+```{r ex9, eval=FALSE}
 view_tiles("project/tiles")
 ```
 
 ### Details
 
 The `leaflet` R code needed in order to use custom non-geographic tiles like these requires setting `leafletOptions(crs = leafletCRS("L.CRS.Simple"))` as well as calling `addTiles(urlTemplate = url)` where `url` is like the example URL shown above. Setting the focus of the map can be a bit tricky for non-geographic map tiles based on an arbitrary image file. It may take some trial and error to get a sense for the custom coordinate system.
+
+```{r cleanup, echo=FALSE}
+# supplemental check for excess temp files
+tmpfiles
+extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
+extrafiles
+if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
+```

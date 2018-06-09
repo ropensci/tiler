@@ -21,7 +21,8 @@ The file is created when \code{tile} is called to generate the map tiles, unless
 Alternatively, it is created (or re-created) subsequent to tile creation using \code{tile_viewer}.
 }
 \examples{
-view_tiles(file.path(tempdir(), "tiles")) # requires an existing tile set
+# launches browser; requires an existing tile set
+\dontrun{view_tiles(file.path(tempdir(), "tiles"))}
 }
 \seealso{
 \code{\link{tile_viewer}}, \code{\link{tile}}

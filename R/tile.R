@@ -58,13 +58,20 @@
 #' @seealso \code{\link{view_tiles}}, \code{\link{tile_viewer}}
 #'
 #' @examples
+#' \dontshow{tmpfiles <- list.files(tempdir())}
 #' # non-geographic/simple CRS
 #' x <- system.file("maps/map.png", package = "tiler")
-#' tile(x, tempdir(), "2-3")
+#' tiles <- file.path(tempdir(), "tiles")
+#' tile(x, tiles, "2-3")
 #'
 #' # projected map
 #' x <- system.file("maps/map_wgs84.tif", package = "tiler")
-#' tile(x, tempdir(), 0)
+#' tile(x, tiles, 0)
+#' \dontshow{
+#' unlink(c(tiles, file.path(tempdir(), "preview.html")), recursive = TRUE, force = TRUE)
+#' extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
+#' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
+#' }
 tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE,
                  viewer = TRUE, georef = TRUE, ...){
   ext <- .get_ext(file)

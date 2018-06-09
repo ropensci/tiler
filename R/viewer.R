@@ -13,7 +13,8 @@
 #' @seealso \code{\link{tile_viewer}}, \code{\link{tile}}
 #'
 #' @examples
-#' view_tiles(file.path(tempdir(), "tiles")) # requires an existing tile set
+#' # launches browser; requires an existing tile set
+#' \dontrun{view_tiles(file.path(tempdir(), "tiles"))}
 view_tiles <- function(tiles){
   file <- file.path(dirname(tiles), "preview.html")
   if(!file.exists(file)){
@@ -66,7 +67,7 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL, georef = TRUE,
   paste0('<!DOCTYPE html>
   <html>
   <head>
-  <title>example for leaflet-rastercoords</title>
+  <title>Leaflet Tile Preview</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
