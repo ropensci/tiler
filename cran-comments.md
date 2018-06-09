@@ -7,7 +7,7 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is an update release. This fixes an issue with temporary files appearing in the system temp directory that caused the package to be archived on CRAN.
+* This is an update release for a recently archived package. This release fixes an issue with temporary files appearing in the system temp directory that caused the package to be archived on CRAN.
 
 Details: This package has function `tile` that wraps a system call to any of three `gdal2tiles*` python scripts. 
 These python scripts were creating temp files in the system temp folder that were not being cleaned up.
