@@ -1,5 +1,5 @@
 Package: tiler
-Version: 0.1.9
+Version: 0.2.0
 Title: Create Geographic and Non-Geographic Map Tiles
 Description: Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. 
     This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. 

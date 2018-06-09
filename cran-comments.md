@@ -7,11 +7,23 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release; resubmission.
+* This is an update release. This fixes an issue with temporary files appearing in the system temp directory that caused the package to be archived on CRAN.
 
-This resubmission makes the requested text formatting changes to the DESCRIPTION file.
+Details: This package has function `tile` that wraps a system call to any of three `gdal2tiles*` python scripts. 
+These python scripts were creating temp files in the system temp folder that were not being cleaned up.
+
+Fix: I have updated all three scripts to accept a new command line argument when called by R with `system` that provides a new path for any temporary files created by the `gdal2tiles*` scripts.
+The new temporary directory is a sub-directory inside `tempdir()`. Therefore, it is cleaned up when exiting R. 
+Nevertheless, `tile` also force deletes this sub-directory immediately after its internal system call to one of the `gdal2tiles*` scripts returns.
+Therefore, the temporary sub-directory does not even exist for the full duration of the `tile` call.
+
+Tested: I have tested this and it appears to be successfully writing any temp files from the python scripts to this R session temp sub-directory and removing it as part of any `tile` call.
+
+This update release also adds some additional functionality and documentation.
 
 ---
+
+## System Requirements details
 
 This package requies Python and python-gdal. These are specified in the DESCRIPTION System Requirements field as well as the Description text.
 
