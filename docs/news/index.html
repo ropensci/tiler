@@ -164,9 +164,9 @@
       <small>Source: <a href='https://github.com/leonawicz/tiler/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tiler-0-2-0" class="section level1">
+    <div id="tiler-0-2-0-release-date-2018-06-09" class="section level1">
 <h1 class="page-header">
-<a href="#tiler-0-2-0" class="anchor"></a>tiler 0.2.0<small> Unreleased </small>
+<a href="#tiler-0-2-0-release-date-2018-06-09" class="anchor"></a>tiler 0.2.0 (Release date: 2018-06-09)<small> 2018-06-09 </small>
 </h1>
 <ul>
 <li>All three <code>gdal2tiles*</code> scripts have been updated to accept a command line argument when called by R that provides a path for any temporary files, i.e., <code>tmp.*.vrt</code> files created by the <code>gdal2tiles*</code> scripts. These were previously accumulating in the system temp folder. The new temporary directory is a sub-directory inside <code>tempdir()</code>. Therefore, it is cleaned up when exiting R. Nevertheless, <code>tile</code> also force deletes this subdirectory immediately after its internal system call to one of the <code>gdal2tiles*</code> scripts returns, so the temporary sub-directory does not even exist for the full duration of the <code>tile</code> call.</li>
@@ -220,7 +220,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tiler-0-2-0">0.2.0</a></li>
+        <li><a href="#tiler-0-2-0-release-date-2018-06-09">0.2.0</a></li>
         <li><a href="#tiler-0-1-6-release-date-2018-06-06">0.1.6</a></li>
         <li><a href="#tiler-0-1-5">0.1.5</a></li>
         <li><a href="#tiler-0-1-0">0.1.0</a></li>
