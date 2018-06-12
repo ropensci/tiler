@@ -14,7 +14,13 @@ knitr::opts_chunk$set(
 tmpfiles <- list.files(tempdir(), full.names = TRUE) # any pre-existing temp files
 ```
 
-The `tiler` package provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`.
+The `tiler` package generates map tiles for:
+
+* standard Web Mercator, e.g. EPSG 4326/EPSG 3857
+* other geospatial map projections
+* non-geospatial, simple coordinate reference systems
+
+`tiler` provides a map tile-generator function for creating map tile sets for use with packages such as `leaflet`.
 
 In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a "simple CRS", a non-geographic simple Cartesian coordinate reference system, can also be used with `leaflet` when applying the simple CRS option. Map tiles can be created from an input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
 
@@ -29,6 +35,12 @@ You should not rely on a gratuitous check like this; `tiler` is being overly gen
 ## Geographic map tiles
 
 ### Context
+
+The overarching perspective of `tiler` is isolation of tile creation from tile usage and map creation. Depending on the source map, generating map tiles can be inconveniently slow to do on the fly for some map use cases. It can also result in the creation of tens of thousands of map tiles, or more. A good strategy is to create map tiles, then serve them online at a preferred location. After all of that scaffolding is in place, then separately and subsequently use those map tiles in various applications as an externalized resource.
+
+`tiler` also does not assume what type of maps you will use, e.g., Leaflet, Google Maps, or something else. Therefore, it will not default to producing Web Mercator map tiles. Instead, the output CRS for tiles is derived from the input CRS of the source map file by default, unless some other output CRS is specified by the user.
+
+### Examples
 
 For the sake of simple, expedient examples, the map tiles generated below all use small zoom level ranges. There is also no reason to attempt displaying the tiles here. To make these examples more informative, each raster is loaded and plotted for context, though this is not necessary to the tiling process. Loading the `raster` package is only needed here for the print and plot calls.
 
@@ -63,14 +75,14 @@ Note that these examples rendered to HTML here do not capture the parts of the l
 
 ### Projected maps
 
-The previous example used a map with a geospatial coordinate reference system (CRS) but it was not projected. That map would be ready to view with the `leaflet` package for example, as would the tiles generated based on it. The next example uses a similar map that is projected. In order to generate map tiles that can be used with `leaflet` in the standard CRS, the map must be reprojected first. Then the same map tiles are generated as before.
+The previous example used a map with a geospatial coordinate reference system (CRS) but it was not projected. That map would be ready to view with the `leaflet` package for example, as would the tiles generated based on it. The next example uses a similar map that is projected. In order to generate map tiles that can be used with `leaflet` in the standard CRS, EPSG 4326, the map must be reprojected first. Then the same map tiles are generated as before.
 
 ```{r ex2}
 map <- system.file("maps/map_albers.tif", package = "tiler")
 (r <- raster(map))
 plot(r)
 
-tile(map, tile_dir, "0-3")
+tile(map, tile_dir, "0-3", crs_out = "EPSG:4326")
 ```
 
 ```{r unlink2, echo=FALSE}
@@ -78,6 +90,20 @@ unlink(tile_dir, recursive = TRUE, force = TRUE)
 ```
 
 The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile` reprojects the raster layer internally. This can be seen in the log output printed to the console.
+
+Note that because EPSG 4326 and EPSG 3857 are so common for map tiles, `crs_out` will accept the convenient shorthand notation shown above for these two CRS so that you do not have to enter the entire Proj4 string. For all other projections in general, however, the Proj4 string is expected.
+
+### Other projections
+
+Remember, however, the default behavior of `tile` and the perspective in `tiler` is to simply derive output CRS from input CRS, taking the general approach of tile generation for any CRS. To create tiles in the same projection as the input, simply do not provide `crs_out`. Now the log output does not show a reprojection step and the tiles are in the original projection. The other argument that may become relevant for non-Mercator CRS tiles is the tile-cutting `profile`. The default is `mercator` tile-cutting, which may not be appropriate for the projected tiles, in which case `raster` or `geodetic` can be provided.
+
+```{r ex2b}
+tile(map, tile_dir, "0-3", profile = "raster")
+```
+
+```{r unlink2b, echo=FALSE}
+unlink(tile_dir, recursive = TRUE, force = TRUE)
+```
 
 ### Missing CRS
 
@@ -95,7 +121,7 @@ tile(map, tile_dir, "0-3")
 unlink(tile_dir, recursive = TRUE, force = TRUE)
 ```
 
-This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated.
+This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated. Of course, reprojecting with `crs_out` is also not possible in the input CRS is `NA`.
 
 ```{r ex4}
 crs <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"
@@ -167,6 +193,8 @@ The `tile` function will automatically process simple image files differently. T
 Using a `png` file is recommended for quality and file size. `jpg` may yield a lower quality result, while a large, high resolution `bmp` file may have an enormous file size compared to `png`.
 
 `jpg` and `bmp` are *optionally* supported by `tiler`. This means they are not installed and imported with `tiler`. It is assumed the user will provide `png` images. If using `jpg` or `bmp` and the packages `jpeg` or `bmp` are not installed, respectively, `tile` will print a message to the console notifying of the required package installations.
+
+For non-geographic images, arguments such as `crs` and `crs_out` obviously do not apply. `profile` also is never needed because for these maps, the tile-cutting profile is always `raster`.
 
 ## Additional arguments
 

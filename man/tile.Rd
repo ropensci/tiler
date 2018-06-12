@@ -4,7 +4,8 @@
 \alias{tile}
 \title{Create map tiles}
 \usage{
-tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
+tile(file, tiles, zoom, crs = NULL, crs_out = NULL,
+  profile = c("mercator", "geodetic", "raster"), format = c("xyz", "tms"),
   resume = FALSE, viewer = TRUE, georef = TRUE, ...)
 }
 \arguments{
@@ -15,6 +16,10 @@ tile(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
 \item{zoom}{character, zoom levels. Example format: \code{"3-7"}. See details.}
 
 \item{crs}{character, Proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.}
+
+\item{crs_out}{character, Proj4 string. If \code{NULL}, output CRS matches the input. No reprojection performed prior to tiling. Otherwise \code{file} is reprojected to \code{crs_out}, the typical reprojection being to Web Mercator. See details.}
+
+\item{profile}{character, tile-cutting profile passed to \code{gdal2tiles}. Defaults to \code{mercator}, but can be set to \code{raster} or \code{geodetic} as needed depending on the output CRS. \code{profile} is ignored for non-geographic inputs, which is always a raster tile-cutting profile.}
 
 \item{format}{character, XYZ or TMS tile format. See details.}
 
@@ -34,6 +39,7 @@ Create geographic and non-geographic map tiles from a file.
 }
 \details{
 This function supports both geographic and non-geographic tile generation.
+When \code{file} is geospatial, such as a geotiff, map tiles can be created based on its projection; output tiles do not need to be Web Mercator.
 When \code{file} is a simple image file such as \code{png}, \code{tile} generates non-geographic, simple CRS tiles.
 Files that can be loaded by the \code{raster} package yield geographic tiles, as long as \code{file} has projection information.
 If the raster object's proj4 string is \code{NA}, it falls back on non-geographic tile generation and a warning is thrown.
@@ -52,7 +58,12 @@ To override default coloring of data and \code{noData} pixels, pass the addition
 Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
 In this case, processing will continue but coloring arguments are ignored as unnecessary.
 \cr\cr
-Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
+Prior to tiling, a geographically-projected raster layer from \code{file} is reprojected only if \code{crs_out} is supplied.
+\code{crs_out = NULL} by default, in keeping with the perspective of \code{tiler} that there is nothing special or assumed in terms of common formats like Web Mercator.
+Tiles are generated based on the input \code{file} without making unrequested changes. Output CRS is derived from input CRS unless otherwise specified.
+However, because \code{EPSG 3857} and \code{EPSG 4326} are so popular and likely the dominant use case, \code{tile} accepts shorthand string IDs for these two CRS in place of the Proj4 strings: \code{"EPSG:3857"} and \code{"EPSG:4326"}.
+Shorthand EPSG codes will not be mapped to Proj4 strings for all other projections. Provide the Proj4 string.
+\cr\cr
 The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the \code{tile} function. Then no reprojection is performed by \code{tile}.
 When \code{file} consists of RGB or RGBA bands, \code{method} is ignored if provided and reprojection uses nearest neighbor.
@@ -62,7 +73,7 @@ Instead, create your RGBA raster file in unprojected form and it should seamless
 Three-band RGB raster files appear are unaffected by reprojection.  The alpha channel appears to be completely ignored in the tiling process anyway, so it is fine to just use RGB rasters.
 }
 \subsection{Tiles and Leaflet}{
-\code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
+\code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format.
 \cr\cr
 This function is supported by three different versions of \code{gdal2tiles}. There is the standard version, which generates geospatial tiles in TMS format.
 One alternative generates tiles in XYZ format. This is the default for \code{tile}. It may be more familiar to R users working with the \code{leaflet} package.
@@ -80,7 +91,7 @@ x <- system.file("maps/map.png", package = "tiler")
 tiles <- file.path(tempdir(), "tiles")
 tile(x, tiles, "2-3")
 
-# projected map
+# geographic map
 x <- system.file("maps/map_wgs84.tif", package = "tiler")
 tile(x, tiles, 0)
 \dontshow{

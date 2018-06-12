@@ -7,6 +7,7 @@ test_that("tile works on different inputs", {
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE)
   files <- files[!grepl("gri$", files)]
   tiles <- file.path(tempdir(), gsub("[.]", "_", basename(files)))
+  wgs84 <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
   crs <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0" # nolint
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
@@ -17,6 +18,12 @@ test_that("tile works on different inputs", {
   # Test RGB/RGBA multi-band rasters
   idx <- grep("rgb", files)
   suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL"))
+
+  # Re-test with crs_out
+  suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0", crs_out = "EPSG:4326"), "NULL"))
+  suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0", crs_out = "EPSG:3857"), "NULL"))
+  suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0", crs_out = wgs84), "NULL"))
+  suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0", crs_out = crs), "NULL"))
 
   files <- files[-idx]
   tiles <- tiles[-idx]
@@ -40,7 +47,7 @@ test_that("tile works on different inputs", {
   # missing CRS
   warn <- "Projection expected but is missing. Continuing as non-geographic image."
   idx <- grep("NA.grd|NA.tif", files)
-  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn)
+  for(i in idx) expect_warning(tile(files[i], tiles[i], "0", crs_out = "EPSG:4326"), warn)
 
   # force CRS
   suppressWarnings(for(i in idx[1:2]) expect_is(tile(files[i], tiles[i], "0", crs), "NULL"))
