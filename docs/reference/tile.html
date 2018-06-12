@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.9.9000</span>
       </span>
     </div>
 
@@ -174,7 +174,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>tile</span>(<span class='no'>file</span>, <span class='no'>tiles</span>, <span class='no'>zoom</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"xyz"</span>, <span class='st'>"tms"</span>),
+    <pre class="usage"><span class='fu'>tile</span>(<span class='no'>file</span>, <span class='no'>tiles</span>, <span class='no'>zoom</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crs_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>profile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mercator"</span>, <span class='st'>"geodetic"</span>, <span class='st'>"raster"</span>), <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"xyz"</span>, <span class='st'>"tms"</span>),
   <span class='kw'>resume</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>viewer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>georef</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -195,6 +196,14 @@
     <tr>
       <th>crs</th>
       <td><p>character, Proj4 string. Use this to force set the CRS of a loaded raster object from <code>file</code> in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.</p></td>
+    </tr>
+    <tr>
+      <th>crs_out</th>
+      <td><p>character, Proj4 string. If <code>NULL</code>, output CRS matches the input. No reprojection performed prior to tiling. Otherwise <code>file</code> is reprojected to <code>crs_out</code>, the typical reprojection being to Web Mercator. See details.</p></td>
+    </tr>
+    <tr>
+      <th>profile</th>
+      <td><p>character, tile-cutting profile passed to <code>gdal2tiles</code>. Defaults to <code>mercator</code>, but can be set to <code>raster</code> or <code>geodetic</code> as needed depending on the output CRS. <code>profile</code> is ignored for non-geographic inputs, which is always a raster tile-cutting profile.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -225,6 +234,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function supports both geographic and non-geographic tile generation.
+When <code>file</code> is geospatial, such as a geotiff, map tiles can be created based on its projection; output tiles do not need to be Web Mercator.
 When <code>file</code> is a simple image file such as <code>png</code>, <code>tile</code> generates non-geographic, simple CRS tiles.
 Files that can be loaded by the <code>raster</code> package yield geographic tiles, as long as <code>file</code> has projection information.
 If the raster object's proj4 string is <code>NA</code>, it falls back on non-geographic tile generation and a warning is thrown.</p>
@@ -240,7 +250,12 @@ To override default coloring of data and <code>noData</code> pixels, pass the ad
 Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
 In this case, processing will continue but coloring arguments are ignored as unnecessary.
 <br /><br />
-Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
+Prior to tiling, a geographically-projected raster layer from <code>file</code> is reprojected only if <code>crs_out</code> is supplied.
+<code>crs_out = NULL</code> by default, in keeping with the perspective of <code>tiler</code> that there is nothing special or assumed in terms of common formats like Web Mercator.
+Tiles are generated based on the input <code>file</code> without making unrequested changes. Output CRS is derived from input CRS unless otherwise specified.
+However, because <code>EPSG 3857</code> and <code>EPSG 4326</code> are so popular and likely the dominant use case, <code>tile</code> accepts shorthand string IDs for these two CRS in place of the Proj4 strings: <code>"EPSG:3857"</code> and <code>"EPSG:4326"</code>.
+Shorthand EPSG codes will not be mapped to Proj4 strings for all other projections. Provide the Proj4 string.
+<br /><br />
 The only reprojection argument available through <code>...</code> is <code>method</code>, which can be <code>"bilinear"</code> (default) or<code>"ngb"</code>.
 If complete control over reprojection is required, this should be done prior to passing the rasterized file to the <code>tile</code> function. Then no reprojection is performed by <code>tile</code>.
 When <code>file</code> consists of RGB or RGBA bands, <code>method</code> is ignored if provided and reprojection uses nearest neighbor.
@@ -249,7 +264,7 @@ It is recommended to avoid using a projected 4-band RGBA raster file or <code>gd
 Instead, create your RGBA raster file in unprojected form and it should seamlessly pass through to <code>gdal2tiles</code> without any issues.
 Three-band RGB raster files appear are unaffected by reprojection.  The alpha channel appears to be completely ignored in the tiling process anyway, so it is fine to just use RGB rasters.
     <h3>Tiles and Leaflet</h3>
-    <code>gdal2tiles</code> generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
+    <code>gdal2tiles</code> generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format.
 <br /><br />
 This function is supported by three different versions of <code>gdal2tiles</code>. There is the standard version, which generates geospatial tiles in TMS format.
 One alternative generates tiles in XYZ format. This is the default for <code>tile</code>. It may be more familiar to R users working with the <code>leaflet</code> package.
@@ -271,7 +286,7 @@ See the Leaflet JS library and <code>leaflet</code> package documentation for wo
 <span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...
 #&gt; Creating tile viewer...
 #&gt; Complete.</div><div class='input'>
-<span class='co'># projected map</span>
+<span class='co'># geographic map</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map_wgs84.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
 <span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; Coloring raster...
 #&gt; Preparing for tiling...

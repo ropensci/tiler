@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.9.9000</span>
       </span>
     </div>
 
@@ -147,7 +147,13 @@
 <div id="create-geographic-and-non-geographic-map-tiles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-geographic-and-non-geographic-map-tiles" class="anchor"></a>Create geographic and non-geographic map tiles</h2>
-<p>The <code>tiler</code> package provides a tile generator function for creating map tile sets for use with packages such as <code>leaflet</code>. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a a non-geographic simple coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
+<p>The <code>tiler</code> package generates map tiles for:</p>
+<ul>
+<li>standard Web Mercator, e.g. EPSG 4326/EPSG 3857</li>
+<li>other geospatial map projections</li>
+<li>non-geospatial, simple coordinate reference systems</li>
+</ul>
+<p><code>tiler</code> provides a tile generator function for creating map tile sets for use with packages such as <code>leaflet</code>. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic simple coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
 <p>Map tiles can be created from an input file with any of the following extensions: <code>tif</code>, <code>grd</code> and <code>nc</code> for spatial maps and <code>png</code>, <code>jpg</code> and <code>bmp</code> for basic images.</p>
 </div>
 <div id="installation" class="section level2">

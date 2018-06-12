@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.9.9000</span>
       </span>
     </div>
 
@@ -164,6 +164,18 @@
       <small>Source: <a href='https://github.com/leonawicz/tiler/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tiler-0-2-9-9000" class="section level1">
+<h1 class="page-header">
+<a href="#tiler-0-2-9-9000" class="anchor"></a>tiler 0.2.9.9000<small> Unreleased </small>
+</h1>
+<ul>
+<li>Refactored <code>tile</code> to no longer force reproject projected rasters from <code>file</code> to EPSG 4326. Moving forward, output CRS is derived from input CRS by default. To force a reprojection of <code>file</code> prior to tiling to any CRS, including EPSG 4326, provide the output Proj4 string to <code>crs_out</code>.</li>
+<li>Another argument was added, <code>profile</code>, for the tile-cutting profile used internally by <code>gdal2tiles</code>. This defaults to <code>mercator</code> but can also be set to <code>raster</code> or <code>geodetic</code> as needed depending on the output CRS derived from <code>file</code>, specified in <code>crs</code>, or provided for reprojection via <code>crs_out</code>.</li>
+<li>Updated documentation and readme.</li>
+<li>Updated unit tests.</li>
+<li>Updated vignette.</li>
+</ul>
+</div>
     <div id="tiler-0-2-0-release-date-2018-06-09" class="section level1">
 <h1 class="page-header">
 <a href="#tiler-0-2-0-release-date-2018-06-09" class="anchor"></a>tiler 0.2.0 (Release date: 2018-06-09)<small> 2018-06-09 </small>
@@ -220,6 +232,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tiler-0-2-9-9000">0.2.9.9000</a></li>
         <li><a href="#tiler-0-2-0-release-date-2018-06-09">0.2.0</a></li>
         <li><a href="#tiler-0-1-6-release-date-2018-06-06">0.1.6</a></li>
         <li><a href="#tiler-0-1-5">0.1.5</a></li>
