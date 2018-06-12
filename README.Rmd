@@ -33,6 +33,12 @@ Map tiles can be created from an input file with any of the following extensions
 
 ## Installation
 
+Install `tiler` from CRAN with:
+
+``` r
+install.packages("tiler")
+```
+
 Install the development version from GitHub with:
 
 ``` r
