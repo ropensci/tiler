@@ -4,6 +4,7 @@
 #'
 #' @details
 #' This function supports both geographic and non-geographic tile generation.
+#' When \code{file} is geospatial, such as a geotiff, map tiles can be created based on its projection; output tiles do not need to be Web Mercator.
 #' When \code{file} is a simple image file such as \code{png}, \code{tile} generates non-geographic, simple CRS tiles.
 #' Files that can be loaded by the \code{raster} package yield geographic tiles, as long as \code{file} has projection information.
 #' If the raster object's proj4 string is \code{NA}, it falls back on non-geographic tile generation and a warning is thrown.
@@ -22,7 +23,12 @@
 #' Multi-layer raster objects are rejected with an error message. The only exception is a three- or four-band raster, which is assumed to represent red, green, blue and alpha channels, respectively.
 #' In this case, processing will continue but coloring arguments are ignored as unnecessary.
 #' \cr\cr
-#' Prior to tiling, a geographically-projected raster layer is reprojected to EPSG:4326 only if it has some other projection. Otherwise no reprojection is needed.
+#' Prior to tiling, a geographically-projected raster layer from \code{file} is reprojected only if \code{crs_out} is supplied.
+#' \code{crs_out = NULL} by default, in keeping with the perspective of \code{tiler} that there is nothing special or assumed in terms of common formats like Web Mercator.
+#' Tiles are generated based on the input \code{file} without making unrequested changes. Output CRS is derived from input CRS unless otherwise specified.
+#' However, because \code{EPSG 3857} and \code{EPSG 4326} are so popular and likely the dominant use case, \code{tile} accepts shorthand string IDs for these two CRS in place of the Proj4 strings: \code{"EPSG:3857"} and \code{"EPSG:4326"}.
+#' Shorthand EPSG codes will not be mapped to Proj4 strings for all other projections. Provide the Proj4 string.
+#' \cr\cr
 #' The only reprojection argument available through \code{...} is \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 #' If complete control over reprojection is required, this should be done prior to passing the rasterized file to the \code{tile} function. Then no reprojection is performed by \code{tile}.
 #' When \code{file} consists of RGB or RGBA bands, \code{method} is ignored if provided and reprojection uses nearest neighbor.
@@ -32,7 +38,7 @@
 #' Three-band RGB raster files appear are unaffected by reprojection.  The alpha channel appears to be completely ignored in the tiling process anyway, so it is fine to just use RGB rasters.
 #' }
 #' \subsection{Tiles and Leaflet}{
-#' \code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. See details.
+#' \code{gdal2tiles} generates TMS tiles, but XYZ are available and the default. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format.
 #' \cr\cr
 #' This function is supported by three different versions of \code{gdal2tiles}. There is the standard version, which generates geospatial tiles in TMS format.
 #' One alternative generates tiles in XYZ format. This is the default for \code{tile}. It may be more familiar to R users working with the \code{leaflet} package.
@@ -47,6 +53,8 @@
 #' @param tiles character, output directory for generated tiles.
 #' @param zoom character, zoom levels. Example format: \code{"3-7"}. See details.
 #' @param crs character, Proj4 string. Use this to force set the CRS of a loaded raster object from \code{file} in cases where the CRS is missing but known, to avoid defaulting to non-geographic tiling.
+#' @param crs_out character, Proj4 string. If \code{NULL}, output CRS matches the input. No reprojection performed prior to tiling. Otherwise \code{file} is reprojected to \code{crs_out}, the typical reprojection being to Web Mercator. See details.
+#' @param profile character, tile-cutting profile passed to \code{gdal2tiles}. Defaults to \code{mercator}, but can be set to \code{raster} or \code{geodetic} as needed depending on the output CRS. \code{profile} is ignored for non-geographic inputs, which is always a raster tile-cutting profile.
 #' @param format character, XYZ or TMS tile format. See details.
 #' @param resume logical, only generate missing tiles.
 #' @param viewer logical, also create \code{preview.html} adjacent to \code{tiles} directory for previewing tiles in the browser using Leaflet.
@@ -64,7 +72,7 @@
 #' tiles <- file.path(tempdir(), "tiles")
 #' tile(x, tiles, "2-3")
 #'
-#' # projected map
+#' # geographic map
 #' x <- system.file("maps/map_wgs84.tif", package = "tiler")
 #' tile(x, tiles, 0)
 #' \dontshow{
@@ -72,8 +80,8 @@
 #' extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
-tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE,
-                 viewer = TRUE, georef = TRUE, ...){
+tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mercator", "geodetic", "raster"),
+                 format = c("xyz", "tms"), resume = FALSE, viewer = TRUE, georef = TRUE, ...){
   ext <- .get_ext(file)
   if(ext == "jpg" && !requireNamespace("jpeg", quietly = TRUE)){
     message("jpg files are optionally supported (png recommended). Install `jpeg` package to use jpg images.")
@@ -92,14 +100,15 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
     if(bat != "") ex <- paste0("\"", bat, "\" ", ex)
   }
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
-  projected <- .proj_check(file, crs, ...)
+  projected <- .proj_check(file, crs, crs_out, ...)
   if(ext %in% .supported_filetypes$ras) file <- file.path(tempdir(), "tmp_raster.tif")
   dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"), showWarnings = FALSE, recursive = TRUE)
   if(projected){
     format <- match.arg(format, c("xyz", "tms"))
     gdal2tiles <- switch(format, xyz = "python/gdal2tilesXYZ.py", tms = "python/gdal2tiles.py")
     g2t <- system.file(gdal2tiles, package = "tiler")
-    ex <- paste0(ex, " \"", g2t, "\" -z ", zoom, " -w none ", "--tmpdir \"",
+    profile <- match.arg(profile)
+    ex <- paste0(ex, " \"", g2t, "\" -p ", profile, " -z ", zoom, " -w none ", "--tmpdir \"",
                  normalizePath(g2t_tmp_dir), "\" ", ifelse(resume, "-e ", ""), "\"",
                  normalizePath(file), "\" \"", normalizePath(tiles), "\"")
   } else {
@@ -138,7 +147,7 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
   invisible()
 }
 
-.proj_check <- function(file, crs = NULL, ...){
+.proj_check <- function(file, crs = NULL, crs_out = NULL, ...){
   ext <- .get_ext(file)
   if(ext %in% .supported_filetypes$img) return(FALSE)
   dots <- list(...)
@@ -148,18 +157,18 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
     stop("`file` is multi-band but does not appear to be RGB or RGBA layers.")
   method <- ifelse(bands != 1, "ngb", ifelse(is.null(dots$method), "bilinear", dots$method))
   if(bands == 1) r <- raster::raster(r, layer = 1)
-  wgs84 <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
   proj4 <- raster::projection(r)
-  req_reproj <- !is.na(proj4) && !.is_wgs84(proj4)
-  projected <- req_reproj || !is.null(crs)
-  if(!projected && !.is_wgs84(proj4)){
+  crs_out <- .proj4_out(crs_out)
+  has_crs <- !is.na(proj4) || !is.null(crs)
+  req_reproj <- has_crs && !is.null(crs_out) && crs_out != proj4
+  if(is.na(proj4) && is.null(crs)){
     warning("Projection expected but is missing. Continuing as non-geographic image.")
   } else if(!is.null(crs)){
     proj4 <- raster::projection(r) <- crs
   }
-  if(projected){
+  if(req_reproj){
     cat("Reprojecting raster...\n")
-    e <- raster::projectExtent(r, crs = sp::CRS(wgs84))
+    e <- raster::projectExtent(r, crs = sp::CRS(crs_out))
     r <- raster::projectRaster(r, e, method = method)
   }
   if(bands == 1){
@@ -181,17 +190,25 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
   cat("Preparing for tiling...\n")
   raster::writeRaster(r, file.path(tempdir(), "tmp_raster.tif"),
                       overwrite = TRUE, datatype = "INT1U")
-  projected
+  has_crs
 }
+
+# nolint start
+
+.proj4_out <- function(x){
+  if(is.null(x)) return()
+  switch(x,
+         "EPSG:4326" = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+         "EPSG:3857" = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs",
+         x
+  )
+}
+
+# nolint end
 
 .get_ext <- function(file) utils::tail(strsplit(file, "\\.")[[1]], 1)
 
 .supported_filetypes <- list(img = c("bmp", "jpg", "png"), ras = c("grd", "tif", "nc"))
-
-.is_wgs84 <- function(x){
-  grepl("+proj=longlat", x) & grepl("+datum=WGS84", x) &
-    grepl("+no_defs|+towgs84=0,0,0", x) & grepl("+ellps=WGS84", x)
-}
 
 .fix_colors <- function(x, no_white = FALSE){
   x <- tolower(x)

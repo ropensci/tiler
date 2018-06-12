@@ -10,7 +10,13 @@ tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?
 Create geographic and non-geographic map tiles
 ----------------------------------------------
 
-The `tiler` package provides a tile generator function for creating map tile sets for use with packages such as `leaflet`. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a a non-geographic simple coordinate reference system, can also be used with `leaflet` when applying the simple CRS option.
+The `tiler` package generates map tiles for:
+
+-   standard Web Mercator, e.g. EPSG 4326/EPSG 3857
+-   other geospatial map projections
+-   non-geospatial, simple coordinate reference systems
+
+`tiler` provides a tile generator function for creating map tile sets for use with packages such as `leaflet`. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic simple coordinate reference system, can also be used with `leaflet` when applying the simple CRS option.
 
 Map tiles can be created from an input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
 
