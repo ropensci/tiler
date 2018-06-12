@@ -10,7 +10,8 @@ The tiler package creates geographic map tiles from geospatial map files or non-
 }
 \details{
 This package provides a tile generator function for creating map tile sets for use with packages such as \code{leaflet}.
-In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
+Tiles can be generated from raster files with different projections; Web Mercator tile outputs are not required.
+In addition to generating map tiles based on a geospatial raster file, the package also handles the non-geographic edge case, producing map tiles from arbitrary images.
 These map tiles, which have a non-geographic simple coordinate reference system (CRS), can also be used with \code{leaflet} when applying the simple CRS option.
 \cr\cr
 Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.

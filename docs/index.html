@@ -13,7 +13,8 @@
 <meta property="og:title" content="Create Geographic and Non-Geographic Map Tiles">
 <meta property="og:description" content="Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. 
     This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. 
-    In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
+    Tiles can be generated from raster files with different projections; Web Mercator tile outputs are not required.
+    In addition to generating map tiles based on a geospatial raster file, the package also handles the non-geographic edge case, producing map tiles from arbitrary images.
     These map tiles, which have a non-geographic, simple coordinate reference system (CRS), can also be used with 'leaflet' when applying the simple CRS option.
     Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.
     This package requires 'Python' and the 'gdal' library for 'Python'. 
@@ -153,7 +154,7 @@
 <li>other geospatial map projections</li>
 <li>non-geospatial, simple coordinate reference systems</li>
 </ul>
-<p><code>tiler</code> provides a tile generator function for creating map tile sets for use with packages such as <code>leaflet</code>. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic simple coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
+<p><code>tiler</code> provides a tile generator function for creating map tile sets for use with packages such as <code>leaflet</code>. Tiles can be generated from raster files with different projections; Web Mercator tile outputs are not required. In addition to generating map tiles based on a geospatial raster file, the package also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic simple coordinate reference system, can also be used with <code>leaflet</code> when applying the simple CRS option.</p>
 <p>Map tiles can be created from an input file with any of the following extensions: <code>tif</code>, <code>grd</code> and <code>nc</code> for spatial maps and <code>png</code>, <code>jpg</code> and <code>bmp</code> for basic images.</p>
 </div>
 <div id="installation" class="section level2">
