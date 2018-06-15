@@ -130,7 +130,7 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL, georef = TRUE,
 }))"
 
 .index_js <- function(tiles, zoom, width, height, georef, ...){
-  zoom <- rep(strsplit(as.character(zoom), "-")[[1]], length = 2)
+  zoom <- rep(strsplit(as.character(zoom), "-")[[1]], length.out = 2)
   if(is.null(width) | is.null(height)){
     fmt <- if(!is.null(list(...)$format) && list(...)$format == "tms") "tms" else "xyz"
     lng <- if(is.null(list(...)$lng)) 0 else list(...)$lng
