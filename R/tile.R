@@ -100,11 +100,12 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
     if(bat != "") ex <- paste0("\"", bat, "\" ", ex)
   }
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
-  projected <- .proj_check(file, crs, crs_out, ...)
-  if(ext %in% .supported_filetypes$ras) file <- file.path(tempdir(), "tmp_raster.tif")
+  has_crs <- .proj_check(file, crs, crs_out, ...)
+  tmp_ras <- file.path(tempdir(), "tmp_raster.tif")
+  if(ext %in% .supported_filetypes$ras & file.exists(tmp_ras)) file <- tmp_ras
   dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"), showWarnings = FALSE, recursive = TRUE)
-  if(projected){
-    format <- match.arg(format, c("xyz", "tms"))
+  if(has_crs){
+    format <- match.arg(format)
     gdal2tiles <- switch(format, xyz = "python/gdal2tilesXYZ.py", tms = "python/gdal2tiles.py")
     g2t <- system.file(gdal2tiles, package = "tiler")
     profile <- match.arg(profile)
@@ -124,8 +125,8 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
   if(viewer){
     cat("Creating tile viewer...\n")
     w <- h <- NULL
-    if(!projected){
-      if(file == file.path(tempdir(), "tmp_raster.tif")){
+    if(!has_crs){
+      if(file == tmp_ras){
         x <- raster::raster(file)
         w <- ncol(x)
         h <- nrow(x)
@@ -143,7 +144,7 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
     do.call(tile_viewer, viewer_args)
     cat("Complete.\n")
   }
-  if(ext %in% .supported_filetypes$ras) unlink(file, recursive = TRUE, force = TRUE)
+  if(file.exists(tmp_ras)) unlink(tmp_ras, recursive = TRUE, force = TRUE)
   invisible()
 }
 
@@ -187,9 +188,11 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
     r <- raster::RGB(r, col = col, breaks = dots$breaks, alpha = alpha, colNA = nacol,
                      zlim = dots$zlim, zlimcol = dots$zcol, ext = dots$ext)
   }
-  cat("Preparing for tiling...\n")
-  raster::writeRaster(r, file.path(tempdir(), "tmp_raster.tif"),
-                      overwrite = TRUE, datatype = "INT1U")
+  if(req_reproj || !is.null(crs) || !is.null(crs_out) || bands == 1){
+    cat("Preparing intermediary raster for tiling...\n")
+    raster::writeRaster(r, file.path(tempdir(), "tmp_raster.tif"),
+                        overwrite = TRUE, datatype = "INT1U")
+  }
   has_crs
 }
 

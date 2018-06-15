@@ -11,9 +11,12 @@
 #' Finding the installation is not the responsibility of \code{tiler}. Best practice is to know these paths on Windows and proactively add them to the system path so that they are automatically available to programs like R.
 #' As long as \code{OSGeo4W.bat} is unavailable, \code{tile} will proceed as it would on other systems such as Linux, by assuming GDAL is installed and accessible to Python on the system, regardless of OSGeo installations.
 #'
-#' The recommended way to have GDAL available to Python in Windows is to install \href{https://trac.osgeo.org/osgeo4w/}{OSGeo4W}. Choose 64-bit if using this method.
-#' Alternatively, OSGeo4W is commonly installed along with \href{https://qgis.org/en/site/forusers/download.html}{QGIS}.
-#' This being the common method for having these system requirements available on Windows is the reason the \code{tiler} package bothers to attempt using \code{OSGeo4W.bat} first.
+#' The recommended way to have GDAL available to Python in Windows is to install \href{https://trac.osgeo.org/osgeo4w/}{OSGeo4W}. Choose 64-bit if using this method and make sure to leave QGIS checked.
+#' Recommended: Install the express desktop option with defaults checked.
+#' Alternatively, OSGeo4W is commonly installed along with \href{https://qgis.org/en/site/forusers/download.html}{QGIS}. Whichever direction you go in, be sure to include both softwares.
+#' If using OSGeo4W (with QGIS) this can include its own Python utilities and you will probably not need to bother with specifying the system path to a system Python installation.
+#'
+#' OSGeo4W/QGIS being the common method for having these system requirements available on Windows is the reason the \code{tiler} package bothers to attempt using \code{OSGeo4W.bat} first before falling back on attempting to use a system Python installation.
 #'
 #' None of this applies to other systems. As long as the system requirements, Python and GDAL, are installed, then \code{tile} should generate tiles without getting or setting any \code{tiler_options}.
 #'

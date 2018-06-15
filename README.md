@@ -42,7 +42,7 @@ For non-geographic tiles, using a `png` file is recommended for quality and file
 
 ### System requirements
 
-This package requires Python and the `gdal` library for Python. Windows users are recommended to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/) as an easy way to obtain the required `gdal` support for Python in Windows.
+This package requires Python and the `gdal` library for Python. Windows users are recommended to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/) (include QGIS option) as an easy way to obtain the required `gdal` support for Python in Windows. See `?tiler_options` for details.
 
 Examples
 --------
