@@ -143,7 +143,7 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
     do.call(tile_viewer, viewer_args)
     cat("Complete.\n")
   }
-  if(ext %in% .supported_filetypes$ras) unlink(file)
+  if(ext %in% .supported_filetypes$ras) unlink(file, recursive = TRUE, force = TRUE)
   invisible()
 }
 
@@ -151,7 +151,7 @@ tile <- function(file, tiles, zoom, crs = NULL, crs_out = NULL, profile = c("mer
   ext <- .get_ext(file)
   if(ext %in% .supported_filetypes$img) return(FALSE)
   dots <- list(...)
-  r <- raster::readAll(raster::stack(file))
+  r <- raster::stack(file)
   bands <- raster::nlayers(r)
   if(!bands %in% c(1, 3, 4))
     stop("`file` is multi-band but does not appear to be RGB or RGBA layers.")
