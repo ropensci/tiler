@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • tiler</title>
+<title>Tile metadata — metadata • tiler</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Tile metadata — metadata" />
+
+<meta property="og:description" content="Get tile metadata from tile set." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -55,7 +58,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -158,98 +161,86 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Tile metadata</h1>
+    <small class="dont-index">Source: <a href='https://github.com/leonawicz/tiler/blob/master/R/meta.R'><code>R/meta.R</code></a></small>
+    <div class="hidden name"><code>metadata.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Get tile metadata from tile set.</p>
+    
+    </div>
 
-    <colgroup>
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>tile_meta</span>(<span class='no'>tiles</span>)
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-package" class="hasAnchor"><a href="#section-package" class="anchor"></a>Package</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="tiler.html">tiler</a></code> </p>
-        </td>
-        <td><p>tiler: Create map tiles from R</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-map-tile-generator" class="hasAnchor"><a href="#section-map-tile-generator" class="anchor"></a>Map tile generator</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="tile.html">tile()</a></code> </p>
-        </td>
-        <td><p>Create map tiles</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tile-preview" class="hasAnchor"><a href="#section-tile-preview" class="anchor"></a>Tile preview</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="view_tiles.html">view_tiles()</a></code> </p>
-        </td>
-        <td><p>View map tiles with Leaflet</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="tile_viewer.html">tile_viewer()</a></code> </p>
-        </td>
-        <td><p>Create an HTML tile preview</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        <!--  -->
-        <td>
-          <p><code><a href="metadata.html">tile_meta()</a></code> <code><a href="metadata.html">tile_origin()</a></code> <code><a href="metadata.html">tile_bounds()</a></code> <code><a href="metadata.html">tile_res()</a></code> </p>
-        </td>
-        <td><p>Tile metadata</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="tiler_options.html">tiler_options()</a></code> </p>
-        </td>
-        <td><p>Options</p></td>
-      </tr>
-    </tbody>
+<span class='fu'>tile_origin</span>(<span class='no'>tiles</span>)
+
+<span class='fu'>tile_bounds</span>(<span class='no'>tiles</span>)
+
+<span class='fu'>tile_res</span>(<span class='no'>tiles</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tiles</th>
+      <td><p>character, tiles directory.</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>a list or vector.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These functions return metadata entries from the <code>tilemapresource.xml</code> file located in the <code>tiles</code> directory. Any tiles generated with <code>tiler</code> include this file.
+<code>tile_meta</code> returns a list containing the origin (y, x), bounding box (ymin, xmin, ymax, xmax), and zoom resolutions (zoom order low to high), formatted ready for use with <code><a href='http://www.rdocumentation.org/packages/leaflet/topics/leaflet'>leaflet::leafletCRS</a></code>.
+The other wrapper functions return the respective list element.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"maps/map_wgs84.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
+<span class='no'>tiles</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"tiles"</span>)
+<span class='fu'><a href='tile.html'>tile</a></span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Coloring raster...
+#&gt; Preparing for tiling...
+#&gt; Creating tiles. Please wait...
+#&gt; Creating tile viewer...
+#&gt; Complete.</div><div class='input'><span class='fu'>tile_meta</span>(<span class='no'>tiles</span>)</div><div class='output co'>#&gt; $origin
+#&gt; [1] -125.02083   23.02328
+#&gt; 
+#&gt; $bounds
+#&gt; $bounds[[1]]
+#&gt; [1] -125.02083   23.02328
+#&gt; 
+#&gt; $bounds[[2]]
+#&gt; [1] -65.49191  49.93750
+#&gt; 
+#&gt; 
+#&gt; $res
+#&gt; [1] 39135.76 19567.88
+#&gt; </div><div class='input'><span class='fu'>tile_origin</span>(<span class='no'>tiles</span>)</div><div class='output co'>#&gt; [1] -125.02083   23.02328</div><div class='input'><span class='fu'>tile_bounds</span>(<span class='no'>tiles</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] -125.02083   23.02328
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] -65.49191  49.93750
+#&gt; </div><div class='input'><span class='fu'>tile_res</span>(<span class='no'>tiles</span>)</div><div class='output co'>#&gt; [1] 39135.76 19567.88</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-package">Package</a></li>
-      <li><a href="#section-map-tile-generator">Map tile generator</a></li>
-      <li><a href="#section-tile-preview">Tile preview</a></li>
-      <li><a href="#section-other-functions">Other functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
