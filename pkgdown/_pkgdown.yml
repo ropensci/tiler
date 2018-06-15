@@ -24,6 +24,7 @@ reference:
   - tile_viewer
 - title: Other functions
   contents:
+  - metadata
   - tiler_options
 
 navbar:

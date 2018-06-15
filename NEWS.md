@@ -2,6 +2,7 @@
 
 * Refactored `tile` to no longer force reproject projected rasters from `file` to EPSG 4326. Moving forward, output CRS is derived from input CRS by default. To force a reprojection of `file` prior to tiling to any CRS, including EPSG 4326, provide the output Proj4 string to `crs_out`.
 * Another argument was added, `profile`, for the tile-cutting profile used internally by `gdal2tiles`. This defaults to `mercator` but can also be set to `raster` or `geodetic` as needed depending on the output CRS derived from `file`, specified in `crs`, or provided for reprojection via `crs_out`.
+* Added helper functions for getting metadata from `tilemapresource.xml`.
 * Updated documentation and readme.
 * Updated unit tests.
 * Updated vignette.
