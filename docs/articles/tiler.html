@@ -149,9 +149,9 @@
 <div id="setup-windows-users" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup-windows-users" class="anchor"></a>Setup (Windows users)</h2>
-<p>Python is required as well as the <code>gdal</code> library for Python. For Windows users, this is not the same as simply having <code>rgdal</code> installed through R. You need to install <code>gdal</code> so that it is accessible by Python. One of the easiest and typically recommended ways to do this in Windows is to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a>. It will bring all the required Python <code>gdal</code> library functionality along with it. OSGeo4W is also commonly installed along with <a href="https://qgis.org/en/site/forusers/download.html">QGIS</a>.</p>
-<p>On Windows for potential user convenience, the <code>tiler</code> package will perform a single check on package load for the <code>OSgeo4W.bat</code> utility at <code>C:/Program Files/QGIS 3.0/OSGeo4W.bat</code>. If found, its path is set in <code>tiler_options</code>. If it is not found at this precise location, the path remains unspecified and <code>tiler</code> will fall back on only calling Python during tiling operations, assuming hopefully that <code>gdal</code> will be available to Python nonetheless.</p>
-<p>You should not rely on a gratuitous check like this; <code>tiler</code> is being overly generous. It is recommended that you simply add the paths for <code>python.exe</code>, and <code>OSGeo4.bat</code> if applicable, to your system path after installation. This way you do not need to provide these paths to <code>tiler_options</code> in each R session; R will know where they are just like on other operating systems. That’s all that should be needed. Linux and Mac users should not have to do any additional setup as long as Python and <code>gdal</code> for Python are installed.</p>
+<p>Python is required as well as the <code>gdal</code> library for Python. For Windows users, this is not the same as simply having <code>rgdal</code> installed through R. You need to install <code>gdal</code> so that it is accessible by Python. One of the easiest and typically recommended ways to do this in Windows is to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a> (include QGIS option)- or the other way around: install <a href="https://qgis.org/en/site/forusers/download.html">QGIS</a> and include the OSGeo4W option. Taking one of these approaches brings with it all the required Python and <code>gdal</code> library functionality. See <code><a href="../reference/tiler_options.html">?tiler_options</a></code> for details.</p>
+<p>On Windows for potential user convenience, the <code>tiler</code> package will perform a check on package load for the <code>OSgeo4W.bat</code> utility in a couple locations (see <code><a href="../reference/tiler_options.html">?tiler_options</a></code>). If found, its path is set in <code>tiler_options</code>. If it is not found at one of these locations, the path remains unspecified and <code>tiler</code> will fall back on only calling the system Python installation. The fall back is less likely to work unless you are very diligent and know what you are doing and have set up all required resources for this Python installation. Bottom line: just use OSGeo4W for ease of use unless you are already set up in another manner.</p>
+<p>Linux and Mac users should not have to do any additional setup as long as Python and <code>gdal</code> for Python are installed.</p>
 </div>
 <div id="geographic-map-tiles" class="section level2">
 <h2 class="hasAnchor">
@@ -191,7 +191,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span>
@@ -222,7 +222,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">crs_out =</span> <span class="st">"EPSG:4326"</span>)
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -235,7 +235,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p>Remember, however, the default behavior of <code>tile</code> and the perspective in <code>tiler</code> is to simply derive output CRS from input CRS, taking the general approach of tile generation for any CRS. To create tiles in the same projection as the input, simply do not provide <code>crs_out</code>. Now the log output does not show a reprojection step and the tiles are in the original projection. The other argument that may become relevant for non-Mercator CRS tiles is the tile-cutting <code>profile</code>. The default is <code>mercator</code> tile-cutting, which may not be appropriate for the projected tiles, in which case <code>raster</code> or <code>geodetic</code> can be provided.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">profile =</span> <span class="st">"raster"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -261,7 +261,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Warning in .proj_check(file, crs, crs_out, ...): Projection expected but is</span>
 <span class="co">#&gt; missing. Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -269,7 +269,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs &lt;-<span class="st"> "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, crs)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -284,7 +284,7 @@ pal &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span
 nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">col =</span> pal, <span class="dt">colNA =</span> nodata)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -308,10 +308,11 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
+<p>Notice in the example above, there is no log output regarding the preparation of an intermediate raster. In the earlier examples, an intermediate raster had to be created and saved to disk temporarily and this temporary file was used for the tiling process. This is required in any case where <code>file</code> must be altered in some way. In this example, there was no <code>crs</code> input override, no <code>crs_out</code> reprojection required, and no conversion of a single-layer raster input file to a three or four band RGB/A raster with tile color information.</p>
+<p>This <code>file</code> required no pre-processing by <code>tile</code> and was immediately passed on to <code>gdal2tiles</code> without any need to create an intermediary file. This is something to keep in mind if you have an extremely large input file. If you prepare it as an RGB raster in the desired projection and do not need to alter it in any way, you can avoid the overhead of manipulating it in memory in R and writing out an intermediary version prior to tiling.</p>
 </div>
 </div>
 <div id="non-geographic-map-tiles" class="section level2">
