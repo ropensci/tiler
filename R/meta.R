@@ -27,7 +27,9 @@
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
 tile_meta <- function(tiles){
-  l <- suppressWarnings(readLines(file.path(tiles, "tilemapresource.xml")))
+  file <- file.path(tiles, "tilemapresource.xml")
+  if(!file.exists(file)) stop("`tilemapresource.xml` not found.")
+  l <- suppressWarnings(readLines(file))
   pat <- "[A-Za-z\"/<>=]" # nolint
   idx <- grep("<Origin ", l)
   origin <- as.numeric(strsplit(trimws(gsub(pat, "", l[idx])), " ")[[1]])[2:1]

@@ -18,10 +18,12 @@ test_that("tile metadata returns as expected", {
   expect_true(all(is.numeric(c(o, unlist(b), r))))
   expect_equal(as.numeric(sapply(meta, length)), rep(2, 3))
   expect_identical(meta, list(origin = o, bounds = b, res = r))
-})
 
-unlink(tiles, recursive = TRUE, force = TRUE)
-unlink(file.path(tempdir(), "preview.html"), force = TRUE)
+  expect_error(tile_meta("x"), "`tilemapresource.xml` not found.")
+
+  unlink(tiles, recursive = TRUE, force = TRUE)
+  unlink(file.path(tempdir(), "preview.html"), force = TRUE)
+})
 
 # supplemental check for excess temp files
 extrafiles <- setdiff(list.files(tempdir()), tmpfiles)
