@@ -3,6 +3,7 @@
 language: python
 virtualenv:
   system_site_packages: true
+
 language: R
 sudo: false
 cache: packages
@@ -12,9 +13,6 @@ addons:
     packages:
       - libgdal-dev
       - libproj-dev
-
-before_install:
-  - pip install python-gdal
 
 after_success:
     - Rscript -e 'covr::codecov()'
