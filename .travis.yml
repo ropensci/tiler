@@ -14,8 +14,7 @@ addons:
       - libproj-dev
 
 before_install:
-  - sudo apt-get install -qq libgdal1h
-  - sudo apt-get install -qq python-gdal
+  - pip install python-gdal
 
 after_success:
     - Rscript -e 'covr::codecov()'
