@@ -187,7 +187,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>tiles</th>
-      <td><p>character, tiles directory.</p></td>
+      <td><p>character, tiles directory. May be a URL beginning with <code>http</code> or <code>https</code>.</p></td>
     </tr>
     </table>
     
@@ -197,7 +197,8 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions return metadata entries from the <code>tilemapresource.xml</code> file located in the <code>tiles</code> directory. Any tiles generated with <code>tiler</code> include this file.
+    <p>These functions return metadata entries from the <code>tilemapresource.xml</code> file located in the <code>tiles</code> directory.
+<code>tilemapresource.xml</code> must exist in the <code>tiles</code> directory to use this function. Any tiles generated with <code>tiler</code> include this file.
 <code>tile_meta</code> returns a list containing the origin (y, x), bounding box (ymin, xmin, ymax, xmax), and zoom resolutions (zoom order low to high), formatted ready for use with <code><a href='http://www.rdocumentation.org/packages/leaflet/topics/leaflet'>leaflet::leafletCRS</a></code>.
 The other wrapper functions return the respective list element.</p>
     

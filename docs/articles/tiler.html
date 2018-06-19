@@ -191,7 +191,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span>
@@ -222,7 +222,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">crs_out =</span> <span class="st">"EPSG:4326"</span>)
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -235,7 +235,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p>Remember, however, the default behavior of <code>tile</code> and the perspective in <code>tiler</code> is to simply derive output CRS from input CRS, taking the general approach of tile generation for any CRS. To create tiles in the same projection as the input, simply do not provide <code>crs_out</code>. Now the log output does not show a reprojection step and the tiles are in the original projection. The other argument that may become relevant for non-Mercator CRS tiles is the tile-cutting <code>profile</code>. The default is <code>mercator</code> tile-cutting, which may not be appropriate for the projected tiles, in which case <code>raster</code> or <code>geodetic</code> can be provided.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">profile =</span> <span class="st">"raster"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -261,7 +261,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Warning in .proj_check(file, crs, crs_out, ...): Projection expected but is</span>
 <span class="co">#&gt; missing. Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -269,7 +269,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs &lt;-<span class="st"> "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, crs)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -284,7 +284,7 @@ pal &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span
 nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">col =</span> pal, <span class="dt">colNA =</span> nodata)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -308,6 +308,7 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
