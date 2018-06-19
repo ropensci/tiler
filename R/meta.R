@@ -2,11 +2,12 @@
 #'
 #' Get tile metadata from tile set.
 #'
-#' These functions return metadata entries from the \code{tilemapresource.xml} file located in the \code{tiles} directory. Any tiles generated with \code{tiler} include this file.
+#' These functions return metadata entries from the \code{tilemapresource.xml} file located in the \code{tiles} directory.
+#' \code{tilemapresource.xml} must exist in the \code{tiles} directory to use this function. Any tiles generated with \code{tiler} include this file.
 #' \code{tile_meta} returns a list containing the origin (y, x), bounding box (ymin, xmin, ymax, xmax), and zoom resolutions (zoom order low to high), formatted ready for use with \code{leaflet::leafletCRS}.
 #' The other wrapper functions return the respective list element.
 #'
-#' @param tiles character, tiles directory.
+#' @param tiles character, tiles directory. May be a URL beginning with \code{http} or \code{https}.
 #'
 #' @return a list or vector.
 #' @name metadata
@@ -28,8 +29,15 @@
 #' }
 tile_meta <- function(tiles){
   file <- file.path(tiles, "tilemapresource.xml")
+  is_url <- substr(file, 1, 7) %in% c("http://", "https:/")
+  if(is_url){
+    tmpfile <- file.path(tempdir(), "tmp_tilemapresource.xml")
+    download.file(file, tmpfile, quiet = TRUE)
+    file <- tmpfile
+  }
   if(!file.exists(file)) stop("`tilemapresource.xml` not found.")
   l <- suppressWarnings(readLines(file))
+  if(is_url) unlink(file, recursive = TRUE, force = TRUE)
   pat <- "[A-Za-z\"/<>=]" # nolint
   idx <- grep("<Origin ", l)
   origin <- as.numeric(strsplit(trimws(gsub(pat, "", l[idx])), " ")[[1]])[2:1]

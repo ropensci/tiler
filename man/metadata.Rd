@@ -17,7 +17,7 @@ tile_bounds(tiles)
 tile_res(tiles)
 }
 \arguments{
-\item{tiles}{character, tiles directory.}
+\item{tiles}{character, tiles directory. May be a URL beginning with \code{http} or \code{https}.}
 }
 \value{
 a list or vector.
@@ -26,7 +26,8 @@ a list or vector.
 Get tile metadata from tile set.
 }
 \details{
-These functions return metadata entries from the \code{tilemapresource.xml} file located in the \code{tiles} directory. Any tiles generated with \code{tiler} include this file.
+These functions return metadata entries from the \code{tilemapresource.xml} file located in the \code{tiles} directory.
+\code{tilemapresource.xml} must exist in the \code{tiles} directory to use this function. Any tiles generated with \code{tiler} include this file.
 \code{tile_meta} returns a list containing the origin (y, x), bounding box (ymin, xmin, ymax, xmax), and zoom resolutions (zoom order low to high), formatted ready for use with \code{leaflet::leafletCRS}.
 The other wrapper functions return the respective list element.
 }
