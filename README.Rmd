@@ -19,10 +19,12 @@ knitr::opts_chunk$set(
 
 [![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tiler)](https://cran.r-project.org/package=tiler) 
+[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
 [![Rdoc](http://www.rdocumentation.org/badges/version/tiler)](http://www.rdocumentation.org/packages/tiler)
 [![Travis-CI Build Status](https://travis-ci.org/leonawicz/tiler.svg?branch=master)](https://travis-ci.org/leonawicz/tiler)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
 [![codecov](https://codecov.io/gh/leonawicz/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/leonawicz/tiler)
+
 [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 
 ## Create geographic and non-geographic map tiles
