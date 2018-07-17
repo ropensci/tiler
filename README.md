@@ -9,6 +9,8 @@ tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?
 
 [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 
+![ne-example](https://github.com/leonawicz/tiler/blob/master/inst/ne.jpg?raw=true)
+
 Create geographic and non-geographic map tiles
 ----------------------------------------------
 
@@ -21,6 +23,16 @@ The `tiler` package generates map tiles for:
 `tiler` provides a tile generator function for creating map tile sets for use with packages such as `leaflet`. Tiles can be generated from raster files with different projections; Web Mercator tile outputs are not required. In addition to generating map tiles based on a geospatial raster file, the package also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic simple coordinate reference system, can also be used with `leaflet` when applying the simple CRS option.
 
 Map tiles can be created from an input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
+
+Motivation
+----------
+
+This package helps R users who wish to create geographic and non-geographic map tiles easily and seamlessly with only a single line of R code. The intent is to do this with a package that has
+
+-   minimal heavy package dependencies.
+-   minimal extraneous general features and functions that do not have to do with tile generation.
+-   to create tiles without having to code directly in other software, interact directly with Python, or make calls at the command line; allowing the R user to remain comfortably within the familiar R environment.
+-   to support the creation on map tiles from raw images for users who wish to create non-standard maps, which may also be followed by georeferencing locations of interest in the simplified coordinate reference system of the map image.
 
 Installation
 ------------
@@ -40,7 +52,7 @@ devtools::install_github("leonawicz/tiler")
 
 For non-geographic tiles, using a `png` file is recommended for quality and file size. `jpg` may yield a lower quality result, while a large, high resolution `bmp` file may have an enormous file size compared to `png`.
 
-`jpg` and `bmp` are *optionally* supported by `tiler`. This means they are not installed and imported with `tiler`. It is assumed the user will provide `png` images. If using `jpg` or `bmp` and the packages `jpeg` or `bmp` are not installed, respectively, `tile` will print a message to the console notfying of the required package installations.
+`jpg` and `bmp` are *optionally* supported by `tiler`. This means they are not installed and imported with `tiler`. It is assumed the user will provide `png` images. If using `jpg` or `bmp` and the packages `jpeg` or `bmp` are not installed, respectively, `tile` will print a message to the console notifying of the required package installations.
 
 ### System requirements
 
