@@ -9,12 +9,24 @@ tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?
 
 [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 
+![ne-example](https://github.com/leonawicz/tiler/blob/master/inst/ne.jpg?raw=true)
+
 Create geographic and non-geographic map tiles
 ----------------------------------------------
 
 The `tiler` package provides a tile generator function for creating map tile sets for use with packages such as `leaflet`. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a a non-geographic simple coordinate reference system, can also be used with `leaflet` when applying the simple CRS option.
 
 Map tiles can be created from an input file with any of the following extensions: `tif`, `grd` and `nc` for spatial maps and `png`, `jpg` and `bmp` for basic images.
+
+Motivation
+----------
+
+This package helps R users who wish to create geographic and non-geographic map tiles easily and seamlessly with only a single line of R code. The intent is to do this with a package that has
+
+-   minimal heavy package dependencies.
+-   minimal extraneous general features and functions that do not have to do with tile generation.
+-   to create tiles without having to code directly in other software, interact directly with Python, or make calls at the command line; allowing the R user to remain comfortably within the familiar R environment.
+-   to support the creation on map tiles from raw images for users who wish to create non-standard maps, which may also be followed by georeferencing locations of interest in the simplified coordinate reference system of the map image.
 
 Installation
 ------------
