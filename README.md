@@ -9,7 +9,7 @@ tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?
 
 [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 
-![ne-example](https://github.com/leonawicz/tiler/blob/master/inst/ne.jpg?raw=true)
+![](https://github.com/leonawicz/tiler/blob/master/data-raw/ne.jpg?raw=true)
 
 Create geographic and non-geographic map tiles
 ----------------------------------------------
