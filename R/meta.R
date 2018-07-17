@@ -32,7 +32,7 @@ tile_meta <- function(tiles){
   is_url <- substr(file, 1, 7) %in% c("http://", "https:/")
   if(is_url){
     tmpfile <- file.path(tempdir(), "tmp_tilemapresource.xml")
-    download.file(file, tmpfile, quiet = TRUE)
+    utils::download.file(file, tmpfile, quiet = TRUE)
     file <- tmpfile
   }
   if(!file.exists(file)) stop("`tilemapresource.xml` not found.")
