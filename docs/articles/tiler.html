@@ -182,14 +182,14 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span>
 
 <span class="kw">list.files</span>(tile_dir)
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
@@ -211,8 +211,9 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p><img src="tiler_files/figure-html/ex2-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -236,18 +237,19 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p><img src="tiler_files/figure-html/ex3-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Warning in .proj_check(file, crs, crs_out, ...): Projection expected but is</span>
-<span class="co">#&gt; missing. Continuing as non-geographic image.</span>
+<span class="co">#&gt; Warning in .proj_check(file, crs, ...): Projection expected but is missing.</span>
+<span class="co">#&gt; Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
 <p>This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs &lt;-<span class="st"> "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, crs)
+<span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -262,7 +264,7 @@ pal &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span
 nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">col =</span> pal, <span class="dt">colNA =</span> nodata)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -286,6 +288,8 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
+<span class="co">#&gt; Reprojecting raster...</span>
+<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -343,16 +347,16 @@ tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/us48lr/tiles/{z}
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">minZoom =</span> <span class="dv">0</span>, <span class="dt">maxZoom =</span> <span class="dv">7</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">addProviderTiles</span>(<span class="st">"Stamen.Toner"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles, <span class="dt">options =</span> <span class="kw">tileOptions</span>(<span class="dt">opacity =</span> <span class="fl">0.8</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-f1c4c5606160377538ce" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f1c4c5606160377538ce">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
+<div id="htmlwidget-2834f1aea89bb85d641d" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2834f1aea89bb85d641d">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(<span class="st">"st2.png"</span>, <span class="st">"tiles"</span>, <span class="st">"0-7"</span>)</code></pre></div>
-<p>and are hosted <a href="https://github.com/leonawicz/tiles/tree/master/st2">here</a>.</p>
+<p>and are hosted <a href="https://github.com/leonawicz/tiles/tree/master/st2">here</a>, including the source file <code>st2.png</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"</span>
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">crs =</span> <span class="kw">leafletCRS</span>(<span class="st">"L.CRS.Simple"</span>), <span class="dt">minZoom =</span> <span class="dv">0</span>, 
     <span class="dt">maxZoom =</span> <span class="dv">7</span>, <span class="dt">attributionControl =</span> <span class="ot">FALSE</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="dv">71</span>, <span class="op">-</span><span class="dv">60</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-2bad74ca35b880613c77" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2bad74ca35b880613c77">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-46e6e9a129f96a51d90b" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-46e6e9a129f96a51d90b">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="local-preview" class="section level3">
 <h3 class="hasAnchor">

@@ -218,7 +218,7 @@ Non-geographic provider tiles based on a Star Trek fictional galaxy map. These m
 tile("st2.png", "tiles", "0-7")
 ``` 
 
-and are hosted [here](https://github.com/leonawicz/tiles/tree/master/st2).
+and are hosted [here](https://github.com/leonawicz/tiles/tree/master/st2), including the source file `st2.png`.
 
 ```{r map2}
 tiles <- "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"
