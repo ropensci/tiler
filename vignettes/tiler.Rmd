@@ -196,6 +196,16 @@ Here are some [examples of non-geographic tile sets](https://github.com/leonawic
 
 Geographic provider tiles based on the low resolution example map included in `tiler` of the 48 contiguous US states.
 
+These map tiles were originally generated with the following code:
+
+```{r map1_tiles, eval=FALSE}
+file <- system.file("maps/map_wgs84.tif", package = "tiler")
+tile(file, "tiles", "0-7")
+```
+
+and are hosted [here](https://github.com/leonawicz/tiles/tree/master/us48lr).
+
+
 ```{r map1}
 library(leaflet)
 tiles <- "https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png"
@@ -205,9 +215,13 @@ leaflet(
   addTiles(tiles, options = tileOptions(opacity = 0.8)) %>% setView(-100, 40, 3)
 ```
 
+
+
 #### Non-geographic
 
 Non-geographic provider tiles based on a Star Trek fictional galaxy map.
+
+These map tiles were generated with `tile("st2.png", "tiles", "0-7")` and are hosted [here](https://github.com/leonawicz/tiles/tree/master/st2).
 
 ```{r map2}
 tiles <- "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"
