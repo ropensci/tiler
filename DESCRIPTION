@@ -27,11 +27,12 @@ Suggests:
     lintr,
     covr,
     jpeg,
-    bmp
+    bmp,
+    leaflet
 Imports:
     sp,
     rgdal,
     raster,
     png
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

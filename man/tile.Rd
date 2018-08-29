@@ -5,8 +5,8 @@
 \title{Create map tiles}
 \usage{
 tile(file, tiles, zoom, crs = NULL, crs_out = NULL,
-  profile = c("mercator", "geodetic", "raster"), format = c("xyz", "tms"),
-  resume = FALSE, viewer = TRUE, georef = TRUE, ...)
+  profile = c("mercator", "geodetic", "raster"), format = c("xyz",
+  "tms"), resume = FALSE, viewer = TRUE, georef = TRUE, ...)
 }
 \arguments{
 \item{file}{character, input file.}

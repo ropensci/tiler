@@ -222,6 +222,34 @@ if you store your tiles in a folder named `tiles` in a repository named `maptile
 
 Here are some [examples of non-geographic tile sets](https://github.com/leonawicz/tiles/) hosted on GitHub using Star Trek galaxy maps generated with `tiler` and here they are used in [Leaflet maps](https://leonawicz.github.io/rtrek/articles/sc.html).
 
+### Leaflet examples using remotely hosted tiles
+
+#### Geographic
+
+Geographic provider tiles based on the low resolution example map included in `tiler` of the 48 contiguous US states.
+
+```{r map1}
+library(leaflet)
+tiles <- "https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png"
+leaflet(
+  options = leafletOptions(minZoom = 3, maxZoom = 7), 
+    width = "100%", height = "400px") %>% 
+  addTiles(tiles)
+```
+
+#### Non-geographic
+
+Non-geographic provider tiles based on a Star Trek fictional galaxy map.
+
+```{r map2}
+tiles <- "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"
+leaflet(
+  options = leafletOptions(
+    crs = leafletCRS("L.CRS.Simple"), minZoom = 0, maxZoom = 7, attributionControl = FALSE), 
+    width = "100%", height = "400px") %>% 
+  addTiles(tiles) %>% setView(71, -60, 3)
+```
+
 ### Local preview
 
 By default `tile` also creates `preview.html` as noted above. This can also be created or re-created directly using `tile_viewer`. In either case, as long as `preview.html` exists alongside the tiles directory, it can easily be loaded in the browser with `view_tiles`. See help documentation for details.

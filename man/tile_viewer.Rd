@@ -4,7 +4,8 @@
 \alias{tile_viewer}
 \title{Create an HTML tile preview}
 \usage{
-tile_viewer(tiles, zoom, width = NULL, height = NULL, georef = TRUE, ...)
+tile_viewer(tiles, zoom, width = NULL, height = NULL, georef = TRUE,
+  ...)
 }
 \arguments{
 \item{tiles}{character, directory where tiles are stored.}
