@@ -8,8 +8,8 @@
 <title>Introduction to tiler • tiler</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Introduction to tiler">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
       </span>
     </div>
 
@@ -125,7 +125,10 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="tiler_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="tiler_files/jquery-1.12.4/jquery.min.js"></script><link href="tiler_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="tiler_files/leaflet-1.3.1/leaflet.js"></script><link href="tiler_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="tiler_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script><script src="tiler_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="tiler_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="tiler_files/leaflet-binding-2.0.1/leaflet.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to tiler</h1>
@@ -179,14 +182,14 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span>
 
 <span class="kw">list.files</span>(tile_dir)
 <span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
@@ -208,9 +211,8 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p><img src="tiler_files/figure-html/ex2-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -234,19 +236,18 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <p><img src="tiler_files/figure-html/ex3-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Warning in .proj_check(file, crs, ...): Projection expected but is missing.</span>
-<span class="co">#&gt; Continuing as non-geographic image.</span>
+<span class="co">#&gt; Warning in .proj_check(file, crs, crs_out, ...): Projection expected but is</span>
+<span class="co">#&gt; missing. Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
 <p>This is not likely what is wanted. The other option is to force set a known CRS if it is missing from the file or was dropped for whatever reason. Now reprojection can proceed and the expected tiles are generated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs &lt;-<span class="st"> "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, crs)
-<span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -261,7 +262,7 @@ pal &lt;-<span class="st"> </span><span class="kw">colorRampPalette</span>(<span
 nodata &lt;-<span class="st"> "tomato"</span>
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>, <span class="dt">col =</span> pal, <span class="dt">colNA =</span> nodata)
 <span class="co">#&gt; Coloring raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
+<span class="co">#&gt; Preparing intermediary raster for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -285,8 +286,6 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/tile.html">tile</a></span>(map, tile_dir, <span class="st">"0-3"</span>)
-<span class="co">#&gt; Reprojecting raster...</span>
-<span class="co">#&gt; Preparing for tiling...</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -331,6 +330,32 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <p><code>https://&lt;your account name&gt;.github.io/maptiles/tiles/{z}/{x}/{y}.png</code></p>
 <p>if you store your tiles in a folder named <code>tiles</code> in a repository named <code>maptiles</code> for example.</p>
 <p>Here are some <a href="https://github.com/leonawicz/tiles/">examples of non-geographic tile sets</a> hosted on GitHub using Star Trek galaxy maps generated with <code>tiler</code> and here they are used in <a href="https://leonawicz.github.io/rtrek/articles/sc.html">Leaflet maps</a>.</p>
+<div id="leaflet-examples-using-remotely-hosted-tiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#leaflet-examples-using-remotely-hosted-tiles" class="anchor"></a>Leaflet examples using remotely hosted tiles</h3>
+<div id="geographic" class="section level4">
+<h4 class="hasAnchor">
+<a href="#geographic" class="anchor"></a>Geographic</h4>
+<p>Geographic provider tiles based on the low resolution example map included in <code>tiler</code> of the 48 contiguous US states.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
+tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png"</span>
+<span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">minZoom =</span> <span class="dv">3</span>, <span class="dt">maxZoom =</span> <span class="dv">7</span>), <span class="dt">width =</span> <span class="st">"100%"</span>, 
+    <span class="dt">height =</span> <span class="st">"400px"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles)</code></pre></div>
+<div id="htmlwidget-b3c29f64f6b4b60b9ba5" style="width:100%;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3c29f64f6b4b60b9ba5">{"x":{"options":{"minZoom":3,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}]},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="non-geographic" class="section level4">
+<h4 class="hasAnchor">
+<a href="#non-geographic" class="anchor"></a>Non-geographic</h4>
+<p>Non-geographic provider tiles based on a Star Trek fictional galaxy map.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"</span>
+<span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">crs =</span> <span class="kw">leafletCRS</span>(<span class="st">"L.CRS.Simple"</span>), <span class="dt">minZoom =</span> <span class="dv">0</span>, 
+    <span class="dt">maxZoom =</span> <span class="dv">7</span>, <span class="dt">attributionControl =</span> <span class="ot">FALSE</span>), <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"400px"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">addTiles</span>(tiles) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setView</span>(<span class="dv">71</span>, <span class="op">-</span><span class="dv">60</span>, <span class="dv">3</span>)</code></pre></div>
+<div id="htmlwidget-91dd506c80721666eacb" style="width:100%;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91dd506c80721666eacb">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 <div id="local-preview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#local-preview" class="anchor"></a>Local preview</h3>
