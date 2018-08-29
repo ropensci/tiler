@@ -210,7 +210,7 @@ and are hosted [here](https://github.com/leonawicz/tiles/tree/master/us48lr).
 library(leaflet)
 tiles <- "https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png"
 leaflet(
-  options = leafletOptions(minZoom = 0, maxZoom = 7), width = "100%", height = "400px") %>% 
+  options = leafletOptions(minZoom = 0, maxZoom = 7), width = "100%") %>% 
   addProviderTiles("Stamen.Toner") %>% 
   addTiles(tiles, options = tileOptions(opacity = 0.8)) %>% setView(-100, 40, 3)
 ```
@@ -227,8 +227,7 @@ These map tiles were generated with `tile("st2.png", "tiles", "0-7")` and are ho
 tiles <- "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"
 leaflet(
   options = leafletOptions(
-    crs = leafletCRS("L.CRS.Simple"), minZoom = 0, maxZoom = 7, attributionControl = FALSE), 
-    width = "100%", height = "400px") %>% 
+    crs = leafletCRS("L.CRS.Simple"), minZoom = 0, maxZoom = 7, attributionControl = FALSE), width = "100%") %>% 
   addTiles(tiles) %>% setView(71, -60, 3)
 ```
 
