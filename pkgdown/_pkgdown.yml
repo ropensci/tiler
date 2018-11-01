@@ -3,6 +3,9 @@ url: https://leonawicz.github.io/
 template:
   params:
     ganalytics: UA-46129458-3
+    docsearch:
+      api_key: '449b10b6639e4611f7d5498f30bb2ab2'
+      index_name: 'leonawicz_tiler'
 
 authors:
   Matthew Leonawicz:
