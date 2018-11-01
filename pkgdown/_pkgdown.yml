@@ -7,9 +7,6 @@ template:
 authors:
   Matthew Leonawicz:
     href: http://leonawicz.github.io/
-  Scenarios Network for Alaska and Arctic Planning:
-    href: http://snap.uaf.edu/
-    html: <img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24" />  Scenarios Network for Alaska and Arctic Planning
 
 reference:
 - title: Package
