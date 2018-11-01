@@ -1,4 +1,4 @@
-url: http://leonawicz.github.io/
+url: https://leonawicz.github.io/
 
 template:
   params:
@@ -6,7 +6,7 @@ template:
 
 authors:
   Matthew Leonawicz:
-    href: http://leonawicz.github.io/
+    href: https://leonawicz.github.io/
 
 reference:
 - title: Package
