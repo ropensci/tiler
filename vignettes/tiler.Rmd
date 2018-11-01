@@ -22,9 +22,9 @@ In addition to generating map tiles based on a common raster layer source, it al
 
 Python is required as well as the `gdal` library for Python. For Windows users, this is not the same as simply having `rgdal` installed through R. You need to install `gdal` so that it is accessible by Python. One of the easiest and typically recommended ways to do this in Windows is to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/). It will bring all the required Python `gdal` library functionality along with it. OSGeo4W is also commonly installed along with [QGIS](https://qgis.org/en/site/forusers/download.html).
 
-On Windows for potential user convenience, the `tiler` package will perform a single check on package load for the `OSgeo4W.bat` utility at `C:/Program Files/QGIS 3.0/OSGeo4W.bat`. If found, its path is set in `tiler_options`. If it is not found at this precise location, the path remains unspecified and `tiler` will fall back on only calling Python during tiling operations, assuming hopefully that `gdal` will be available to Python nonetheless.
+On Windows, `tiler_options` is set on package load with `osgeo4w = "OSgeo4W.bat"`. Make sure to add the path to this file to your system path variable. Otherwise it will not be found when calling `tile`. You can set the full path to `OSGeo4W.bat` directly in your R session with `tiler_options`. However, it is recommended to add the directory (e.g. `C:/OSGeo64` or wherever `OSGeo4W.bat` is located) to your system path so that you never had to deal with it in R.
 
-You should not rely on a gratuitous check like this; `tiler` is being overly generous. It is recommended that you simply add the paths for `python.exe`, and `OSGeo4.bat` if applicable, to your system path after installation. This way you do not need to provide these paths to `tiler_options` in each R session; R will know where they are just like on other operating systems. That's all that should be needed. Linux and Mac users should not have to do any additional setup as long as Python and `gdal` for Python are installed.
+Linux and Mac users should not have to do any additional setup as long as Python and `gdal` for Python are installed and available.
 
 ## Geographic map tiles
 
