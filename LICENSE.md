@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2018 Scenarios Network for Alaska and Arctic Planning
+Copyright (c) 2018 Matthew Leonawicz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
