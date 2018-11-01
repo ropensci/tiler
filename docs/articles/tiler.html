@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -125,10 +125,10 @@
 <!--/.navbar -->
 
       
-      </header><script src="tiler_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="tiler_files/jquery-1.12.4/jquery.min.js"></script><link href="tiler_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+      </header><script src="tiler_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="tiler_files/jquery-1.12.4/jquery.min.js"></script><link href="tiler_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="tiler_files/leaflet-1.3.1/leaflet.js"></script><link href="tiler_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="tiler_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script><script src="tiler_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="tiler_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="tiler_files/leaflet-binding-2.0.1/leaflet.js"></script><script src="tiler_files/leaflet-providers-1.1.17/leaflet-providers.js"></script><script src="tiler_files/leaflet-providers-plugin-2.0.1/leaflet-providers-plugin.js"></script><div class="row">
+<script src="tiler_files/leaflet-binding-2.0.2/leaflet.js"></script><script src="tiler_files/leaflet-providers-1.1.17/leaflet-providers.js"></script><script src="tiler_files/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to tiler</h1>
@@ -147,8 +147,8 @@
 <h2 class="hasAnchor">
 <a href="#setup-windows-users" class="anchor"></a>Setup (Windows users)</h2>
 <p>Python is required as well as the <code>gdal</code> library for Python. For Windows users, this is not the same as simply having <code>rgdal</code> installed through R. You need to install <code>gdal</code> so that it is accessible by Python. One of the easiest and typically recommended ways to do this in Windows is to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a>. It will bring all the required Python <code>gdal</code> library functionality along with it. OSGeo4W is also commonly installed along with <a href="https://qgis.org/en/site/forusers/download.html">QGIS</a>.</p>
-<p>On Windows for potential user convenience, the <code>tiler</code> package will perform a single check on package load for the <code>OSgeo4W.bat</code> utility at <code>C:/Program Files/QGIS 3.0/OSGeo4W.bat</code>. If found, its path is set in <code>tiler_options</code>. If it is not found at this precise location, the path remains unspecified and <code>tiler</code> will fall back on only calling Python during tiling operations, assuming hopefully that <code>gdal</code> will be available to Python nonetheless.</p>
-<p>You should not rely on a gratuitous check like this; <code>tiler</code> is being overly generous. It is recommended that you simply add the paths for <code>python.exe</code>, and <code>OSGeo4.bat</code> if applicable, to your system path after installation. This way you do not need to provide these paths to <code>tiler_options</code> in each R session; R will know where they are just like on other operating systems. That’s all that should be needed. Linux and Mac users should not have to do any additional setup as long as Python and <code>gdal</code> for Python are installed.</p>
+<p>On Windows, <code>tiler_options</code> is set on package load with <code>osgeo4w = "OSgeo4W.bat"</code>. Make sure to add the path to this file to your system path variable. Otherwise it will not be found when calling <code>tile</code>. You can set the full path to <code>OSGeo4W.bat</code> directly in your R session with <code>tiler_options</code>. However, it is recommended to add the directory (e.g. <code>C:/OSGeo64</code> or wherever <code>OSGeo4W.bat</code> is located) to your system path so that you never had to deal with it in R.</p>
+<p>Linux and Mac users should not have to do any additional setup as long as Python and <code>gdal</code> for Python are installed and available.</p>
 </div>
 <div id="geographic-map-tiles" class="section level2">
 <h2 class="hasAnchor">
@@ -174,7 +174,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span>
 <span class="co">#&gt; extent      : -125.0208, -65.85417, 23.27083, 49.9375  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </span>
-<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_wgs84.tif </span>
+<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_wgs84.tif </span>
 <span class="co">#&gt; names       : map_wgs84 </span>
 <span class="co">#&gt; values      : -0.7205295, 5.545086  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -188,8 +188,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Complete.</span>
 
 <span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; character(0)</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
@@ -204,7 +203,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
-<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers.tif </span>
+<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers.tif </span>
 <span class="co">#&gt; names       : map_albers </span>
 <span class="co">#&gt; values      : -0.593978, 5.544724  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -230,7 +229,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : NA </span>
-<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers_NA.tif </span>
+<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers_NA.tif </span>
 <span class="co">#&gt; names       : map_albers_NA </span>
 <span class="co">#&gt; values      : -0.593978, 5.544724  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -280,7 +279,7 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
-<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers_rgb.tif </span>
+<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers_rgb.tif </span>
 <span class="co">#&gt; names       : map_albers_rgb.1, map_albers_rgb.2, map_albers_rgb.3 </span>
 <span class="co">#&gt; min values  :                0,                0,                0 </span>
 <span class="co">#&gt; max values  :              253,              255,              244</span>
@@ -347,16 +346,16 @@ tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/us48lr/tiles/{z}
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">minZoom =</span> <span class="dv">0</span>, <span class="dt">maxZoom =</span> <span class="dv">7</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">addProviderTiles</span>(<span class="st">"Stamen.Toner"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles, <span class="dt">options =</span> <span class="kw">tileOptions</span>(<span class="dt">opacity =</span> <span class="fl">0.8</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-2834f1aea89bb85d641d" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2834f1aea89bb85d641d">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
+<div id="htmlwidget-48c672f303d38e8ad855" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-48c672f303d38e8ad855">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(<span class="st">"st2.png"</span>, <span class="st">"tiles"</span>, <span class="st">"0-7"</span>)</code></pre></div>
 <p>and are hosted <a href="https://github.com/leonawicz/tiles/tree/master/st2">here</a>, including the source file <code>st2.png</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"</span>
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">crs =</span> <span class="kw">leafletCRS</span>(<span class="st">"L.CRS.Simple"</span>), <span class="dt">minZoom =</span> <span class="dv">0</span>, 
     <span class="dt">maxZoom =</span> <span class="dv">7</span>, <span class="dt">attributionControl =</span> <span class="ot">FALSE</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="dv">71</span>, <span class="op">-</span><span class="dv">60</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-46e6e9a129f96a51d90b" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46e6e9a129f96a51d90b">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-94bbdcdd024ef2ee9ca2" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94bbdcdd024ef2ee9ca2">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="local-preview" class="section level3">
 <h3 class="hasAnchor">
@@ -394,7 +393,7 @@ tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/us48lr/tiles/{z}
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://leonawicz.github.io/">Matthew Leonawicz</a>, <a href="http://snap.uaf.edu/"><img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24">  Scenarios Network for Alaska and Arctic Planning</a>.</p>
+  <p>Developed by <a href="https://leonawicz.github.io/">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">

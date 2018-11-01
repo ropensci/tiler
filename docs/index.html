@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tiler</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -140,11 +140,11 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="tiler" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#tiler" class="anchor"></a>tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/inst/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="120" align="right"></a>
+<a href="#tiler" class="anchor"></a>tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/inst/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="130" height="150" align="right"></a>
 </h1></div>
-<p><br><strong>Author:</strong> <a href="https://leonawicz.github.io/blog/">Matthew Leonawicz</a><br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT">MIT</a><br></p>
-<p><a href="https://cran.r-project.org/package=tiler"><img src="http://www.r-pkg.org/badges/version/tiler" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tiler"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tiler" alt="CRAN downloads"></a> <a href="https://github.com/ropensci/onboarding/issues/226"><img src="https://badges.ropensci.org/226_status.svg"></a> <a href="http://www.rdocumentation.org/packages/tiler"><img src="http://www.rdocumentation.org/badges/version/tiler" alt="Rdoc"></a> <a href="https://travis-ci.org/leonawicz/tiler"><img src="https://travis-ci.org/leonawicz/tiler.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/tiler"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/gh/leonawicz/tiler"><img src="https://codecov.io/gh/leonawicz/tiler/branch/master/graph/badge.svg" alt="codecov"></a></p>
-<p><a href="https://gitter.im/leonawicz/tiler"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg" alt="gitter"></a></p>
+<p><strong>Author:</strong> <a href="https://leonawicz.github.io/blog/">Matthew Leonawicz</a> <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> <a href="https://gitter.im/leonawicz/tiler"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg" alt="gitter"></a> <br><strong>License:</strong> <a href="https://opensource.org/licenses/MIT">MIT</a><br></p>
+<p><a href="https://cran.r-project.org/package=tiler"><img src="http://www.r-pkg.org/badges/version/tiler" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=tiler"><img src="http://cranlogs.r-pkg.org/badges/grand-total/tiler" alt="CRAN downloads"></a> <a href="https://github.com/ropensci/onboarding/issues/226"><img src="https://badges.ropensci.org/226_status.svg"></a> <a href="http://www.rdocumentation.org/packages/tiler"><img src="http://www.rdocumentation.org/badges/version/tiler" alt="Rdoc"></a></p>
+<p><a href="https://travis-ci.org/leonawicz/tiler"><img src="https://travis-ci.org/leonawicz/tiler.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/leonawicz/tiler"><img src="https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/gh/leonawicz/tiler"><img src="https://codecov.io/gh/leonawicz/tiler/branch/master/graph/badge.svg" alt="codecov"></a></p>
 <div class="figure">
 <img src="https://github.com/leonawicz/tiler/blob/master/data-raw/ne.jpg?raw=true">
 </div>
@@ -174,11 +174,11 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leonawicz/tiler"</span>)</code></pre></div>
 <p>For non-geographic tiles, using a <code>png</code> file is recommended for quality and file size. <code>jpg</code> may yield a lower quality result, while a large, high resolution <code>bmp</code> file may have an enormous file size compared to <code>png</code>.</p>
-<p><code>jpg</code> and <code>bmp</code> are <em>optionally</em> supported by <code>tiler</code>. This means they are not installed and imported with <code>tiler</code>. It is assumed the user will provide <code>png</code> images. If using <code>jpg</code> or <code>bmp</code> and the packages <code>jpeg</code> or <code>bmp</code> are not installed, respectively, <code>tile</code> will print a message to the console notfying of the required package installations.</p>
+<p><code>jpg</code> and <code>bmp</code> are <em>optionally</em> supported by <code>tiler</code>. This means they are not installed and imported with <code>tiler</code>. It is assumed the user will provide <code>png</code> images. If using <code>jpg</code> or <code>bmp</code> and the packages <code>jpeg</code> or <code>bmp</code> are not installed, respectively, <code>tile</code> will print a message to the console notifying of the required package installations.</p>
 <div id="system-requirements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#system-requirements" class="anchor"></a>System requirements</h3>
-<p>This package requires Python and the <code>gdal</code> library for Python. Windows users are recommended to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a> as an easy way to obtain the required <code>gdal</code> support for Python in Windows.</p>
+<p>This package requires Python and the <code>gdal</code> library for Python. Windows users are recommended to install <a href="https://trac.osgeo.org/osgeo4w/">OSGeo4W</a> as an easy way to obtain the required <code>gdal</code> support for Python in Windows. See <code><a href="reference/tiler_options.html">?tiler_options</a></code> or the package vignette for more information.</p>
 <hr>
 <p>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
@@ -209,9 +209,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://leonawicz.github.io/">Matthew Leonawicz</a> <br><small class="roles"> Author, maintainer </small>  </li>
-<li>
-<a href="http://snap.uaf.edu/"><img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24">  Scenarios Network for Alaska and Arctic Planning</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://leonawicz.github.io/">Matthew Leonawicz</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 </ul>
 </div>
 
@@ -221,7 +219,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://leonawicz.github.io/">Matthew Leonawicz</a>, <a href="http://snap.uaf.edu/"><img src="https://raw.githubusercontent.com/leonawicz/leonawicz.github.io/master/assets/img/snap_symbol.svg?sanitize=true" height="24">  Scenarios Network for Alaska and Arctic Planning</a>.</p>
+  <p>Developed by <a href="https://leonawicz.github.io/">Matthew Leonawicz</a>.</p>
 </div>
 
 <div class="pkgdown">

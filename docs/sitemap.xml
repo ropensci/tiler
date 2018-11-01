@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://leonawicz.github.io//index.html</loc>
+    <loc>https://leonawicz.github.io//index.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//reference/tile.html</loc>
+    <loc>https://leonawicz.github.io//reference/tile.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//reference/tiler.html</loc>
+    <loc>https://leonawicz.github.io//reference/tiler.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//reference/tiler_options.html</loc>
+    <loc>https://leonawicz.github.io//reference/tiler_options.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//reference/tile_viewer.html</loc>
+    <loc>https://leonawicz.github.io//reference/tile_viewer.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//reference/view_tiles.html</loc>
+    <loc>https://leonawicz.github.io//reference/view_tiles.html</loc>
   </url>
   <url>
-    <loc>http://leonawicz.github.io//articles/tiler.html</loc>
+    <loc>https://leonawicz.github.io//articles/tiler.html</loc>
   </url>
 </urlset>
