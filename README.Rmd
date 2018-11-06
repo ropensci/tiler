@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tiler <a hef="https://github.com/leonawicz/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/leonawicz/tiler/blob/master/inst/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="130" height="150" align="right"></a>
+# tiler <a hef="https://github.com/ropensci/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/ropensci/tiler/blob/master/data-raw/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="130" height="150" align="right"></a>
 
 **Author:** [Matthew Leonawicz](https://leonawicz.github.io/blog/) <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
 <br/>
@@ -22,11 +22,11 @@ knitr::opts_chunk$set(
 [![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
 [![Rdoc](http://www.rdocumentation.org/badges/version/tiler)](http://www.rdocumentation.org/packages/tiler)
 
-[![Travis-CI Build Status](https://travis-ci.org/leonawicz/tiler.svg?branch=master)](https://travis-ci.org/leonawicz/tiler)
+[![Travis-CI Build Status](https://travis-ci.org/ropensci/tiler.svg?branch=master)](https://travis-ci.org/ropensci/tiler)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
-[![codecov](https://codecov.io/gh/leonawicz/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/leonawicz/tiler)
+[![codecov](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler)
 
-![](https://github.com/leonawicz/tiler/blob/master/data-raw/ne.jpg?raw=true)
+![](https://github.com/ropensci/tiler/blob/master/data-raw/ne.jpg?raw=true)
 
 ## Create geographic and non-geographic map tiles
 
@@ -55,7 +55,7 @@ Install the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("leonawicz/tiler")
+devtools::install_github("ropensci/tiler")
 ```
 
 For non-geographic tiles, using a `png` file is recommended for quality and file size. `jpg` may yield a lower quality result, while a large, high resolution `bmp` file may have an enormous file size compared to `png`. 
@@ -72,13 +72,15 @@ is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_i
 ```
 
 ```{r md_vig_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Examples\n\nSee the [introduction vignette](https://leonawicz.github.io/tiler/articles/tiler.html) for more details and examples.')
+cat('## Examples\n\nSee the [introduction vignette](https://ropensci.github.io/tiler/articles/tiler.html) for more details and examples.')
 ```
 
 ```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Reference\n\n[Complete package reference and function documentation](https://leonawicz.github.io/tiler/)')
+cat('## Reference\n\n[Complete package reference and function documentation](https://ropensci.github.io/tiler/)')
 ```
 
 ---
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

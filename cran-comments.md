@@ -26,5 +26,5 @@ Similarly for Travis-CI, Appveyor and CRAN Win-Builder devel and release.
 
 ## Downstream dependencies
 I have also run R CMD check on downstream dependencies of tiler 
-(https://github.com/leonawicz/tiler/blob/master/revdep/checks.rds). 
+(https://github.com/ropensci/tiler/blob/master/revdep/checks.rds). 
 All packages passed.
