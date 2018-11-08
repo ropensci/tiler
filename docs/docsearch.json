@@ -2,21 +2,21 @@
   "index_name": "leonawicz_tiler",
   "start_urls": [
     {
-      "url": "https://leonawicz.github.io//index.html",
+      "url": "https://ropensci.github.io//index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://leonawicz.github.io//reference",
+      "url": "https://ropensci.github.io//reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://leonawicz.github.io//articles",
+      "url": "https://ropensci.github.io//articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://leonawicz.github.io//sitemap.xml"
+    "https://ropensci.github.io//sitemap.xml"
   ],
   "selectors": {
     "homepage": {
