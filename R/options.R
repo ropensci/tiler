@@ -10,6 +10,8 @@
 #' The recommended way to have GDAL available to Python in Windows is to install \href{https://trac.osgeo.org/osgeo4w/}{OSGeo4W}. This is commonly installed along with \href{https://qgis.org/en/site/forusers/download.html}{QGIS}.
 #'
 #' By default, \code{tiler_options} is set on package load with \code{osgeo4w = "OSGeo4W.bat"}. It is expected that the user has added the path to this file to the system PATH variable in Windows.
+#' For example, if it is installed to \code{C:/OSGeo4W64/OSGeo4W.bat}, add \code{C:/OSGeo4W64} to your PATH.
+#' If you do want to specify the path in the R session using \code{tiler_options}, provide the full path including the filename. See the example.
 #'
 #' None of this applies to other systems. As long as the system requirements, Python and GDAL, are installed, then \code{tile} should generate tiles without getting or setting any \code{tiler_options}.
 #'
