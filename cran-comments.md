@@ -2,20 +2,19 @@
 * local Windows 10 install, R 3.5.1
 * ubuntu 14.04 (on travis-ci), R 3.5.1
 * win-builder (devel and release)
+* R-hub (rhub::check_for_cran)
+
+## Update release
+
+* Fixed a big that was causing the system path to `OSGeo4W.bat` to be ignored on Windows.
+* Improved and simplified instructions for Windows setup.
+* Update examples and documentation.
 
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note
 
 * Maintainer email address updated.
-
-* This is an update release.
-
-* Fixed a big that was causing the system path to `OSGeo4W.bat` to be ignored on Windows.
-* Improved and simplified instructions for Windows setup.
-* Update examples and documentation.
-
----
 
 ## System Requirements details
 
