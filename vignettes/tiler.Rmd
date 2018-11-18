@@ -11,6 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE, comment = "#>", message = FALSE, error = FALSE, tidy = TRUE
 )
+set.seed(1)
 tmpfiles <- list.files(tempdir(), full.names = TRUE) # any pre-existing temp files
 ```
 
