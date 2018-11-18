@@ -54,8 +54,8 @@ install.packages("tiler")
 Install the development version from GitHub with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ropensci/tiler")
+# install.packages("remotes")
+remotes::install_github("ropensci/tiler")
 ```
 
 For non-geographic tiles, using a `png` file is recommended for quality and file size. `jpg` may yield a lower quality result, while a large, high resolution `bmp` file may have an enormous file size compared to `png`. 
