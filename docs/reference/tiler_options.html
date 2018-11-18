@@ -210,7 +210,9 @@
 It is recommended to add these to the system path so they do not need to be specified for every R session.</p>
 <p>As long as you are using OSGeo4W, you can ignore the Python path specification and do not even need to install it on your system separately; OSGeo4W will use its own built-in version.</p>
 <p>The recommended way to have GDAL available to Python in Windows is to install <a href='https://trac.osgeo.org/osgeo4w/'>OSGeo4W</a>. This is commonly installed along with <a href='https://qgis.org/en/site/forusers/download.html'>QGIS</a>.</p>
-<p>By default, <code>tiler_options</code> is set on package load with <code>osgeo4w = "OSGeo4W.bat"</code>. It is expected that the user has added the path to this file to the system PATH variable in Windows.</p>
+<p>By default, <code>tiler_options</code> is set on package load with <code>osgeo4w = "OSGeo4W.bat"</code>. It is expected that the user has added the path to this file to the system PATH variable in Windows.
+For example, if it is installed to <code>C:/OSGeo4W64/OSGeo4W.bat</code>, add <code>C:/OSGeo4W64</code> to your PATH.
+If you do want to specify the path in the R session using <code>tiler_options</code>, provide the full path including the filename. See the example.</p>
 <p>None of this applies to other systems. As long as the system requirements, Python and GDAL, are installed, then <code>tile</code> should generate tiles without getting or setting any <code>tiler_options</code>.</p>
     
 

@@ -182,7 +182,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span>
 <span class="co">#&gt; extent      : -125.0208, -65.85417, 23.27083, 49.9375  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </span>
-<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_wgs84.tif </span>
+<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_wgs84.tif </span>
 <span class="co">#&gt; names       : map_wgs84 </span>
 <span class="co">#&gt; values      : -0.7205295, 5.545086  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -196,7 +196,8 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; Complete.</span>
 
 <span class="kw">list.files</span>(tile_dir)
-<span class="co">#&gt; character(0)</span></code></pre></div>
+<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
+<span class="co">#&gt; [4] "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
@@ -211,7 +212,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
-<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers.tif </span>
+<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers.tif </span>
 <span class="co">#&gt; names       : map_albers </span>
 <span class="co">#&gt; values      : -0.593978, 5.544724  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -237,7 +238,7 @@ map &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span clas
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : NA </span>
-<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers_NA.tif </span>
+<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers_NA.tif </span>
 <span class="co">#&gt; names       : map_albers_NA </span>
 <span class="co">#&gt; values      : -0.593978, 5.544724  (min, max)</span>
 <span class="kw">plot</span>(r)</code></pre></div>
@@ -287,7 +288,7 @@ nodata &lt;-<span class="st"> "tomato"</span>
 <span class="co">#&gt; resolution  : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent      : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
-<span class="co">#&gt; data source : C:\Users\mleonawicz\Documents\R\win-library\3.5\tiler\maps\map_albers_rgb.tif </span>
+<span class="co">#&gt; data source : C:\Users\Matt\Documents\R\win-library\3.5\tiler\maps\map_albers_rgb.tif </span>
 <span class="co">#&gt; names       : map_albers_rgb.1, map_albers_rgb.2, map_albers_rgb.3 </span>
 <span class="co">#&gt; min values  :                0,                0,                0 </span>
 <span class="co">#&gt; max values  :              253,              255,              244</span>
@@ -354,16 +355,16 @@ tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/us48lr/tiles/{z}
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">minZoom =</span> <span class="dv">0</span>, <span class="dt">maxZoom =</span> <span class="dv">7</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">addProviderTiles</span>(<span class="st">"Stamen.Toner"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles, <span class="dt">options =</span> <span class="kw">tileOptions</span>(<span class="dt">opacity =</span> <span class="fl">0.8</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-d15c72758b8a3be3bc17" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d15c72758b8a3be3bc17">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
+<div id="htmlwidget-61c7ef36a62044620361" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-61c7ef36a62044620361">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tile.html">tile</a></span>(<span class="st">"st2.png"</span>, <span class="st">"tiles"</span>, <span class="st">"0-7"</span>)</code></pre></div>
 <p>and are hosted <a href="https://github.com/leonawicz/tiles/tree/master/st2">here</a>, including the source file <code>st2.png</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tiles &lt;-<span class="st"> "https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"</span>
 <span class="kw">leaflet</span>(<span class="dt">options =</span> <span class="kw">leafletOptions</span>(<span class="dt">crs =</span> <span class="kw">leafletCRS</span>(<span class="st">"L.CRS.Simple"</span>), <span class="dt">minZoom =</span> <span class="dv">0</span>, 
     <span class="dt">maxZoom =</span> <span class="dv">7</span>, <span class="dt">attributionControl =</span> <span class="ot">FALSE</span>), <span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>(tiles) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">setView</span>(<span class="dv">71</span>, <span class="op">-</span><span class="dv">60</span>, <span class="dv">3</span>)</code></pre></div>
-<div id="htmlwidget-b0257e13be34377dc879" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b0257e13be34377dc879">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-de577b997e2fd3abcb1b" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-de577b997e2fd3abcb1b">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="local-preview" class="section level3">
 <h3 class="hasAnchor">
