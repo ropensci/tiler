@@ -91,6 +91,8 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
     bat <- tiler_options()$osgeo4w
     if(bat != "OSGeo4W.bat"){
       ex <- paste0("\"", bat, "\" ", ex)
+    } else {
+      ex <- paste(bat, ex)
     }
   }
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
