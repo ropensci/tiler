@@ -51,6 +51,7 @@
 #' @param resume logical, only generate missing tiles.
 #' @param viewer logical, also create \code{preview.html} adjacent to \code{tiles} directory for previewing tiles in the browser using Leaflet.
 #' @param georef logical, for non-geographic tiles only. If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will add map markers with coordinate labels on mouse click to assist with georeferencing of non-geographic tiles.
+#' @param ignore.stderr logical, ignore the std error from calling python. \code{TRUE} helps with debug.
 #' @param ... additional arguments for projected maps: reprojection method or any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See details. Other additional arguments \code{lng} and \code{lat} can also be passed to the tile previewer. See \code{\link{tile_viewer}} for details.
 #'
 #' @return nothing is returned but tiles are written to disk.
@@ -73,7 +74,7 @@
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
 tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume = FALSE,
-                 viewer = TRUE, georef = TRUE, ...){
+                 viewer = TRUE, georef = TRUE, ignore.stderr = FALSE, ...){
   ext <- .get_ext(file)
   if(ext == "jpg" && !requireNamespace("jpeg", quietly = TRUE)){
     message("jpg files are optionally supported (png recommended). Install `jpeg` package to use jpg images.")
@@ -114,7 +115,7 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"), resume
                  normalizePath(tiles), "\"")
   }
   cat("Creating tiles. Please wait...\n")
-  system(ex, ignore.stderr = TRUE)
+  system(ex, ignore.stderr = ignore.stderr)
   unlink(g2t_tmp_dir, recursive = TRUE, force = TRUE)
   if(viewer){
     cat("Creating tile viewer...\n")
