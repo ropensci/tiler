@@ -92,7 +92,7 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL,
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
   <script type="text/javascript">\n', js, '\n</script>
   <style>html, body, #map { width:100%; height:100%; margin:0; padding:0; background-color: #B0B0B0 }</style>
   </head>
