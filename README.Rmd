@@ -11,20 +11,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tiler <a hef="https://github.com/ropensci/tiler/blob/master/data-raw/tiler.png?raw=true" _target="blank"><img src="https://github.com/ropensci/tiler/blob/master/data-raw/tiler.png?raw=true" style="margin-left:10px;margin-bottom:5px;" width="130" height="150" align="right"></a>
-
-**Author:** [Matthew Leonawicz](https://leonawicz.github.io/blog/) <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> [![gitter](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/leonawicz/tiler)
+# tiler <img src="man/figures/logo.png" style="margin-left:10px;margin-bottom:5px;" width="120" align="right">
+**Author:** [Matthew Leonawicz](https://github.com/leonawicz) <a href="https://orcid.org/0000-0001-9452-2771" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a>
 <br/>
 **License:** [MIT](https://opensource.org/licenses/MIT)<br/>
 
-[![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
-[![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/tiler)](https://cran.r-project.org/package=tiler) 
-[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
-[![Rdoc](http://www.rdocumentation.org/badges/version/tiler)](http://www.rdocumentation.org/packages/tiler)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis build status](https://travis-ci.org/ropensci/tiler.svg?branch=master)](https://travis-ci.org/ropensci/tiler)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
+[![Codecov test coverage](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler?branch=master)
 
-[![Travis-CI Build Status](https://travis-ci.org/ropensci/tiler.svg?branch=master)](https://travis-ci.org/ropensci/tiler)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/leonawicz/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
-[![codecov](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler)
+[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
+[![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/tiler)](https://cran.r-project.org/package=tiler)
+[![Github Stars](https://img.shields.io/github/stars/ropensci/tiler.svg?style=social&label=Github)](https://github.com/ropensci/tiler)
 
 ![](https://github.com/ropensci/tiler/blob/master/data-raw/ne.jpg?raw=true)
 
@@ -45,13 +45,13 @@ This package helps R users who wish to create geographic and non-geographic map 
 
 ## Installation
 
-Install `tiler` from CRAN with:
+Install `tiler` from CRAN with
 
 ``` r
 install.packages("tiler")
 ```
 
-Install the development version from GitHub with:
+Install the development version from GitHub with
 
 ``` r
 # install.packages("remotes")

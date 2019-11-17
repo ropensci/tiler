@@ -16,9 +16,12 @@ nothing is returned, but the default browser is launched.
 View map tiles in the browser using leaflet.
 }
 \details{
-This function opens \code{preview.html} in a web browser. This file displays map tiles in a Leaflet widget.
-The file is created when \code{tile} is called to generate the map tiles, unless \code{viewer = FALSE}.
-Alternatively, it is created (or re-created) subsequent to tile creation using \code{tile_viewer}.
+This function opens \code{preview.html} in a web browser. This file displays
+map tiles in a Leaflet widget.
+The file is created when \code{tile} is called to generate the map tiles,
+unless \code{viewer = FALSE}.
+Alternatively, it is created (or re-created) subsequent to tile creation
+using \code{tile_viewer}.
 }
 \examples{
 # launches browser; requires an existing tile set

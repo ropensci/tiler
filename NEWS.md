@@ -1,3 +1,7 @@
+# tiler 0.2.2
+
+* Minor update following changes to `leaflet` package.
+
 # tiler 0.2.1
 
 * Improved and simplified instructions and expectations for Windows use. Windows users must add `OSGeo4W.bat` path to system path.

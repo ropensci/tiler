@@ -7,16 +7,20 @@ test_that("tile works on different inputs", {
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE)
   files <- files[!grepl("gri$", files)]
   tiles <- file.path(tempdir(), gsub("[.]", "_", basename(files)))
-  crs <- "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0" # nolint
+  crs <- paste(
+    "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96",
+    "+x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0")
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
 
-  # A non-problematic warning is thrown only when running some testthat tests non-interactively
-  # "no non-missing arguments to" min and max. The tests pass but the extra warning needs to be suppressed.
+  # A non-problematic warning is thrown only when running some testthat tests
+  # non-interactively. "no non-missing arguments to" min and max. The tests
+  # pass but the extra warning needs to be suppressed.
 
   # Test RGB/RGBA multi-band rasters
   idx <- grep("rgb", files)
-  suppressWarnings(for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL"))
+  suppressWarnings(for(i in idx)
+    expect_is(tile(files[i], tiles[i], "0"), "NULL"))
 
   files <- files[-idx]
   tiles <- tiles[-idx]
@@ -38,16 +42,19 @@ test_that("tile works on different inputs", {
   tiles <- tiles[-idx]
 
   # missing CRS
-  warn <- "Projection expected but is missing. Continuing as non-geographic image."
+  warn <-
+    "Projection expected but is missing. Continuing as non-geographic image."
   idx <- grep("NA.grd|NA.tif", files)
   for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn)
 
   # force CRS
-  suppressWarnings(for(i in idx[1:2]) expect_is(tile(files[i], tiles[i], "0", crs), "NULL"))
+  suppressWarnings(for(i in idx[1:2])
+    expect_is(tile(files[i], tiles[i], "0", crs), "NULL"))
 
   # test remaining geographic maps
   idx <- which(!grepl("\\.nc$|NA", files) == TRUE)
-  suppressWarnings( for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
+  suppressWarnings(
+    for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
 
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
 
@@ -56,7 +63,8 @@ test_that("tile works on different inputs", {
   tiles <- tiles[idx]
 
   # colors
-  suppressWarnings(expect_is(tile(file, tiles, "0", col = clrs, colNA = nacol), "NULL"))
+  suppressWarnings(expect_is(tile(file, tiles, "0", col = clrs, colNA = nacol),
+                             "NULL"))
 
   # resume
   suppressWarnings(expect_is(tile(file, tiles, "0-1", resume = TRUE), "NULL"))
@@ -65,7 +73,10 @@ test_that("tile works on different inputs", {
 
   # format, method, alpha
   suppressWarnings(
-    expect_is(tile(file, tiles, "0", format = "tms", method = "ngb", alpha = TRUE), "NULL")
+    expect_is(
+      tile(file, tiles, "0", format = "tms", method = "ngb", alpha = TRUE),
+      "NULL"
+    )
   )
 
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
