@@ -61,10 +61,9 @@ view_tiles <- function(tiles){
 #' If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will
 #' add map markers with coordinate labels on mouse click to assist with
 #' georeferencing of non-geographic tiles.
-#' @param ... additional optional arguments include \code{format = "tms"} if
-#' necessary, and \code{lng} and \code{lat} for setting the view longitude and
-#' latitude. These three arguments only apply to geographic tiles. Viewer
-#' centering is \code{0, 0} by default.
+#' @param ... additional optional arguments include \code{lng} and \code{lat}
+#' for setting the view longitude and latitude. These three arguments only
+#' apply to geographic tiles. Viewer centering is \code{0, 0} by default.
 #'
 #' @return nothing is returned, but a file is written to disk.
 #' @export
@@ -153,15 +152,12 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL,
 .index_js <- function(tiles, zoom, width, height, georef, ...){
   zoom <- rep(strsplit(as.character(zoom), "-")[[1]], length = 2)
   if(is.null(width) | is.null(height)){
-    fmt <- if(!is.null(list(...)$format) && list(...)$format == "tms")
-      "tms" else "xyz"
     lng <- if(is.null(list(...)$lng)) 0 else list(...)$lng
     lat <- if(is.null(list(...)$lat)) 0 else list(...)$lat
     x <- paste0("function init () {
       var mymap = L.map('map').setView([", lat, ", ", lng, "], ", zoom[1], ");
       L.tileLayer('", basename(tiles), "/{z}/{x}/{y}.png', { minZoom: ",
-                zoom[1], ", maxZoom: ", zoom[2],
-                ifelse(fmt == "tms", ", tms: true", ""), " }).addTo(mymap)
+                zoom[1], ", maxZoom: ", zoom[2], ", tms: true }).addTo(mymap)
     }")
   } else {
     markers <- ifelse(georef, "var layerBounds = L.layerGroup([

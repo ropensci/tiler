@@ -208,7 +208,6 @@
   <span class='no'>tiles</span>,
   <span class='no'>zoom</span>,
   <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"xyz"</span>, <span class='st'>"tms"</span>),
   <span class='kw'>resume</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>viewer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>georef</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -236,10 +235,6 @@ See details.</p></td>
       <td><p>character, Proj4 string. Use this to force set the CRS of a
 loaded raster object from <code>file</code> in cases where the CRS is missing but
 known, to avoid defaulting to non-geographic tiling.</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>character, XYZ or TMS tile format. See details.</p></td>
     </tr>
     <tr>
       <th>resume</th>
@@ -275,7 +270,7 @@ passed to the tile previewer. See <code><a href='tile_viewer.html'>tile_viewer</
 When <code>file</code> is a simple image file such as <code>png</code>, <code>tile</code>
 generates non-geographic, simple CRS tiles.
 Files that can be loaded by the <code>raster</code> package yield geographic
-tiles, as long as <code>file</code> has projection information.
+tiles as long as <code>file</code> has projection information.
 If the raster object's proj4 string is <code>NA</code>, it falls back on
 non-geographic tile generation and a warning is thrown.</p>
 <p>Choice of appropriate zoom levels for non-geographic image files may depend
@@ -303,8 +298,7 @@ In this case, processing will continue but coloring arguments are ignored as
 unnecessary.
 <br /><br />
 Prior to tiling, a geographically-projected raster layer is reprojected to
-EPSG:4326 only if it has some other projection. Otherwise no reprojection is
-needed.
+EPSG:4326 only if it has some other projection.
 The only reprojection argument available through <code>...</code> is
 <code>method</code>, which can be <code>"bilinear"</code> (default) or<code>"ngb"</code>.
 If complete control over reprojection is required, this should be done prior
@@ -313,34 +307,22 @@ reprojection is performed by <code>tile</code>.
 When <code>file</code> consists of RGB or RGBA bands, <code>method</code> is ignored if
 provided and reprojection uses nearest neighbor.
 <br /><br />
-It is recommended to avoid using a projected 4-band RGBA raster file or
-<code>gdal2tiles</code>. However, the alpha channel appears to be ignored anyway.
+It is recommended to avoid using a projected 4-band RGBA raster file.
+However, the alpha channel appears to be ignored anyway.
 <code>gdal2tiles</code> gives an internal warning.
 Instead, create your RGBA raster file in unprojected form and it should
-seamlessly pass through to <code>gdal2tiles</code> without any issues.
-Three-band RGB raster files appear are unaffected by reprojection. The alpha
-channel appears to be completely ignored in the tiling process anyway, so it
-is fine to just use RGB rasters.</p>
+pass through to <code>gdal2tiles</code> without any issues.
+Three-band RGB raster files are unaffected by reprojection.</p>
 <h3>Tiles and Leaflet</h3>
-<p><code>gdal2tiles</code> generates TMS tiles, but XYZ are available and the
-default. Tile format only applies to geographic maps. All simple image-based
-tiles are XYZ format. See details.
+<p><code>gdal2tiles</code> generates TMS tiles. If expecting XYZ, for example when
+using with Leaflet, you can change the end of the URL to your hosted tiles
+from <code>{z}/{x}/{y}.png</code> to <code>{z}/{x}/{-y}.png</code>.
 <br /><br />
-This function is supported by three different versions of <code>gdal2tiles</code>.
+This function is supported by two different versions of <code>gdal2tiles</code>.
 There is the standard version, which generates geospatial tiles in TMS
-format.
-One alternative generates tiles in XYZ format. This is the default for
-<code>tile</code>. It may be more familiar to R users working with the
-<code>leaflet</code> package.
-There is no real benefit of using one version over the other for tiling
-spatial maps.
-If you set <code>format = "tms"</code> you may need to do similarly in your raw
-Leaflet code or your <code>leaflet</code> R code for tiles to arrange and display
-with the proper orientation.
-<br /><br />
-The third version of <code>gdal2tiles</code> handles basic image files like a
-matrix of rows and columns, using a simple Cartesian coordinate system based
-on pixel dimensions of the image file.
+format. The other version of <code>gdal2tiles</code> handles basic image files
+like a matrix of rows and columns, using a simple Cartesian coordinate
+system based on pixel dimensions of the image file.
 See the Leaflet JS library and <code>leaflet</code> package documentation for
 working with custom tiles in Leaflet.</p>
 
@@ -353,13 +335,15 @@ working with custom tiles in Leaflet.</p>
 <span class='co'># non-geographic/simple CRS</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"maps/map.png"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
 <span class='no'>tiles</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"tiles"</span>)
-<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; Creating tiles. Please wait...
+<span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='st'>"2-3"</span>)</div><div class='output co'>#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpo5XVts"
+#&gt; Creating tiles. Please wait...
 #&gt; Creating tile viewer...
 #&gt; Complete.</div><div class='input'>
 <span class='co'># projected map</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"maps/map_wgs84.tif"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tiler"</span>)
 <span class='fu'>tile</span>(<span class='no'>x</span>, <span class='no'>tiles</span>, <span class='fl'>0</span>)</div><div class='output co'>#&gt; Coloring raster...
 #&gt; Preparing for tiling...
+#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpo5XVts"
 #&gt; Creating tiles. Please wait...
 #&gt; Creating tile viewer...
 #&gt; Complete.</div><div class='input'><span class='co'># \dontshow{</span>

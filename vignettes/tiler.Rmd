@@ -229,6 +229,8 @@ leaflet(
   addTiles(tiles) %>% setView(71, -60, 3)
 ```
 
+*Note: These hosted tiles were made when `tiler` made XYZ-format tiles. It now strictly makes TMS tiles. For new tiles in `leaflet` switch the end of the url from `{y}` to `{-y}`.
+
 ### Local preview
 
 By default `tile` also creates `preview.html` as noted above. This can also be created or re-created directly using `tile_viewer`. In either case, as long as `preview.html` exists alongside the tiles directory, it can easily be loaded in the browser with `view_tiles`. See help documentation for details.

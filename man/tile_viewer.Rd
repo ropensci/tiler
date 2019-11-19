@@ -22,10 +22,9 @@ If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will
 add map markers with coordinate labels on mouse click to assist with
 georeferencing of non-geographic tiles.}
 
-\item{...}{additional optional arguments include \code{format = "tms"} if
-necessary, and \code{lng} and \code{lat} for setting the view longitude and
-latitude. These three arguments only apply to geographic tiles. Viewer
-centering is \code{0, 0} by default.}
+\item{...}{additional optional arguments include \code{lng} and \code{lat}
+for setting the view longitude and latitude. These three arguments only
+apply to geographic tiles. Viewer centering is \code{0, 0} by default.}
 }
 \value{
 nothing is returned, but a file is written to disk.

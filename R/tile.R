@@ -7,7 +7,7 @@
 #' When \code{file} is a simple image file such as \code{png}, \code{tile}
 #' generates non-geographic, simple CRS tiles.
 #' Files that can be loaded by the \code{raster} package yield geographic
-#' tiles, as long as \code{file} has projection information.
+#' tiles as long as \code{file} has projection information.
 #' If the raster object's proj4 string is \code{NA}, it falls back on
 #' non-geographic tile generation and a warning is thrown.
 #'
@@ -38,8 +38,7 @@
 #' unnecessary.
 #' \cr\cr
 #' Prior to tiling, a geographically-projected raster layer is reprojected to
-#' EPSG:4326 only if it has some other projection. Otherwise no reprojection is
-#' needed.
+#' EPSG:4326 only if it has some other projection.
 #' The only reprojection argument available through \code{...} is
 #' \code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
 #' If complete control over reprojection is required, this should be done prior
@@ -48,35 +47,23 @@
 #' When \code{file} consists of RGB or RGBA bands, \code{method} is ignored if
 #' provided and reprojection uses nearest neighbor.
 #' \cr\cr
-#' It is recommended to avoid using a projected 4-band RGBA raster file or
-#' \code{gdal2tiles}. However, the alpha channel appears to be ignored anyway.
+#' It is recommended to avoid using a projected 4-band RGBA raster file.
+#' However, the alpha channel appears to be ignored anyway.
 #' \code{gdal2tiles} gives an internal warning.
 #' Instead, create your RGBA raster file in unprojected form and it should
-#' seamlessly pass through to \code{gdal2tiles} without any issues.
-#' Three-band RGB raster files appear are unaffected by reprojection. The alpha
-#' channel appears to be completely ignored in the tiling process anyway, so it
-#' is fine to just use RGB rasters.
+#' pass through to \code{gdal2tiles} without any issues.
+#' Three-band RGB raster files are unaffected by reprojection.
 #' }
 #' \subsection{Tiles and Leaflet}{
-#' \code{gdal2tiles} generates TMS tiles, but XYZ are available and the
-#' default. Tile format only applies to geographic maps. All simple image-based
-#' tiles are XYZ format. See details.
+#' \code{gdal2tiles} generates TMS tiles. If expecting XYZ, for example when
+#' using with Leaflet, you can change the end of the URL to your hosted tiles
+#' from \code{{z}/{x}/{y}.png} to \code{{z}/{x}/{-y}.png}.
 #' \cr\cr
-#' This function is supported by three different versions of \code{gdal2tiles}.
+#' This function is supported by two different versions of \code{gdal2tiles}.
 #' There is the standard version, which generates geospatial tiles in TMS
-#' format.
-#' One alternative generates tiles in XYZ format. This is the default for
-#' \code{tile}. It may be more familiar to R users working with the
-#' \code{leaflet} package.
-#' There is no real benefit of using one version over the other for tiling
-#' spatial maps.
-#' If you set \code{format = "tms"} you may need to do similarly in your raw
-#' Leaflet code or your \code{leaflet} R code for tiles to arrange and display
-#' with the proper orientation.
-#' \cr\cr
-#' The third version of \code{gdal2tiles} handles basic image files like a
-#' matrix of rows and columns, using a simple Cartesian coordinate system based
-#' on pixel dimensions of the image file.
+#' format. The other version of \code{gdal2tiles} handles basic image files
+#' like a matrix of rows and columns, using a simple Cartesian coordinate
+#' system based on pixel dimensions of the image file.
 #' See the Leaflet JS library and \code{leaflet} package documentation for
 #' working with custom tiles in Leaflet.
 #' }
@@ -88,7 +75,6 @@
 #' @param crs character, Proj4 string. Use this to force set the CRS of a
 #' loaded raster object from \code{file} in cases where the CRS is missing but
 #' known, to avoid defaulting to non-geographic tiling.
-#' @param format character, XYZ or TMS tile format. See details.
 #' @param resume logical, only generate missing tiles.
 #' @param viewer logical, also create \code{preview.html} adjacent to
 #' \code{tiles} directory for previewing tiles in the browser using Leaflet.
@@ -121,8 +107,8 @@
 #' extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
 #' if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 #' }
-tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
-                 resume = FALSE, viewer = TRUE, georef = TRUE, ...){
+tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
+                 georef = TRUE, ...){
   ext <- .get_ext(file)
   if(ext == "jpg" && !requireNamespace("jpeg", quietly = TRUE)){
     message(paste("jpg files are optionally supported (png recommended).",
@@ -150,13 +136,11 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
   projected <- .proj_check(file, crs, ...)
   if(ext %in% .supported_filetypes$ras)
     file <- file.path(tempdir(), "tmp_raster.tif")
+  print(tempdir())
   dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"),
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
-    format <- match.arg(format, c("xyz", "tms"))
-    gdal2tiles <- switch(format, xyz = "python/gdal2tilesXYZ.py",
-                         tms = "python/gdal2tiles.py")
-    g2t <- system.file(gdal2tiles, package = "tiler")
+    g2t <- system.file("python/gdal2tiles.py", package = "tiler")
     ex <- paste0(ex, " \"", g2t, "\" -z ", zoom, " -w none ", "--tmpdir \"",
                  normalizePath(g2t_tmp_dir), "\" ",
                  ifelse(resume, "-e ", ""), "\"",
@@ -188,9 +172,9 @@ tile <- function(file, tiles, zoom, crs = NULL, format = c("xyz", "tms"),
       }
     }
     viewer_args <- c(
-      list(tiles = tiles, zoom = zoom, width = w, height = h, georef = georef,
-           format = format),
-      list(...))
+      list(tiles = tiles, zoom = zoom, width = w, height = h, georef = georef),
+      list(...)
+    )
     do.call(tile_viewer, viewer_args)
     cat("Complete.\n")
   }

@@ -1,6 +1,8 @@
 # tiler 0.2.2
 
-* Minor update following changes to `leaflet` package.
+* Breaking change: no longer using a `format` argument. All tiles are TMS.
+* Updated `gdal2tiles` to version 2.4 release.
+* Updated documentation.
 
 # tiler 0.2.1
 
