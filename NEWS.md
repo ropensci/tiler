@@ -2,6 +2,7 @@
 
 * Breaking change: no longer using a `format` argument. All tiles are TMS.
 * Updated `gdal2tiles` to version 2.4 release.
+* Bug fix.
 * Updated documentation.
 
 # tiler 0.2.1
