@@ -254,6 +254,7 @@ The `leaflet` R code needed in order to use custom non-geographic tiles like the
 
 ```{r cleanup, echo=FALSE}
 # supplemental check for excess temp files
-extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE), tmpfiles)
+extrafiles <- setdiff(list.files(tempdir(), full.names = TRUE),
+                      c(tmpfiles, list.files(tempdir(), "\\.js$", full.names = TRUE)))
 if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 ```
