@@ -1,3 +1,7 @@
+# tiler 0.2.3
+
+* Minor fixes for CRAN release.
+
 # tiler 0.2.2
 
 * Breaking change: no longer using a `format` argument. All tiles are TMS.

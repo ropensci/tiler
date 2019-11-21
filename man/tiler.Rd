@@ -24,6 +24,6 @@ images.
 \cr\cr
 This package requires Python and the \code{gdal} library for Python.
 Windows users are recommended to install
-\href{OSGeo4W}{https://trac.osgeo.org/osgeo4w/} as an easy way to obtain the
-required \code{gdal} support for Python in Windows.
+\code{OSGeo4W}: \code{https://trac.osgeo.org/osgeo4w/} as an easy way to
+obtain the required \code{gdal} support for Python in Windows.
 }

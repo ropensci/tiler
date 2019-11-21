@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -192,7 +192,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "378.984KB",
+  "fileSize": "379.012KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/tiler",
     "https://ci.appveyor.com/project/leonawicz/tiler",
@@ -208,5 +208,9 @@
   "copyrightHolder": {},
   "funder": {},
   "developmentStatus": "http://www.repostatus.org/#active",
-  "keywords": ["r", "r-package", "rstats"]
+  "keywords": [
+    "r",
+    "r-package",
+    "rstats"
+  ]
 }
