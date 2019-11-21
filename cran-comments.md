@@ -1,8 +1,10 @@
 ## Test environments
 * local Windows 10 install, R 3.6.1
-* ubuntu 14.04 (on travis-ci), R 3.6.1
+* WIndows 10 (AppVeyor), R 3.6.1
+* Ubuntu 16.04 (Travis CI), R-devel, R-release (3.6.1), R-oldrel (3.5.3)
+* Mac OSX (Travis CI) R-release (3.6.1)
 * win-builder (devel and release)
-* R-hub (rhub::check_for_cran)
+* R-hub (various)
 
 ## Update release
 
