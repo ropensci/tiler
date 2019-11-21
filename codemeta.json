@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.1",
+    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.1 (2018-07-02)",
+  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -78,18 +78,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "lintr",
-      "name": "lintr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=lintr"
     },
     {
       "@type": "SoftwareApplication",
@@ -191,6 +179,10 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "https://sysreqs.r-hub.io/get/libgdal"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "https://sysreqs.r-hub.io/get/python-2.7"
     },
     {
@@ -200,7 +192,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "356.098KB",
+  "fileSize": "378.984KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/tiler",
     "https://ci.appveyor.com/project/leonawicz/tiler",
@@ -211,5 +203,10 @@
     "@type": "Review",
     "url": "https://github.com/ropensci/onboarding/issues/226",
     "provider": "http://ropensci.org"
-  }
+  },
+  "contributor": {},
+  "copyrightHolder": {},
+  "funder": {},
+  "developmentStatus": "http://www.repostatus.org/#active",
+  "keywords": ["r", "r-package", "rstats"]
 }
