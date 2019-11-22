@@ -45,7 +45,7 @@ try:
     from osgeo import osr
 except:
     import gdal
-    print 'You are using "old gen" bindings. gdal2tiles needs "new gen" bindings.'
+    print ('You are using "old gen" bindings. gdal2tiles needs "new gen" bindings.')
     sys.exit(1)
 
 import os
@@ -798,7 +798,7 @@ gdal_vrtmerge.py -o merged.vrt %s"""
             print ('Input:', self.input)
             print ('Output:', self.output)
             print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
-            print ''
+            print ('')
 
     # -------------------------------------------------------------------------
 
@@ -1064,7 +1064,7 @@ gdal2tiles temp.vrt"""
                     # TODO: HIGH PRIORITY: Correction of AutoCreateWarpedVRT according the max zoomlevel for correct direct warping!!!
 
                     if self.options.verbose:
-                        print "Warping of the raster by AutoCreateWarpedVRT (result saved into 'tiles.vrt')"
+                        print ("Warping of the raster by AutoCreateWarpedVRT (result saved into 'tiles.vrt')")
                         self.out_ds.GetDriver().CreateCopy('tiles.vrt',
                                 self.out_ds)
 
@@ -1123,7 +1123,7 @@ gdal2tiles temp.vrt"""
                                 self.in_nodata[1], self.in_nodata[2]))
 
                         if self.options.verbose:
-                            print "Modified warping result saved into 'tiles1.vrt'"
+                            print ("Modified warping result saved into 'tiles1.vrt'")
                             open('tiles1.vrt', 'w').write(s)
 
                     # -----------------------------------
@@ -1171,7 +1171,7 @@ gdal2tiles temp.vrt"""
                         os.unlink(tempfilename)
 
                         if self.options.verbose:
-                            print "Modified -dstalpha warping result saved into 'tiles1.vrt'"
+                            print ("Modified -dstalpha warping result saved into 'tiles1.vrt'")
                             open('tiles1.vrt', 'w').write(s)
                     s = '''
                     '''
@@ -1218,7 +1218,7 @@ gdal2tiles temp.vrt"""
             self.kml = True
             self.isepsg4326 = True
             if self.options.verbose:
-                print 'KML autotest OK!'
+                print ('KML autotest OK!')
 
         # Read the georeference
 
@@ -1541,7 +1541,7 @@ gdal2tiles temp.vrt"""
     def generate_base_tiles(self):
         """Generation of the base tiles (the lowest in the pyramid) directly from the input raster"""
 
-        print 'Generating Base Tiles:'
+        print ('Generating Base Tiles:')
 
         if self.options.verbose:
 
@@ -1549,10 +1549,10 @@ gdal2tiles temp.vrt"""
             # px, py = self.mercator.MetersToPixels( mx, my, self.tmaxz)
             # print "Pixel coordinates:", px, py, (mx, my)
 
-            print ''
-            print 'Tiles generated from the max zoom level:'
-            print '----------------------------------------'
-            print ''
+            print ('')
+            print ('Tiles generated from the max zoom level:')
+            print ('----------------------------------------')
+            print ('')
 
         # Set the bounds
 
@@ -1598,7 +1598,7 @@ gdal2tiles temp.vrt"""
 
                 if self.options.resume and os.path.exists(tilefilename):
                     if self.options.verbose:
-                        print 'Tile generation skiped because of --resume'
+                        print ('Tile generation skiped because of --resume')
                     else:
                         self.progressbar(ti / float(tcount))
                     continue
@@ -1793,7 +1793,7 @@ gdal2tiles temp.vrt"""
     def generate_overview_tiles(self):
         """Generation of the overview tiles (higher in the pyramid) based on existing tiles"""
 
-        print 'Generating Overview Tiles:'
+        print ('Generating Overview Tiles:')
 
         tilebands = self.dataBandsCount + 1
 
@@ -1830,7 +1830,7 @@ gdal2tiles temp.vrt"""
                     if self.options.resume \
                         and os.path.exists(tilefilename):
                         if self.options.verbose:
-                            print 'Tile generation skiped because of --resume'
+                            print ('Tile generation skiped because of --resume')
                         else:
                             self.progressbar(ti / float(tcount))
                         continue
