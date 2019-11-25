@@ -8,8 +8,7 @@
 
 ## Update release
 
-* Fixed a bug that was causing vignette build to fail.
-* Update version of `gdal2tiles.py`.
+* Precompiling vignette depending on external data.
 
 ## R CMD check results
 
