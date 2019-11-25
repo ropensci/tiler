@@ -8,7 +8,8 @@
 
 ## Update release
 
-* Precompiling vignette depending on external data.
+* Precompiling vignette depending on external data
+* This update continues the fixes for warnings thrown on certain CRAN builds.
 
 ## R CMD check results
 
