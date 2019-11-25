@@ -1,3 +1,7 @@
+# tiler 0.2.4
+
+* Precompiling of vignette depending on external data.
+
 # tiler 0.2.3
 
 * Minor fixes for CRAN release.

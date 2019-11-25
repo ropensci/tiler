@@ -4,6 +4,6 @@ pkgdown_sha: ~
 articles:
   tiler: tiler.html
 urls:
-  reference: https://ropensci.github.io/tiler/reference
-  article: https://ropensci.github.io/tiler/articles
+  reference: https://docs.ropensci.org/tiler/reference
+  article: https://docs.ropensci.org/tiler/articles
 
