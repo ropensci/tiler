@@ -192,7 +192,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "601.665KB",
+  "fileSize": "608.179KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/tiler",
     "https://ci.appveyor.com/project/leonawicz/tiler",

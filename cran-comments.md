@@ -11,6 +11,10 @@
 * Precompiling vignette depending on external data
 * This update continues the fixes for warnings thrown on certain CRAN builds.
 
+This update is only a week after a previous update, but I am attmepting to handle the remaining R CMD check warnings on OSX on CRAN in the timeframe given to me by CRAN (by 2020-12-01). Win-Builder delays have been long as well and sometimes do not seem to remain in the queue.
+I build the package on various systems but it is difficult to recreate CRAN conditions.
+It looks like I needed to precompile the package vignette.
+
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
