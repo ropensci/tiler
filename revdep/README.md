@@ -10,13 +10,13 @@
 |collate  |English_United States.1252   |
 |ctype    |English_United States.1252   |
 |tz       |America/Denver               |
-|date     |2019-11-21                   |
+|date     |2019-11-25                   |
 
 # Dependencies
 
 |package |old   |new   |<U+0394>  |
 |:-------|:-----|:-----|:--|
-|tiler   |0.2.1 |0.2.2 |*  |
+|tiler   |0.2.3 |0.2.4 |*  |
 |png     |0.1-7 |0.1-7 |   |
 |raster  |3.0-7 |3.0-7 |   |
 |Rcpp    |1.0.3 |1.0.3 |   |
