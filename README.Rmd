@@ -67,20 +67,8 @@ For non-geographic tiles, using a `png` file is recommended for quality and file
 This package requires Python and the `gdal` library for Python.
 Windows users are recommended to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/) as an easy way to obtain the required `gdal` support for Python in Windows. See `?tiler_options` or the package vignette for more information.
 
-```{r is_md, echo = FALSE}
-is_md <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github-ascii_identifiers"
-```
-
-```{r md_vig_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Examples\n\nSee the [introduction vignette](https://docs.ropensci.org/tiler/articles/tiler.html) for more details and examples.')
-```
-
-```{r md_pkg_ref, echo = FALSE, results = "asis", eval = is_md}
-cat('## Reference\n\n[Complete package reference and function documentation](https://docs.ropensci.org/tiler/)')
-```
-
 ---
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/ropensci/tiler/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that the `tiler` project is released with a [Contributor Code of Conduct](https://github.com/leonawicz/tiler/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
