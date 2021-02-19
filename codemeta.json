@@ -191,9 +191,9 @@
   ],
   "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "5403.803KB",
+  "fileSize": "5403.845KB",
   "contIntegration": ["https://travis-ci.org/ropensci/tiler", "https://ci.appveyor.com/project/leonawicz/tiler", "https://codecov.io/gh/ropensci/tiler?branch=master"],
-  "relatedLink": "https://CRAN.R-project.org/package=tiler",
+  "relatedLink": ["https://CRAN.R-project.org/package=tiler", "https://docs.ropensci.org/tiler"],
   "review": {
     "@type": "Review",
     "url": "https://github.com/ropensci/software-review/issues/226",
@@ -202,7 +202,7 @@
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
-  "developmentStatus": "http://www.repostatus.org/#active",
+  "developmentStatus": "https://www.repostatus.org/",
   "keywords": [
     "r",
     "r-package",
