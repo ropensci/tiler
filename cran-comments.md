@@ -1,20 +1,12 @@
 ## Test environments
 
-* local Windows 10 install, R 3.6.1
-* Windows 10 (AppVeyor), R 3.6.1
-* Ubuntu 16.04 (Travis CI), R-devel, R-release (3.6.1), R-oldrel (3.5.3)
-* Mac OSX (Travis CI) R-release (3.6.1)
-* win-builder (devel and release)
-* R-hub (various)
+* local Windows 10 install, R 4.0.3
+* Windows 10 (AppVeyor), R 4.0.3
+* Ubuntu 16.04 (Travis CI), R-devel, R-release, R-oldrel
+* Mac OSX (Travis CI) R-release (4.0.3)
+* win-builder
 
 ## Update release
-
-* Precompiling vignette depending on external data
-* This update continues the fixes for warnings thrown on certain CRAN builds.
-
-This update is only a week after a previous update, but I am attmepting to handle the remaining R CMD check warnings on OSX on CRAN in the timeframe given to me by CRAN (by 2020-12-01). Win-Builder delays have been long as well and sometimes do not seem to remain in the queue.
-I build the package on various systems but it is difficult to recreate CRAN conditions.
-It looks like I needed to precompile the package vignette.
 
 ## R CMD check results
 

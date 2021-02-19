@@ -98,17 +98,14 @@
 
       
 
-      </header><script src="tiler_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="tiler_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="tiler_files/jquery-1.12.4/jquery.min.js"></script><link href="tiler_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
-<script src="tiler_files/leaflet-1.3.1/leaflet.js"></script><link href="tiler_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
-<script src="tiler_files/proj4-2.6.2/proj4.min.js"></script><script src="tiler_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="tiler_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="tiler_files/leaflet-binding-2.0.4.1/leaflet.js"></script><script src="tiler_files/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="tiler_files/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script><div class="row">
+      </header><script src="tiler-intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to tiler</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tiler/blob/master/vignettes/tiler.Rmd"><code>vignettes/tiler.Rmd</code></a></small>
-      <div class="hidden name"><code>tiler.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/tiler/blob/master/vignettes/tiler-intro.Rmd"><code>vignettes/tiler-intro.Rmd</code></a></small>
+      <div class="hidden name"><code>tiler-intro.Rmd</code></div>
 
     </div>
 
@@ -147,28 +144,26 @@
 <span class="co">#&gt; dimensions : 32, 71, 2272  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution : 0.8333333, 0.8333333  (x, y)</span>
 <span class="co">#&gt; extent     : -125.0208, -65.85417, 23.27083, 49.9375  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; crs        : +proj=longlat +datum=WGS84 +no_defs </span>
-<span class="co">#&gt; source     : C:/Users/Matt/AppData/Local/Temp/RtmpKEmOOl/temp_libpath59383cf40/tiler/maps/map_wgs84.tif </span>
+<span class="co">#&gt; crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="co">#&gt; source     : C:/github/tiler/inst/maps/map_wgs84.tif </span>
 <span class="co">#&gt; names      : map_wgs84 </span>
 <span class="co">#&gt; values     : -0.7205295, 5.545086  (min, max)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<p><img src="tiler_files/figure-html/ex1-1.png" width="700"></p>
+<div class="figure">
+<img src="vignette-ex1-1.png" alt=""><p class="caption">plot of chunk ex1</p>
+</div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span><span class="op">)</span>
-<span class="co">#&gt; Reprojecting raster...</span>
-<span class="co">#&gt; Warning in raster::projectRaster(r, e, method = method): input and ouput crs are</span>
-<span class="co">#&gt; the same</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="va">tile_dir</span><span class="op">)</span>
-<span class="co">#&gt; [1] "0"                   "1"                   "2"                  </span>
-<span class="co">#&gt; [4] "3"                   "tilemapresource.xml"</span></code></pre></div>
+<span class="co">#&gt; [1] "0"                   "1"                   "2"                   "3"                   "doc.kml"             "tilemapresource.xml"</span></code></pre></div>
 <p>Listing the files in <code>tile_dir</code> shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.</p>
 <p>Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by <code>tile</code>. When you run this example yourself you will see a bit more information at the console.</p>
 </div>
@@ -183,19 +178,21 @@
 <span class="co">#&gt; dimensions : 32, 71, 2272  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; crs        : +proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs </span>
-<span class="co">#&gt; source     : C:/Users/Matt/AppData/Local/Temp/RtmpKEmOOl/temp_libpath59383cf40/tiler/maps/map_albers.tif </span>
+<span class="co">#&gt; crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
+<span class="co">#&gt; source     : C:/github/tiler/inst/maps/map_albers.tif </span>
 <span class="co">#&gt; names      : map_albers </span>
 <span class="co">#&gt; values     : -0.593978, 5.544724  (min, max)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<p><img src="tiler_files/figure-html/ex2-1.png" width="700"></p>
+<div class="figure">
+<img src="vignette-ex2-1.png" alt=""><p class="caption">plot of chunk ex2</p>
+</div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span><span class="op">)</span>
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -213,20 +210,20 @@
 <span class="co">#&gt; resolution : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; crs        : NA </span>
-<span class="co">#&gt; source     : C:/Users/Matt/AppData/Local/Temp/RtmpKEmOOl/temp_libpath59383cf40/tiler/maps/map_albers_NA.tif </span>
+<span class="co">#&gt; source     : C:/github/tiler/inst/maps/map_albers_NA.tif </span>
 <span class="co">#&gt; names      : map_albers_NA </span>
 <span class="co">#&gt; values     : -0.593978, 5.544724  (min, max)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<p><img src="tiler_files/figure-html/ex3-1.png" width="700"></p>
+<div class="figure">
+<img src="vignette-ex3-1.png" alt=""><p class="caption">plot of chunk ex3</p>
+</div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span><span class="op">)</span>
-<span class="co">#&gt; Warning in .proj_check(file, crs, ...): Projection expected but is missing.</span>
-<span class="co">#&gt; Continuing as non-geographic image.</span>
+<span class="co">#&gt; Warning in .proj_check(file, crs, ...): Projection expected but is missing. Continuing as non-geographic image.</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; Warning in .gd_SetProject(object, ...): NOT UPDATED FOR PROJ &gt;= 6</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -237,7 +234,7 @@
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -252,12 +249,9 @@
 <span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkblue"</span>, <span class="st">"lightblue"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>
 <span class="va">nodata</span> <span class="op">&lt;-</span> <span class="st">"tomato"</span>
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span>, col <span class="op">=</span> <span class="va">pal</span>, colNA <span class="op">=</span> <span class="va">nodata</span><span class="op">)</span>
-<span class="co">#&gt; Reprojecting raster...</span>
-<span class="co">#&gt; Warning in raster::projectRaster(r, e, method = method): input and ouput crs are</span>
-<span class="co">#&gt; the same</span>
 <span class="co">#&gt; Coloring raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -273,19 +267,21 @@
 <span class="co">#&gt; dimensions : 32, 71, 2272, 3  (nrow, ncol, ncell, nlayers)</span>
 <span class="co">#&gt; resolution : 85011.74, 103363.8  (x, y)</span>
 <span class="co">#&gt; extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; crs        : +proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs </span>
-<span class="co">#&gt; source     : C:/Users/Matt/AppData/Local/Temp/RtmpKEmOOl/temp_libpath59383cf40/tiler/maps/map_albers_rgb.tif </span>
+<span class="co">#&gt; crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs </span>
+<span class="co">#&gt; source     : C:/github/tiler/inst/maps/map_albers_rgb.tif </span>
 <span class="co">#&gt; names      : map_albers_rgb.1, map_albers_rgb.2, map_albers_rgb.3 </span>
 <span class="co">#&gt; min values :                0,                0,                0 </span>
 <span class="co">#&gt; max values :              253,              255,              244</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<p><img src="tiler_files/figure-html/ex6-1.png" width="700"></p>
+<div class="figure">
+<img src="vignette-ex6-1.png" alt=""><p class="caption">plot of chunk ex6</p>
+</div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span><span class="op">)</span>
 <span class="co">#&gt; Reprojecting raster...</span>
 <span class="co">#&gt; Preparing for tiling...</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -304,11 +300,13 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"maps/map.png"</span>, package <span class="op">=</span> <span class="st">"tiler"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plotRGB.html">plotRGB</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/brick.html">brick</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="tiler_files/figure-html/ex7-1.png" width="700"></p>
+<div class="figure">
+<img src="vignette-ex7-1.png" alt=""><p class="caption">plot of chunk ex7</p>
+</div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="va">map</span>, <span class="va">tile_dir</span>, <span class="st">"0-3"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\Rtmpk94Xux"</span>
+<span class="co">#&gt; [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"</span>
 <span class="co">#&gt; Creating tiles. Please wait...</span>
 <span class="co">#&gt; Creating tile viewer...</span>
 <span class="co">#&gt; Complete.</span></code></pre></div>
@@ -346,11 +344,10 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span>
 <span class="va">tiles</span> <span class="op">&lt;-</span> <span class="st">"https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png"</span>
 <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span>
-  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leafletOptions</a></span><span class="op">(</span>minZoom <span class="op">=</span> <span class="fl">0</span>, maxZoom <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span><span class="st">"Stamen.Toner"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leafletOptions</a></span><span class="op">(</span>minZoom <span class="op">=</span> <span class="fl">0</span>, maxZoom <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span><span class="st">"Stamen.Toner"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="va">tiles</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-options.html">tileOptions</a></span><span class="op">(</span>opacity <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">40</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-484ed42468d86de4a421" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-484ed42468d86de4a421">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://leonawicz.github.io/tiles/us48lr/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":0.8,"zIndex":1,"detectRetina":false}]}],"setView":[[40,-100],3,[]]},"evals":[],"jsHooks":[]}</script><p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
+<p>Non-geographic provider tiles based on a Star Trek fictional galaxy map. These map tiles were generated with</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/tile.html">tile</a></span><span class="op">(</span><span class="st">"st2.png"</span>, <span class="st">"tiles"</span>, <span class="st">"0-7"</span><span class="op">)</span></code></pre></div>
 <p>and are hosted <a href="https://github.com/leonawicz/tiles/tree/master/st2">here</a>, including the source file <code>st2.png</code>.</p>
@@ -358,10 +355,9 @@
 <code class="sourceCode R"><span class="va">tiles</span> <span class="op">&lt;-</span> <span class="st">"https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png"</span>
 <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span>
   options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leafletOptions</a></span><span class="op">(</span>
-    crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leafletCRS</a></span><span class="op">(</span><span class="st">"L.CRS.Simple"</span><span class="op">)</span>, minZoom <span class="op">=</span> <span class="fl">0</span>, maxZoom <span class="op">=</span> <span class="fl">7</span>, attributionControl <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leafletCRS</a></span><span class="op">(</span><span class="st">"L.CRS.Simple"</span><span class="op">)</span>, minZoom <span class="op">=</span> <span class="fl">0</span>, maxZoom <span class="op">=</span> <span class="fl">7</span>, attributionControl <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="va">tiles</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="fl">71</span>, <span class="op">-</span><span class="fl">60</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-697d58abce2053a24549" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-697d58abce2053a24549">{"x":{"options":{"minZoom":0,"maxZoom":7,"crs":{"crsClass":"L.CRS.Simple","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"attributionControl":false},"calls":[{"method":"addTiles","args":["https://leonawicz.github.io/tiles/st2/tiles/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]}],"setView":[[-60,71],3,[]]},"evals":[],"jsHooks":[]}</script><p>*Note: These hosted tiles were made when <code>tiler</code> made XYZ-format tiles. It now strictly makes TMS tiles. For new tiles in <code>leaflet</code> switch the end of the url from <code>{y}</code> to <code>{-y}</code>.</p>
+<p>*Note: These hosted tiles were made when <code>tiler</code> made XYZ-format tiles. It now strictly makes TMS tiles. For new tiles in <code>leaflet</code> switch the end of the url from <code>{y}</code> to <code>{-y}</code>.</p>
 </div>
 <div id="local-preview" class="section level3">
 <h3 class="hasAnchor">

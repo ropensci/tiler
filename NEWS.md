@@ -1,3 +1,7 @@
+# tiler 0.2.5
+
+* Documentation updates.
+
 # tiler 0.2.4
 
 * Precompiling of vignette depending on external data.

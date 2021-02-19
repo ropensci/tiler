@@ -10,14 +10,13 @@
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -29,7 +28,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com",
+      "email": "mafleonawicz@gmail.com",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -38,7 +37,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "matt_leonawicz@esource.com",
+      "email": "mafleonawicz@gmail.com",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -179,30 +178,26 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "https://sysreqs.r-hub.io/get/libgdal"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "https://sysreqs.r-hub.io/get/python-2.7"
     },
     {
       "@type": "SoftwareApplication",
       "identifier": "https://sysreqs.r-hub.io/get/gdal"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "https://sysreqs.r-hub.io/get/libgdal"
     }
   ],
   "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "608.179KB",
-  "contIntegration": [
-    "https://travis-ci.org/ropensci/tiler",
-    "https://ci.appveyor.com/project/leonawicz/tiler",
-    "https://codecov.io/gh/ropensci/tiler"
-  ],
+  "fileSize": "5403.803KB",
+  "contIntegration": ["https://travis-ci.org/ropensci/tiler", "https://ci.appveyor.com/project/leonawicz/tiler", "https://codecov.io/gh/ropensci/tiler?branch=master"],
   "relatedLink": "https://CRAN.R-project.org/package=tiler",
   "review": {
     "@type": "Review",
-    "url": "https://github.com/ropensci/onboarding/issues/226",
-    "provider": "http://ropensci.org"
+    "url": "https://github.com/ropensci/software-review/issues/226",
+    "provider": "https://ropensci.org"
   },
   "contributor": {},
   "copyrightHolder": {},
