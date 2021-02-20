@@ -18,7 +18,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/ropensci/tiler?branch
 [![Codecov test
 coverage](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler?branch=master)
 
-[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
+[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/software-review/issues/226)
 [![CRAN
 status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
 [![CRAN RStudio mirror
@@ -98,7 +98,7 @@ the package vignette for more information.
 
 Please note that the `tiler` project is released with a [Contributor
 Code of
-Conduct](https://github.com/leonawicz/tiler/blob/master/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/ropensci/tiler/blob/master/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

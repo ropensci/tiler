@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/tiler?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/tiler)
 [![Codecov test coverage](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler?branch=master)
 
-[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/onboarding/issues/226)
+[![](https://badges.ropensci.org/226_status.svg)](https://github.com/ropensci/software-review/issues/226)
 [![CRAN status](http://www.r-pkg.org/badges/version/tiler)](https://cran.r-project.org/package=tiler)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/tiler)](https://cran.r-project.org/package=tiler)
 [![Github Stars](https://img.shields.io/github/stars/ropensci/tiler.svg?style=social&label=Github)](https://github.com/ropensci/tiler)
@@ -70,6 +70,6 @@ Windows users are recommended to install [OSGeo4W](https://trac.osgeo.org/osgeo4
 
 ---
 
-Please note that the `tiler` project is released with a [Contributor Code of Conduct](https://github.com/leonawicz/tiler/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Please note that the `tiler` project is released with a [Contributor Code of Conduct](https://github.com/ropensci/tiler/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
