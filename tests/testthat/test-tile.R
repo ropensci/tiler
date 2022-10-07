@@ -14,15 +14,6 @@ test_that("tile works on different inputs", {
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
 
-  pythonPath <- if (nzchar(Sys.which("python3"))) {
-    Sys.which("python3")
-  } else if (nzchar(Sys.which("python"))) {
-    Sys.which("python")
-  } else {
-    tiler_options()[["python"]] ## use as is, but tests will likely fail
-  }
-  tiler_options(python = pythonPath)
-
   # A non-problematic warning is thrown only when running some testthat tests
   # non-interactively. "no non-missing arguments to" min and max. The tests
   # pass but the extra warning needs to be suppressed.
