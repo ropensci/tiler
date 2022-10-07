@@ -12,10 +12,9 @@
 ^docs$
 ^pkgdown$
 ^clone_notes\.md$
-^appveyor\.yml$
-^\.travis\.yml$
 ^codecov\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^README\.html$
 ^vignettes/tiler\.Rmd$
 ^vignettes/tiler-intro\.Rmd\.orig$
+^\.github$
