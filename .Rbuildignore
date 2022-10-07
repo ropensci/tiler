@@ -7,11 +7,8 @@
 ^data-raw$
 ^README\.Rmd$
 ^revdep$
-^\.lintr$
-^inst/\.lintr$
 ^docs$
 ^pkgdown$
-^clone_notes\.md$
 ^codecov\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^README\.html$

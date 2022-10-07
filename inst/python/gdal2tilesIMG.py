@@ -797,7 +797,7 @@ gdal_vrtmerge.py -o merged.vrt %s"""
             print ('Options:', self.options)
             print ('Input:', self.input)
             print ('Output:', self.output)
-            print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
+            print ('Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024))
             print ('')
 
     # -------------------------------------------------------------------------
@@ -990,7 +990,7 @@ gdal2tiles temp.vrt"""
                 self.in_nodata = nds
 
         if self.options.verbose:
-            print 'NODATA: %s' % self.in_nodata
+            print ('NODATA: %s' % self.in_nodata)
 
         #
         # Here we should have RGBA input dataset opened in self.in_ds

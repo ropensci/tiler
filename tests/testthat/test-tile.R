@@ -37,24 +37,23 @@ test_that("tile works on different inputs", {
 
   # test png (jpg and bmp tested elsewhere)
   idx <- which(basename(files) == "map.png")
-  expect_is(tile(files[idx], tiles[idx], "0"), "NULL") ## syntax error !
-
-  ## TODO: fix error in python script (#20):
-  # File "inst/python/gdal2tilesIMG.py", line 800
-  # print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
-  # ^
-  #   SyntaxError: invalid syntax
-  #
+  expect_is(tile(files[idx], tiles[idx], "4"), "NULL")
 
   files <- files[-idx]
   tiles <- tiles[-idx]
 
   # missing CRS
+
+  # Change needed: Thes files used to read in with raster as having NA for crs,
+  # but no longer do. It looks like wgs84 is assumed on read.
+  # See data-raw/data.R for context.
+
   warn <- paste(
     "Projection expected but is missing. Continuing as non-geographic image.",
-    "input and ouput crs are the same",
+    "input and ouput crs are the same", # this line is not intended to be applicable
     sep = "|"
   )
+
   idx <- grep("NA.grd|NA.tif", files)
   for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn) ## syntax error !
 

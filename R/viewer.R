@@ -81,8 +81,6 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL,
   invisible()
 }
 
-# nolint start
-
 .preview_html <- function(js){
   paste0('<!DOCTYPE html>
   <html>
@@ -188,5 +186,3 @@ tile_viewer <- function(tiles, zoom, width = NULL, height = NULL,
   }
   x
 }
-
-# nolint end
