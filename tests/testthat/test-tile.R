@@ -39,7 +39,7 @@ test_that("tile works on different inputs", {
   idx <- which(basename(files) == "map.png")
   expect_is(tile(files[idx], tiles[idx], "0"), "NULL") ## syntax error !
 
-  ## TODO: fix error in python script:
+  ## TODO: fix error in python script (#20):
   # File "inst/python/gdal2tilesIMG.py", line 800
   # print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
   # ^
