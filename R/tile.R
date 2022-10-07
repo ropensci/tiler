@@ -98,8 +98,12 @@
 #' tiles <- file.path(tempdir(), "tiles")
 #' tile(x, tiles, "2-3")
 #'
-#' # projected map
+#' # unprojected map
 #' x <- system.file("maps/map_wgs84.tif", package = "tiler")
+#' tile(x, tiles, 0)
+#'
+#' # projected map
+#' x <- system.file("maps/map_albers.tif", package = "tiler")
 #' tile(x, tiles, 0)
 #' \dontshow{
 #' unlink(c(tiles, file.path(tempdir(), "preview.html")), recursive = TRUE,
@@ -238,7 +242,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
 
 .is_wgs84 <- function(x){
   grepl("+proj=longlat", x) & grepl("+datum=WGS84", x) &
-    grepl("+no_defs|+towgs84=0,0,0", x) & grepl("+ellps=WGS84", x)
+    grepl("+no_defs|+towgs84=0,0,0", x) # & grepl("+ellps=WGS84", x) # last bit unnecessary?
 }
 
 .fix_colors <- function(x, no_white = FALSE){
