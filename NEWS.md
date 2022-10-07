@@ -1,3 +1,9 @@
+# tiler 0.2.6
+
+* try to automatically detect python path when setting tiler option (#19; @achubaty)
+* fixed a race condition in temp files running `tile()` in parallel (with #18; @achubaty)
+* use GitHub Actions for testing (#6; @achubaty)
+
 # tiler 0.2.5
 
 * Documentation updates.
