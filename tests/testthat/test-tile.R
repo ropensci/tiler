@@ -37,16 +37,26 @@ test_that("tile works on different inputs", {
 
   # test png (jpg and bmp tested elsewhere)
   idx <- which(basename(files) == "map.png")
-  expect_is(tile(files[idx], tiles[idx], "0"), "NULL")
+  expect_is(tile(files[idx], tiles[idx], "0"), "NULL") ## syntax error !
+
+  ## TODO: fix error in python script (#20):
+  # File "inst/python/gdal2tilesIMG.py", line 800
+  # print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
+  # ^
+  #   SyntaxError: invalid syntax
+  #
 
   files <- files[-idx]
   tiles <- tiles[-idx]
 
   # missing CRS
-  warn <-
-    "Projection expected but is missing. Continuing as non-geographic image."
+  warn <- paste(
+    "Projection expected but is missing. Continuing as non-geographic image.",
+    "input and ouput crs are the same",
+    sep = "|"
+  )
   idx <- grep("NA.grd|NA.tif", files)
-  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn)
+  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn) ## syntax error !
 
   # force CRS
   suppressWarnings(for(i in idx[1:2])

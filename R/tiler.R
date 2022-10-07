@@ -22,5 +22,6 @@
 #' obtain the required \code{gdal} support for Python in Windows.
 #'
 #' @docType package
+#' @importFrom rgdal GDAL_OSR_PROJ
 #' @name tiler
 NULL
