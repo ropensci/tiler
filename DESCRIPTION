@@ -8,7 +8,10 @@ Description: Creates geographic map tiles from geospatial map files or non-geogr
     Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.
     This package requires 'Python' and the 'gdal' library for 'Python'. 
     'Windows' users are recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an easy way to obtain the required 'gdal' support for 'Python'.
-Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771"))
+Authors@R: c(
+    person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771")
+    person("Alex M", "Chubaty", email = "achubaty@for-cast.ca", role = "ctb", comment = c(ORCID = "0000-0001-7146-8135"))
+    )
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
