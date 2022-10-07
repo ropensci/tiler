@@ -137,7 +137,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   if(ext %in% .supported_filetypes$ras)
     file <- file.path(tempdir(), "tmp_raster.tif")
   print(tempdir())
-  dir.create(g2t_tmp_dir <- file.path(tempdir(), "g2ttmp"),
+  dir.create(g2t_tmp_dir <- tempfile("g2ttmp_"),
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
     g2t <- system.file("python/gdal2tiles.py", package = "tiler")

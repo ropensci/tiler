@@ -14,6 +14,15 @@ test_that("tile works on different inputs", {
   clrs <- colorRampPalette(c("blue", "#FFFFFF", "#FF0000"))(30)
   nacol <- "#FFFF00"
 
+  pythonPath <- if (nzchar(Sys.which("python3"))) {
+    Sys.which("python3")
+  } else if (nzchar(Sys.which("python"))) {
+    Sys.which("python")
+  } else {
+    tiler_options()[["python"]] ## use as is, but tests will likely fail
+  }
+  tiler_options(python = pythonPath)
+
   # A non-problematic warning is thrown only when running some testthat tests
   # non-interactively. "no non-missing arguments to" min and max. The tests
   # pass but the extra warning needs to be suppressed.
@@ -37,16 +46,26 @@ test_that("tile works on different inputs", {
 
   # test png (jpg and bmp tested elsewhere)
   idx <- which(basename(files) == "map.png")
-  expect_is(tile(files[idx], tiles[idx], "0"), "NULL")
+  expect_is(tile(files[idx], tiles[idx], "0"), "NULL") ## syntax error !
+
+  ## TODO: fix error in python script:
+  # File "inst/python/gdal2tilesIMG.py", line 800
+  # print 'Cache: %s MB' % (gdal.GetCacheMax() / 1024 / 1024)
+  # ^
+  #   SyntaxError: invalid syntax
+  #
 
   files <- files[-idx]
   tiles <- tiles[-idx]
 
   # missing CRS
-  warn <-
-    "Projection expected but is missing. Continuing as non-geographic image."
+  warn <- paste(
+    "Projection expected but is missing. Continuing as non-geographic image.",
+    "input and ouput crs are the same",
+    sep = "|"
+  )
   idx <- grep("NA.grd|NA.tif", files)
-  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn)
+  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn) ## syntax error !
 
   # force CRS
   suppressWarnings(for(i in idx[1:2])
