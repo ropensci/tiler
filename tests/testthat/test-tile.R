@@ -55,7 +55,7 @@ test_that("tile works on different inputs", {
   )
 
   idx <- grep("NA.grd|NA.tif", files)
-  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn) ## syntax error !
+  for(i in idx) expect_warning(tile(files[i], tiles[i], "0"), warn)
   # These used to all produce the first warning above based on an NA-valued CRS for the prepared files.
 
   # force CRS
