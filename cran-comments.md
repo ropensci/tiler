@@ -1,6 +1,7 @@
 ## Test environments
 
 * local Windows 10 install, R 4.3.1
+* Ubuntu 20.04 (GitHub Actions), devel, oldrel, release
 * win-builder
 
 ## Update release
