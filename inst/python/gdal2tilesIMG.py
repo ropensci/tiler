@@ -1547,7 +1547,7 @@ gdal2tiles temp.vrt"""
 
             # mx, my = self.out_gt[0], self.out_gt[3] # OriginX, OriginY
             # px, py = self.mercator.MetersToPixels( mx, my, self.tmaxz)
-            # print "Pixel coordinates:", px, py, (mx, my)
+            # print ("Pixel coordinates:", px, py, (mx, my))
 
             print ('')
             print ('Tiles generated from the max zoom level:')
@@ -1616,7 +1616,7 @@ gdal2tiles temp.vrt"""
                 elif self.options.profile == 'geodetic':
                     b = self.geodetic.TileBounds(tx, ty, tz)
 
-                # print "\tgdalwarp -ts 256 256 -te %s %s %s %s %s %s_%s_%s.tif" % ( b[0], b[1], b[2], b[3], "tiles.vrt", tz, tx, ty)
+                # print ("\tgdalwarp -ts 256 256 -te %s %s %s %s %s %s_%s_%s.tif" % ( b[0], b[1], b[2], b[3], "tiles.vrt", tz, tx, ty))
 
                 # Don't scale up by nearest neighbour, better change the querysize
                 # to the native resolution (and return smaller query tile) for scaling

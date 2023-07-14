@@ -15,9 +15,9 @@ In addition to generating map tiles based on a common raster layer source, it al
 
 ## Setup (Windows users)
 
-Python is required as well as the `gdal` library for Python. For Windows users, this is not the same as simply having `rgdal` installed through R. You need to install `gdal` so that it is accessible by Python. One of the easiest and typically recommended ways to do this in Windows is to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/). It will bring all the required Python `gdal` library functionality along with it. OSGeo4W is also commonly installed along with [QGIS](https://qgis.org/en/site/forusers/download.html).
+Python is required as well as the `gdal` library for Python. An easy recommended way for Windows users to do this in Windows is to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/). It will bring all the required Python `gdal` library functionality along with it. OSGeo4W is also commonly installed along with [QGIS](https://qgis.org/en/site/forusers/download.html).
 
-On Windows, `tiler_options` is set on package load with `osgeo4w = "OSgeo4W.bat"`. Make sure to add the path to this file to your system path variable. Otherwise it will not be found when calling `tile`. You can set the full path to `OSGeo4W.bat` directly in your R session with `tiler_options`. However, it is recommended to add the directory (e.g. `C:/OSGeo64` or wherever `OSGeo4W.bat` is located) to your system path so that you never had to deal with it in R.
+On Windows, `tiler_options()` is set on package load with `osgeo4w = "OSgeo4W.bat"`. Make sure to add the path to this file to your system path variable. Otherwise it will not be found when calling `tile()`. You can set the full path to `OSGeo4W.bat` directly in your R session with `tiler_options()`. However, it is recommended to add the directory (e.g. `C:/OSGeo64` or wherever `OSGeo4W.bat` is located) to your system path so that you never had to deal with it in R.
 
 Linux and Mac users should not have to do any additional setup as long as Python and `gdal` for Python are installed and available.
 
@@ -33,7 +33,7 @@ Lastly, consider the power of your system before attempting to make a ton of til
 
 ### Basic example
 
-Map tiles are generated with `tile`. `tile` takes an input file name `file` for the source map and a `tiles` destination path for where to save map tiles. The only other required argument is `zoom`, the range of zoom levels for the tiles. This is a string of the form, e.g. `3:7`. In this and the subsequent examples zoom levels 0-3 are used.
+Map tiles are generated with `tile()`. `tile()` takes an input file name `file` for the source map and a `tiles` destination path for where to save map tiles. The only other required argument is `zoom`, the range of zoom levels for the tiles. This is a string of the form, e.g. `3:7`. In this and the subsequent examples zoom levels 0-3 are used.
 
 
 ```r
@@ -46,8 +46,8 @@ map <- system.file("maps/map_wgs84.tif", package = "tiler")
 #> dimensions : 32, 71, 2272  (nrow, ncol, ncell)
 #> resolution : 0.8333333, 0.8333333  (x, y)
 #> extent     : -125.0208, -65.85417, 23.27083, 49.9375  (xmin, xmax, ymin, ymax)
-#> crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-#> source     : C:/github/tiler/inst/maps/map_wgs84.tif 
+#> crs        : +proj=longlat +datum=WGS84 +no_defs 
+#> source     : map_wgs84.tif 
 #> names      : map_wgs84 
 #> values     : -0.7205295, 5.545086  (min, max)
 plot(r)
@@ -60,7 +60,6 @@ plot(r)
 tile(map, tile_dir, "0-3")
 #> Coloring raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -73,7 +72,7 @@ list.files(tile_dir)
 
 Listing the files in `tile_dir` shows the top level map tiles directories, 0-3 as expected. This is not printed in subsequent examples since it is not going to change.
 
-Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by `tile`. When you run this example yourself you will see a bit more information at the console.
+Note that these examples rendered to HTML here do not capture the parts of the log output that result from the internal system call made by `tile()`. When you run this example yourself you will see a bit more information at the console.
 
 ### Projected maps
 
@@ -87,8 +86,8 @@ map <- system.file("maps/map_albers.tif", package = "tiler")
 #> dimensions : 32, 71, 2272  (nrow, ncol, ncell)
 #> resolution : 85011.74, 103363.8  (x, y)
 #> extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)
-#> crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-#> source     : C:/github/tiler/inst/maps/map_albers.tif 
+#> crs        : +proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+#> source     : map_albers.tif 
 #> names      : map_albers 
 #> values     : -0.593978, 5.544724  (min, max)
 plot(r)
@@ -102,7 +101,6 @@ tile(map, tile_dir, "0-3")
 #> Reprojecting raster...
 #> Coloring raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -110,11 +108,11 @@ tile(map, tile_dir, "0-3")
 
 
 
-The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile` reprojects the raster layer internally. This can be seen in the log output printed to the console.
+The tiles generated this time are the same as before, that is, ready for `leaflet`. `tile()` reprojects the raster layer internally. This can be seen in the log output printed to the console.
 
 ### Missing CRS
 
-If the CRS of the raster is `NA`, there are two options. By default, `tile` will fall back on processing the raster layer as if it were a simple image file with no geospatial projection information (see the next section on simple CRS/non-geographic map tiles). These tiles are not the same as the previous sets.
+If the CRS of the raster is `NA`, there are two options. By default, `tile()` will fall back on processing the raster layer as if it were a simple image file with no geospatial projection information (see the next section on simple CRS/non-geographic map tiles). These tiles are not the same as the previous sets.
 
 
 ```r
@@ -125,7 +123,7 @@ map <- system.file("maps/map_albers_NA.tif", package = "tiler")
 #> resolution : 85011.74, 103363.8  (x, y)
 #> extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)
 #> crs        : NA 
-#> source     : C:/github/tiler/inst/maps/map_albers_NA.tif 
+#> source     : map_albers_NA.tif 
 #> names      : map_albers_NA 
 #> values     : -0.593978, 5.544724  (min, max)
 plot(r)
@@ -139,7 +137,6 @@ tile(map, tile_dir, "0-3")
 #> Warning in .proj_check(file, crs, ...): Projection expected but is missing. Continuing as non-geographic image.
 #> Coloring raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -156,7 +153,6 @@ tile(map, tile_dir, "0-3", crs)
 #> Reprojecting raster...
 #> Coloring raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -164,11 +160,11 @@ tile(map, tile_dir, "0-3", crs)
 
 
 
-A note on reprojection: Depending on the nature of the data in a raster, the `...` argument to `tile` allows you to pass through the `method` argument to `raster::projectRaster`. This is `bilinear` by default for bilinear interpolation, appropriate for continuous data. It can be set to `ngb` for nearest neighbor, appropriate for discrete or categorical data. If more control is needed over the reprojection, you should just prepare your raster file first before using `tile`. `tiler` is not intended to substitute for or wrap general geospatial processing tasks that can easily be done with other packages.
+A note on reprojection: Depending on the nature of the data in a raster, the `...` argument to `tile()` allows you to pass through the `method` argument to `raster::projectRaster()`. This is `bilinear` by default for bilinear interpolation, appropriate for continuous data. It can be set to `ngb` for nearest neighbor, appropriate for discrete or categorical data. If more control is needed over the reprojection, you should just prepare your raster file first before using `tile()`. `tiler` is not intended to substitute for or wrap general geospatial processing tasks that can easily be done with other packages.
 
 ### Coloring tiles
 
-Being able to change the default color palette or specify color breaks is important. All other optional `...` arguments to `tile` are passed to `raster::RGB` to provide control over the creation of an intermediary RGB raster. Most arguments to `RGB` can usually be ignored. The most useful ones are `col` and `colNA` for the data values color palette and the `noData` color, respectively. Coloring tiles differently for the original example is as simple as the following.
+Being able to change the default color palette or specify color breaks is important. All other optional `...` arguments to `tile()` are passed to `raster::RGB()` to provide control over the creation of an intermediary RGB raster. Most arguments to `RGB` can usually be ignored. The most useful ones are `col` and `colNA` for the data values color palette and the `noData` color, respectively. Coloring tiles differently for the original example is as simple as the following.
 
 
 ```r
@@ -178,7 +174,6 @@ nodata <- "tomato"
 tile(map, tile_dir, "0-3", col = pal, colNA = nodata)
 #> Coloring raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -188,7 +183,7 @@ tile(map, tile_dir, "0-3", col = pal, colNA = nodata)
 
 ### RGB and RGBA rasters
 
-Multi-band rasters are supported as long as they have three or four layers, in which case `tile` assumes these represent red, green, blue and alpha channel, respectively. Internally, single-layer raster files are colored and converted to a three- or four-band RGB/A raster object prior to tile generation. If `file` is already such a raster, this step is simply skipped. Optional arguments like data and `noData` color, break points, etc., are ignored since this type of raster contains its own color information.
+Multi-band rasters are supported as long as they have three or four layers, in which case `tile()` assumes these represent red, green, blue and alpha channel, respectively. Internally, single-layer raster files are colored and converted to a three- or four-band RGB/A raster object prior to tile generation. If `file` is already such a raster, this step is simply skipped. Optional arguments like data and `noData` color, break points, etc., are ignored since this type of raster contains its own color information.
 
 
 ```r
@@ -198,9 +193,9 @@ map <- system.file("maps/map_albers_rgb.tif", package = "tiler")
 #> dimensions : 32, 71, 2272, 3  (nrow, ncol, ncell, nlayers)
 #> resolution : 85011.74, 103363.8  (x, y)
 #> extent     : -2976297, 3059536, -1577300, 1730342  (xmin, xmax, ymin, ymax)
-#> crs        : +proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-#> source     : C:/github/tiler/inst/maps/map_albers_rgb.tif 
-#> names      : map_albers_rgb.1, map_albers_rgb.2, map_albers_rgb.3 
+#> crs        : +proj=aea +lat_0=37.5 +lon_0=-96 +lat_1=29.5 +lat_2=45.5 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs 
+#> source     : map_albers_rgb.tif 
+#> names      : map_albers_rgb_1, map_albers_rgb_2, map_albers_rgb_3 
 #> min values :                0,                0,                0 
 #> max values :              253,              255,              244
 plot(r)
@@ -213,7 +208,6 @@ plot(r)
 tile(map, tile_dir, "0-3")
 #> Reprojecting raster...
 #> Preparing for tiling...
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -237,6 +231,13 @@ One example was shown previously where a spatial map lacking critical spatial re
 ```r
 map <- system.file("maps/map.png", package = "tiler")
 plotRGB(brick(map))
+#> Warning: [rast] unknown extent
+
+#> Warning: [rast] unknown extent
+
+#> Warning: [rast] unknown extent
+
+#> Warning: [rast] unknown extent
 ```
 
 ![plot of chunk ex7](vignette-ex7-1.png)
@@ -244,7 +245,6 @@ plotRGB(brick(map))
 ```r
 
 tile(map, tile_dir, "0-3")
-#> [1] "C:\\Users\\Matt\\AppData\\Local\\Temp\\RtmpQLDRP8"
 #> Creating tiles. Please wait...
 #> Creating tile viewer...
 #> Complete.
@@ -252,15 +252,15 @@ tile(map, tile_dir, "0-3")
 
 
 
-The `tile` function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generated from regular image files can be used with `leaflet` if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in `leaflet` for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of `tiler`. See the Leaflet JS and `leaflet` package documentation for details on using simple CRS/non-geographic tiles.
+The `tile()` function will automatically process simple image files differently. There is no concept of projection, and coloring tiles is irrelevant because the image file has its own coloring already. Map tiles generated from regular image files can be used with `leaflet` if done properly. The generated tiles have a simple CRS that is based on the pixel dimensions of the image file. If you were to use these tiles in `leaflet` for example and you wanted to overlay map markers, you would have to first georeference your locations of interest based on the matrix rows and columns of the image. This is outside the scope of `tiler`. See the Leaflet JS and `leaflet` package documentation for details on using simple CRS/non-geographic tiles.
 
 Using a `png` file is recommended for quality and file size. `jpg` may yield a lower quality result, while a large, high resolution `bmp` file may have an enormous file size compared to `png`.
 
-`jpg` and `bmp` are *optionally* supported by `tiler`. This means they are not installed and imported with `tiler`. It is assumed the user will provide `png` images. If using `jpg` or `bmp` and the packages `jpeg` or `bmp` are not installed, respectively, `tile` will print a message to the console notifying of the required package installations.
+`jpg` and `bmp` are *optionally* supported by `tiler`. This means they are not installed and imported with `tiler`. It is assumed the user will provide `png` images. If using `jpg` or `bmp` and the packages `jpeg` or `bmp` are not installed, respectively, `tile()` will print a message to the console notifying of the required package installations.
 
 ## Additional arguments
 
-Other arguments to `tile` include `format`, `resume`, `viewer` and `georef`.
+Other arguments to `tile()` include `format`, `resume`, `viewer` and `georef`.
 
 `format` is either `xyz` (default) or `tms`. `gdal2tiles` generates TMS tiles, but XYZ may be more familiar. Tile format only applies to geographic maps. All simple image-based tiles are XYZ format. If setting `format = "tms"` you may need to do something similar in your Leaflet JavaScript or `leaflet` package R code for tiles to display with the proper orientation.
 
@@ -326,7 +326,7 @@ leaflet(
 
 ### Local preview
 
-By default `tile` also creates `preview.html` as noted above. This can also be created or re-created directly using `tile_viewer`. In either case, as long as `preview.html` exists alongside the tiles directory, it can easily be loaded in the browser with `view_tiles`. See help documentation for details.
+By default `tile()` also creates `preview.html` as noted above. This can also be created or re-created directly using `tile_viewer()`. In either case, as long as `preview.html` exists alongside the tiles directory, it can easily be loaded in the browser with `view_tiles()`. See help documentation for details.
 
 If you have tiles in a directory `"project/tiles"`, creating `preview.html` directly can be done as follows. The arguments shown are just for illustration.
 

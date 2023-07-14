@@ -11,20 +11,20 @@ tile_viewer(tiles, zoom, width = NULL, height = NULL, georef = TRUE, ...)
 
 \item{zoom}{character, zoom levels full range. Example format: \code{"3-7"}.}
 
-\item{width}{\code{NULL} (default) for geospatial map tiles. The original
-image width in pixels for non-geographic, simple CRS tiles.}
+\item{width}{\code{NULL} (default) for geospatial map tiles. The original image
+width in pixels for non-geographic, simple CRS tiles.}
 
-\item{height}{\code{NULL} (default) for geospatial map tiles. The original
-image height in pixels for non-geographic, simple CRS tiles.}
+\item{height}{\code{NULL} (default) for geospatial map tiles. The original image
+height in pixels for non-geographic, simple CRS tiles.}
 
-\item{georef}{logical, for non-geographic tiles only.
-If \code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will
-add map markers with coordinate labels on mouse click to assist with
-georeferencing of non-geographic tiles.}
+\item{georef}{logical, for non-geographic tiles only. If \code{viewer = TRUE},
+then the Leaflet widget in \code{preview.html} will add map markers with
+coordinate labels on mouse click to assist with georeferencing of
+non-geographic tiles.}
 
-\item{...}{additional optional arguments include \code{lng} and \code{lat}
-for setting the view longitude and latitude. These three arguments only
-apply to geographic tiles. Viewer centering is \code{0, 0} by default.}
+\item{...}{additional optional arguments include \code{lng} and \code{lat} for setting
+the view longitude and latitude. These three arguments only apply to
+geographic tiles. Viewer centering is \verb{(0, 0)} by default.}
 }
 \value{
 nothing is returned, but a file is written to disk.
@@ -33,28 +33,25 @@ nothing is returned, but a file is written to disk.
 Create an HTML file that displays a tile preview using Leaflet.
 }
 \details{
-This function creates a file \code{preview.html} adjacent to the
-\code{tiles} base directory.
-When loaded in the browser, this file displays map tiles from the adjacent
-folder.
-For example, if tiles are stored in \code{project/tiles}, this function
-creates \code{project/preview.html}.
+This function creates a file \code{preview.html} adjacent to the \code{tiles} base
+directory. When loaded in the browser, this file displays map tiles from the
+adjacent folder. For example, if tiles are stored in \code{project/tiles}, this
+function creates \code{project/preview.html}.
 
-By default, \code{tile} creates this file. The only reasons to call
-\code{tile_viewer} directly after producing map tiles are:
-(1) if \code{viewer = FALSE} was set in the call to \code{tile},
-(2) if \code{tile} was called multiple times, e.g., for different batches of
-zoom levels, and thus the most recent call did not use the full zoom range,
-or (3) \code{preview.html} was deleted for some other reason.
+By default, \code{tile()} creates this file. The only reasons to call
+\code{tile_viewer()} directly after producing map tiles are: (1) if
+\code{viewer = FALSE} was set in the call to \code{tile()}, (2) if \code{tile()} was called
+multiple times, e.g., for different batches of zoom levels, and thus the most
+recent call did not use the full zoom range, or (3) \code{preview.html} was
+deleted for some other reason.
 
 If calling this function directly, ensure that the min and max zoom, and
 original image pixel dimensions if applicable, match the generated tiles.
-These arguments are passed to \code{tile_viewer} automatically when called
-within \code{tile}, based on the source file provided to \code{tile}.
+These arguments are passed to \verb{tile_viewer\} automatically when called within }tile()\verb{, based on the source file provided to }tile()`.
 }
 \examples{
 tile_viewer(file.path(tempdir(), "tiles"), "3-7") # requires existing tiles
 }
 \seealso{
-\code{\link{view_tiles}}, \code{\link{tile}}
+\code{\link[=view_tiles]{view_tiles()}}, \code{\link[=tile]{tile()}}
 }

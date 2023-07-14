@@ -17,11 +17,10 @@ When setting options, nothing is returned.
 Options for tiler package.
 }
 \details{
-On Windows systems, if the system paths for \code{python.exe} and
-\code{OSGeo4W.bat} are not added to the system PATH variable, they must be
-provided by the user after loading the package.
-It is recommended to add these to the system path so they do not need to be
-specified for every R session.
+On Windows systems, if the system paths for \code{python.exe} and \code{OSGeo4W.bat}
+are not added to the system PATH variable, they must be provided by the user
+after loading the package. It is recommended to add these to the system path
+so they do not need to be specified for every R session.
 
 As long as you are using OSGeo4W, you can ignore the Python path
 specification and do not even need to install it on your system separately;
@@ -32,18 +31,16 @@ install \href{https://trac.osgeo.org/osgeo4w/}{OSGeo4W}. This is commonly
 installed along with
 \href{https://qgis.org/en/site/forusers/download.html}{QGIS}.
 
-By default, \code{tiler_options} is set on package load with
-\code{osgeo4w = "OSGeo4W.bat"}. It is expected that the user has added the
-path to this file to the system PATH variable in Windows.
-For example, if it is installed to \code{C:/OSGeo4W64/OSGeo4W.bat}, add
-\code{C:/OSGeo4W64} to your PATH.
-If you do want to specify the path in the R session using
-\code{tiler_options}, provide the full path including the filename.
-See the example.
+By default, \code{tiler_options()} is set on package load with
+\code{osgeo4w = "OSGeo4W.bat"}. It is expected that the user has added the path to
+this file to the system PATH variable in Windows. For example, if it is
+installed to \verb{C:/OSGeo4W64/OSGeo4W.bat}, add \verb{C:/OSGeo4W64} to your PATH. If
+you do want to specify the path in the R session using \code{tiler_options()},
+provide the full path including the filename. See the example.
 
 None of this applies to other systems. As long as the system requirements,
-Python and GDAL, are installed, then \code{tile} should generate tiles
-without getting or setting any \code{tiler_options}.
+Python and GDAL, are installed, then \code{tile()} should generate tiles without
+getting or setting any \code{tiler_options()}.
 }
 \examples{
 tiler_options()

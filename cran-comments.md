@@ -1,14 +1,11 @@
 ## Test environments
 
-* local Windows 10 install, R 4.0.3
-* Windows 10 (AppVeyor), R 4.0.3
-* Ubuntu 16.04 (Travis CI), R-devel, R-release, R-oldrel
-* Mac OSX (Travis CI) R-release (4.0.3)
+* local Windows 10 install, R 4.3.1
 * win-builder
 
 ## Update release
 
-* This update includes a maintainer email address update.
+* This update includes removal of `rgdal` in favor of `sf`.
 
 ## R CMD check results
 
