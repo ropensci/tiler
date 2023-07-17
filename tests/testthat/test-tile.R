@@ -21,7 +21,7 @@ test_that("tile works on different inputs", {
   # Test RGB/RGBA multi-band rasters
   idx <- grep("rgb", files)
   suppressWarnings(for(i in idx)
-    expect_is(tile(files[i], tiles[i], "0"), "NULL"))
+    expect_is(tile(files[i], tiles[i], "0"), "NULL")) ## TODO: fails for i=12; see raster#315
 
   files <- files[-idx]
   tiles <- tiles[-idx]
@@ -29,7 +29,7 @@ test_that("tile works on different inputs", {
   # Test rejection of file with number of layers other than 1, 3 or 4
   r <- raster(files[basename(files) == "map_albers.grd"])
   r <- stack(r, r)
-  tmp <- file.path(tempdir(), "tmp_raster.tif")
+  tmp <- tmprst()
   writeRaster(r, tmp)
   err <- "`file` is multi-band but does not appear to be RGB or RGBA layers."
   expect_error(tile(tmp, "tmp_raster", "0"), err)
@@ -44,7 +44,7 @@ test_that("tile works on different inputs", {
 
   # missing CRS
 
-  # Change needed: Thes files used to read in with raster as having NA for crs,
+  # Change needed: These files used to read in with raster as having NA for crs,
   # but no longer do. It looks like wgs84 is assumed on read.
   # See data-raw/data.R for context.
 

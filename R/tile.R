@@ -1,3 +1,7 @@
+tmprst <- function() {
+  tempfile(pattern = "tmp_raster_", fileext = ".tif")
+}
+
 #' Create map tiles
 #'
 #' Create geographic and non-geographic map tiles from a file.
@@ -137,9 +141,12 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
     }
   }
   dir.create(tiles, showWarnings = FALSE, recursive = TRUE)
-  projected <- .proj_check(file, crs, ...)
+  tf <- tmprst()
+
+  projected <- .proj_check(file, crs, tmpf = tf, ...)
+
   if(ext %in% .supported_filetypes$ras)
-    file <- file.path(tempdir(), "tmp_raster.tif")
+    file <- tf
   dir.create(g2t_tmp_dir <- tempfile("g2ttmp_"),
              showWarnings = FALSE, recursive = TRUE)
   if(projected){
@@ -162,7 +169,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
     cat("Creating tile viewer...\n")
     w <- h <- NULL
     if(!projected){
-      if(file == file.path(tempdir(), "tmp_raster.tif")){
+      if(file == tf){
         x <- raster::raster(file)
         w <- ncol(x)
         h <- nrow(x)
@@ -185,10 +192,11 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   invisible()
 }
 
-.proj_check <- function(file, crs = NULL, ...){
+.proj_check <- function(file, crs = NULL, tmpf = tmprst(), ...){
   ext <- .get_ext(file)
   if(ext %in% .supported_filetypes$img) return(FALSE)
   dots <- list(...)
+  browser()
   r <- raster::readAll(raster::stack(file))
   bands <- raster::nlayers(r)
   if(!bands %in% c(1, 3, 4))
@@ -230,8 +238,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
                      ext = dots$ext)
   }
   cat("Preparing for tiling...\n")
-  raster::writeRaster(r, file.path(tempdir(), "tmp_raster.tif"),
-                      overwrite = TRUE, datatype = "INT1U")
+  raster::writeRaster(r, filename = tmpf, overwrite = TRUE, datatype = "INT1U")
   projected
 }
 
