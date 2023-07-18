@@ -18,9 +18,10 @@ test_that("tile works on different inputs", {
   # pass but the extra warning needs to be suppressed.
 
   # Test RGB/RGBA multi-band rasters
-  idx <- grep("rgb", files)[-c(3:4)] # Note: no longer works with the wgs84 RGB/RGBA files!
+  idx <- grep("rgb", files)
+  idx <- grep("wgs84_rgb", files, invert = TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   suppressWarnings(for(i in idx)
-    expect_is(tile(files[i], tiles[i], "0"), "NULL")) ## TODO: fails for i=12; see raster#315
+    expect_is(tile(files[i], tiles[i], "0"), "NULL"))
 
   files <- files[-idx]
   tiles <- tiles[-idx]
@@ -99,7 +100,7 @@ test_that("tile works in parallel", {
   skip_if_not_installed("parallel")
 
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE, pattern = "[.]tif")
-  files <- files[!grepl("rgb", files)] ## TODO: test wit RGB/RGBA once raster#315 is fixed
+  files <- grep("wgs84_rgb", files, value = TRUE, invert = TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   tiles <- file.path(tempdir(), gsub("[.]", "_", basename(files)))
 
   cl <- parallel::makeCluster(2, type = "PSOCK")
