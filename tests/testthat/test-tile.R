@@ -93,3 +93,18 @@ test_that("tile works on different inputs", {
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
   unlink(file.path(tempdir(), "preview.html"), force = TRUE)
 })
+
+test_that("tile works in parallel", {
+  skip_on_cran()
+  skip_if_not_installed("parallel")
+
+  files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE, pattern = "[.]tif")
+  files <- files[!grepl("rgb", files)] ## TODO: test wit RGB/RGBA once raster#315 is fixed
+  tiles <- file.path(tempdir(), gsub("[.]", "_", basename(files)))
+
+  cl <- parallel::makeCluster(2, type = "PSOCK")
+  res <- parallel::clusterMap(cl, f = files, t = tiles, fun = function(f, t) {
+    testthat::expect_is(tiler::tile(f, t, "0"), "NULL")
+  })
+  parallel::stopCluster(cl)
+})

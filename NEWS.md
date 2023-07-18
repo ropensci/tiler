@@ -2,6 +2,7 @@
 
 * Removed `rgdal` from `Imports` and added `sf` to `Suggests` in `DESCRIPTION`.
 * Updated documentation and tests.
+* fixed another race condition in temp files running `tile()` in parallel (with #18; @achubaty)
 
 # tiler 0.2.6
 

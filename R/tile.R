@@ -188,7 +188,7 @@ tile <- function(file, tiles, zoom, crs = NULL, resume = FALSE, viewer = TRUE,
   ext <- .get_ext(file)
   if(ext %in% .supported_filetypes$img) return(FALSE)
   dots <- list(...)
-  browser()
+
   r <- raster::readAll(raster::stack(file))
   bands <- raster::nlayers(r)
   if(!bands %in% c(1, 3, 4))
