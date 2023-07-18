@@ -1,37 +1,44 @@
 Package: tiler
-Version: 0.2.6
 Title: Create Geographic and Non-Geographic Map Tiles
-Description: Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. 
-    This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. 
-    In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.
-    These map tiles, which have a non-geographic, simple coordinate reference system (CRS), can also be used with 'leaflet' when applying the simple CRS option.
-    Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.
-    This package requires 'Python' and the 'gdal' library for 'Python'. 
-    'Windows' users are recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an easy way to obtain the required 'gdal' support for 'Python'.
+Version: 0.2.9.9000
 Authors@R: c(
     person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771")),
     person("Alex M", "Chubaty", email = "achubaty@for-cast.ca", role = "ctb", comment = c(ORCID = "0000-0001-7146-8135"))
     )
+Description: Creates geographic map tiles from geospatial map files or 
+    non-geographic map tiles from simple image files. This package provides a 
+    tile generator function for creating map tile sets for use with packages 
+    such as 'leaflet'. In addition to generating map tiles based on a common 
+    raster layer source, it also handles the non-geographic edge case, producing 
+    map tiles from arbitrary images. These map tiles, which have a 
+    non-geographic, simple coordinate reference system (CRS), can also be used 
+    with 'leaflet' when applying the simple CRS option. Map tiles can be created 
+    from an input file with any of the following extensions: tif, grd and nc for 
+    spatial maps and png, jpg and bmp for basic images. This package requires 
+    'Python' and the 'gdal' library for 'Python'. 'Windows' users are 
+    recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an 
+    easy way to obtain the required 'gdal' support for 'Python'.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
 URL: https://docs.ropensci.org/tiler/, https://github.com/ropensci/tiler
 BugReports: https://github.com/ropensci/tiler/issues
+Imports:
+    png,
+    raster,
+    sp
+Suggests:
+    bmp,
+    jpeg,
+    knitr,
+    leaflet,
+    rmarkdown,
+    sf,
+    testthat,
+    webshot
+VignetteBuilder: knitr
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 SystemRequirements: Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)
   clipboard
-Suggests:
-    testthat,
-    knitr,
-    rmarkdown,
-    covr,
-    jpeg,
-    bmp,
-    leaflet
-Imports:
-    sp,
-    rgdal,
-    raster,
-    png
-VignetteBuilder: knitr
-RoxygenNote: 7.2.1

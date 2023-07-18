@@ -1,5 +1,3 @@
-context("options")
-
 test_that("tiler_options runs as expected", {
   expect_identical(names(tiler_options()), c("python", "osgeo4w"))
   python <- tiler_options()$python

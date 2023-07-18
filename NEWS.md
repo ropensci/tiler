@@ -1,3 +1,8 @@
+# tiler 0.2.9.9000
+
+* Removed `rgdal` from `Imports` and added `sf` to `Suggests` in `DESCRIPTION`.
+* Updated documentation and tests.
+
 # tiler 0.2.6
 
 * try to automatically detect python path when setting tiler option (#19; @achubaty)

@@ -9,9 +9,9 @@
 ^revdep$
 ^docs$
 ^pkgdown$
-^codecov\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^README\.html$
 ^vignettes/tiler\.Rmd$
 ^vignettes/tiler-intro\.Rmd\.orig$
+^vignettes/precompile\.R
 ^\.github$

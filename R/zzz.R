@@ -15,6 +15,6 @@
     } else {
       python <- Sys.which("python3")
     }
-    tiler_options(python = python, osgeo4w = "OSGeo4W.bat")
+    tiler_options(python = python, osgeo4w = osgeo4w)
   }
 }

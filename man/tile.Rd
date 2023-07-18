@@ -23,24 +23,24 @@ tile(
 \item{zoom}{character, zoom levels. Example format: \code{"3-7"}.
 See details.}
 
-\item{crs}{character, Proj4 string. Use this to force set the CRS of a
-loaded raster object from \code{file} in cases where the CRS is missing but
-known, to avoid defaulting to non-geographic tiling.}
+\item{crs}{character, Proj4 string. Use this to force set the CRS of a loaded
+raster object from \code{file} in cases where the CRS is missing but known, to
+avoid defaulting to non-geographic tiling.}
 
 \item{resume}{logical, only generate missing tiles.}
 
-\item{viewer}{logical, also create \code{preview.html} adjacent to
-\code{tiles} directory for previewing tiles in the browser using Leaflet.}
+\item{viewer}{logical, also create \code{preview.html} adjacent to \code{tiles}
+directory for previewing tiles in the browser using Leaflet.}
 
-\item{georef}{logical, for non-geographic tiles only. If
-\code{viewer = TRUE}, then the Leaflet widget in \code{preview.html} will
-add map markers with coordinate labels on mouse click to assist with
-georeferencing of non-geographic tiles.}
+\item{georef}{logical, for non-geographic tiles only. If \code{viewer = TRUE},
+then the Leaflet widget in \code{preview.html} will add map markers with
+coordinate labels on mouse click to assist with georeferencing of
+non-geographic tiles.}
 
 \item{...}{additional arguments for projected maps: reprojection method or
-any arguments to \code{raster::RGB}, e.g. \code{col} and \code{colNA}. See
-details. Other additional arguments \code{lng} and \code{lat} can also be
-passed to the tile previewer. See \code{\link{tile_viewer}} for details.}
+any arguments to \code{raster::RGB()}, e.g. \code{col} and \code{colNA}. See details. Other
+additional arguments \code{lng} and \code{lat} can also be passed to the tile
+previewer. See \code{\link[=tile_viewer]{tile_viewer()}} for details.}
 }
 \value{
 nothing is returned but tiles are written to disk.
@@ -50,33 +50,28 @@ Create geographic and non-geographic map tiles from a file.
 }
 \details{
 This function supports both geographic and non-geographic tile generation.
-When \code{file} is a simple image file such as \code{png}, \code{tile}
-generates non-geographic, simple CRS tiles.
-Files that can be loaded by the \code{raster} package yield geographic
-tiles as long as \code{file} has projection information.
-If the raster object's proj4 string is \code{NA}, it falls back on
-non-geographic tile generation and a warning is thrown.
+When \code{file} is a simple image file such as \code{png}, \code{tile()} generates
+non-geographic, simple CRS tiles. Files that can be loaded by the \code{raster}
+package yield geographic tiles as long as \code{file} has projection information.
+If the raster object's Proj4 string is \code{NA}, it falls back on non-geographic
+tile generation and a warning is thrown.
 
 Choice of appropriate zoom levels for non-geographic image files may depend
-on the size of the image. A \code{zoom} value may be partially ignored for
-image files under certain conditions.
-For instance using the example \code{map.png} below, when passing strictly
-\code{zoom = n} where \code{n} is less than 3, this still generates tiles
-for zoom \code{n} up through 3.
+on the size of the image. A \code{zoom} value may be partially ignored for image
+files under certain conditions. For instance using the example \code{map.png}
+below, when passing strictly \code{zoom = n} where \code{n} is less than 3, this still
+generates tiles for zoom \code{n} up through 3.
 
 \subsection{Supported file types}{
-Supported simple CRS/non-geographic image file types include \code{png},
-\code{jpg} and \code{bmp}.
-For projected map data, supported file types include three types readable by
-the \code{raster} package: \code{grd}, \code{tif}, and \code{nc} (requires
-\code{ncdf4}).
+Supported simple CRS/non-geographic image file types include \code{png}, \code{jpg} and
+\code{bmp}. For projected map data, supported file types include three types
+readable by the \code{raster} package: \code{grd}, \code{tif}, and \code{nc} (requires \code{ncdf4}).
 Other currently unsupported file types passed to \code{file} throw an error.
 }
 \subsection{Raster file inputs}{
-If a map file loadable by \code{raster} is a single-layer raster object,
-tile coloring is applied.
-To override default coloring of data and \code{noData} pixels, pass the
-additional arguments \code{col} and \code{colNA} to \code{...}.
+If a map file loadable by \code{raster} is a single-layer raster object, tile
+coloring is applied. To override default coloring of data and \code{noData}
+pixels, pass the additional arguments \code{col} and \code{colNA} to \code{...}.
 Multi-layer raster objects are rejected with an error message. The only
 exception is a three- or four-band raster, which is assumed to represent
 red, green, blue and alpha channels, respectively.
@@ -84,34 +79,29 @@ In this case, processing will continue but coloring arguments are ignored as
 unnecessary.
 \cr\cr
 Prior to tiling, a geographically-projected raster layer is reprojected to
-EPSG:4326 only if it has some other projection.
-The only reprojection argument available through \code{...} is
-\code{method}, which can be \code{"bilinear"} (default) or\code{"ngb"}.
-If complete control over reprojection is required, this should be done prior
-to passing the rasterized file to the \code{tile} function. Then no
-reprojection is performed by \code{tile}.
-When \code{file} consists of RGB or RGBA bands, \code{method} is ignored if
-provided and reprojection uses nearest neighbor.
+EPSG:4326 only if it has some other projection. The only reprojection
+argument available through \code{...} is \code{method}, which can be \code{"bilinear"}
+(default) or\code{"ngb"}. If complete control over reprojection is required, this
+should be done prior to passing the rasterized file to the \code{tile} function.
+Then no reprojection is performed by \code{tile()}. When \code{file} consists of RGB or
+RGBA bands, \code{method} is ignored if provided and reprojection uses nearest
+neighbor.
 \cr\cr
 It is recommended to avoid using a projected 4-band RGBA raster file.
-However, the alpha channel appears to be ignored anyway.
-\code{gdal2tiles} gives an internal warning.
-Instead, create your RGBA raster file in unprojected form and it should
-pass through to \code{gdal2tiles} without any issues.
+However, the alpha channel appears to be ignored anyway. \code{gdal2tiles} gives
+an internal warning. Instead, create your RGBA raster file in unprojected
+form and it should pass through to \code{gdal2tiles} without any issues.
 Three-band RGB raster files are unaffected by reprojection.
 }
 \subsection{Tiles and Leaflet}{
-\code{gdal2tiles} generates TMS tiles. If expecting XYZ, for example when
-using with Leaflet, you can change the end of the URL to your hosted tiles
-from \code{{z}/{x}/{y}.png} to \code{{z}/{x}/{-y}.png}.
+\code{gdal2tiles} generates TMS tiles. If expecting XYZ, for example when using
+with Leaflet, you can change the end of the URL to your hosted tiles from
+\verb{\{z\}/\{x\}/\{y\}.png} to \verb{\{z\}/\{x\}/\{-y\}.png}.
 \cr\cr
-This function is supported by two different versions of \code{gdal2tiles}.
-There is the standard version, which generates geospatial tiles in TMS
-format. The other version of \code{gdal2tiles} handles basic image files
-like a matrix of rows and columns, using a simple Cartesian coordinate
-system based on pixel dimensions of the image file.
-See the Leaflet JS library and \code{leaflet} package documentation for
-working with custom tiles in Leaflet.
+This function is supported by two different versions of \code{gdal2tiles}. There
+is the standard version, which generates geospatial tiles in TMS format. The
+other version of \verb{gdal2tiles\} handles basic image files like a matrix of rows and columns, using a simple Cartesian coordinate system based on pixel dimensions of the image file. See the Leaflet JS library and }leaflet`
+package documentation for working with custom tiles in Leaflet.
 }
 }
 \examples{
@@ -136,5 +126,5 @@ if(length(extrafiles)) unlink(extrafiles, recursive = TRUE, force = TRUE)
 }
 }
 \seealso{
-\code{\link{view_tiles}}, \code{\link{tile_viewer}}
+\code{\link[=view_tiles]{view_tiles()}}, \code{\link[=tile_viewer]{tile_viewer()}}
 }
