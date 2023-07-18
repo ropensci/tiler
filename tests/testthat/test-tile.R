@@ -64,7 +64,7 @@ test_that("tile works on different inputs", {
 
   # test remaining geographic maps
   idx <- which(!grepl("\\.nc$|NA", files) == TRUE)
-  idx <- idx[-c(5:6)] # Note: no longer works with the wgs84 RGB/RGBA files!
+  idx <- which(!grepl("\\.nc$|NA|wgs84_rgb", files) == TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   suppressWarnings(
     for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
 
