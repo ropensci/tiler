@@ -19,7 +19,7 @@ test_that("tile works on different inputs", {
 
   # Test RGB/RGBA multi-band rasters
   idx <- grep("rgb", files)
-  idx <- grep("wgs84_rgb", files, invert = TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
+  idx <- grep("albers_rgb", files) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   suppressWarnings(for(i in idx)
     expect_is(tile(files[i], tiles[i], "0"), "NULL"))
 
