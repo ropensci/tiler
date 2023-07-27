@@ -6,7 +6,6 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
-<https://github.com/><OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg
 [![R-CMD-check](https://github.com/ropensci/tiler/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/tiler/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/ropensci/tiler/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/tiler?branch=master)
