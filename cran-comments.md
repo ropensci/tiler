@@ -7,6 +7,9 @@
 ## Update release
 
 * This update includes removal of `rgdal` in favor of `sf`.
+* A subset of examples had to be wrapped in `dontrun{}` to prevent examples 
+timings threshold `NOTE` locally and on win-builder. However, examples 
+are more thoroughly unit tested separately in `tests/testthat/`.
 
 ## R CMD check results
 
@@ -18,4 +21,4 @@ Checks pass on all packages. (https://github.com/ropensci/tiler/tree/master/revd
 
 ## System Requirements details
 
-This package requies Python and python-gdal. These are specified in the DESCRIPTION System Requirements field as well as the Description text.
+This package requires Python and python-gdal. These are specified in the DESCRIPTION System Requirements field as well as the Description text.
