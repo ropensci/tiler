@@ -1,22 +1,20 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "tiler",
-  "description": "Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. \n    This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. \n    In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images.\n    These map tiles, which have a non-geographic, simple coordinate reference system (CRS), can also be used with 'leaflet' when applying the simple CRS option.\n    Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images.\n    This package requires 'Python' and the 'gdal' library for 'Python'. \n    'Windows' users are recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an easy way to obtain the required 'gdal' support for 'Python'.",
+  "description": "Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic, simple coordinate reference system (CRS), can also be used with 'leaflet' when applying the simple CRS option. Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images. This package requires 'Python' and the 'gdal' library for 'Python'. 'Windows' users are recommended to install 'OSGeo4W' (<https://trac.osgeo.org/osgeo4w/>) as an easy way to obtain the required 'gdal' support for 'Python'.",
   "name": "tiler: Create Geographic and Non-Geographic Map Tiles",
+  "relatedLink": "https://docs.ropensci.org/tiler/",
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -32,6 +30,15 @@
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Alex M",
+      "familyName": "Chubaty",
+      "email": "achubaty@for-cast.ca",
+      "@id": "https://orcid.org/0000-0001-7146-8135"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
@@ -44,51 +51,15 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "testthat",
-      "name": "testthat",
+      "identifier": "bmp",
+      "name": "bmp",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
+      "sameAs": "https://CRAN.R-project.org/package=bmp"
     },
     {
       "@type": "SoftwareApplication",
@@ -104,15 +75,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "bmp",
-      "name": "bmp",
+      "identifier": "knitr",
+      "name": "knitr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=bmp"
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
     },
     {
       "@type": "SoftwareApplication",
@@ -125,46 +96,63 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=leaflet"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "parallel",
+      "name": "parallel"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "sf",
+      "name": "sf",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "webshot",
+      "name": "webshot",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=webshot"
     }
   ],
-  "softwareRequirements": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "sp",
-      "name": "sp",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=sp"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rgdal",
-      "name": "rgdal",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rgdal"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "raster",
-      "name": "raster",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=raster"
-    },
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "png",
       "name": "png",
@@ -176,40 +164,31 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=png"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
-      "identifier": "https://sysreqs.r-hub.io/get/python-2.7"
+      "identifier": "raster",
+      "name": "raster",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
-      "identifier": "https://sysreqs.r-hub.io/get/gdal"
+      "identifier": "sp",
+      "name": "sp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sp"
     },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "https://sysreqs.r-hub.io/get/libgdal"
-    }
-  ],
-  "releaseNotes": "https://github.com/ropensci/tiler/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/tiler/blob/master/README.md",
-  "fileSize": "5403.901KB",
-  "contIntegration": ["https://travis-ci.org/ropensci/tiler", "https://ci.appveyor.com/project/leonawicz/tiler", "https://codecov.io/gh/ropensci/tiler?branch=master"],
-  "relatedLink": [
-    "https://CRAN.R-project.org/package=tiler",
-    "https://docs.ropensci.org/tiler",
-    "https://docs.ropensci.org/tiler/"
-  ],
-  "review": {
-    "@type": "Review",
-    "url": "https://github.com/ropensci/software-review/issues/226",
-    "provider": "https://ropensci.org"
+    "SystemRequirements": "Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)\n  clipboard"
   },
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
-  "developmentStatus": "https://www.repostatus.org/",
-  "keywords": [
-    "r",
-    "r-package",
-    "rstats"
-  ]
+  "fileSize": "929.067KB"
 }
