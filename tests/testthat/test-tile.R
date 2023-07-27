@@ -18,7 +18,8 @@ test_that("tile works on different inputs", {
   # pass but the extra warning needs to be suppressed.
 
   # Test RGB/RGBA multi-band rasters
-  idx <- grep("rgb", files)[-c(3:4)] # Note: no longer works with the wgs84 RGB/RGBA files!
+  idx <- grep("rgb", files)
+  idx <- grep("albers_rgb", files) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   suppressWarnings(for(i in idx)
     expect_is(tile(files[i], tiles[i], "0"), "NULL"))
 
@@ -28,7 +29,7 @@ test_that("tile works on different inputs", {
   # Test rejection of file with number of layers other than 1, 3 or 4
   r <- raster(files[basename(files) == "map_albers.grd"])
   r <- stack(r, r)
-  tmp <- file.path(tempdir(), "tmp_raster.tif")
+  tmp <- tmprst()
   writeRaster(r, tmp)
   err <- "`file` is multi-band but does not appear to be RGB or RGBA layers."
   expect_error(tile(tmp, "tmp_raster", "0"), err)
@@ -43,7 +44,7 @@ test_that("tile works on different inputs", {
 
   # missing CRS
 
-  # Change needed: Thes files used to read in with raster as having NA for crs,
+  # Change needed: These files used to read in with raster as having NA for crs,
   # but no longer do. It looks like wgs84 is assumed on read.
   # See data-raw/data.R for context.
 
@@ -63,7 +64,7 @@ test_that("tile works on different inputs", {
 
   # test remaining geographic maps
   idx <- which(!grepl("\\.nc$|NA", files) == TRUE)
-  idx <- idx[-c(5:6)] # Note: no longer works with the wgs84 RGB/RGBA files!
+  idx <- which(!grepl("\\.nc$|NA|wgs84_rgb", files) == TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
   suppressWarnings(
     for(i in idx) expect_is(tile(files[i], tiles[i], "0"), "NULL") )
 
@@ -92,4 +93,19 @@ test_that("tile works on different inputs", {
 
   unlink(file.path(tempdir(), "map_*"), recursive = TRUE, force = TRUE)
   unlink(file.path(tempdir(), "preview.html"), force = TRUE)
+})
+
+test_that("tile works in parallel", {
+  skip_on_cran()
+  skip_if_not_installed("parallel")
+
+  files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE, pattern = "[.]tif")
+  files <- grep("wgs84_rgb", files, value = TRUE, invert = TRUE) ## TODO: wgs84 RGB/RGBA files fail; see raster#315
+  tiles <- file.path(tempdir(), gsub("[.]", "_", basename(files)))
+
+  cl <- parallel::makeCluster(2, type = "PSOCK")
+  res <- parallel::clusterMap(cl, f = files, t = tiles, fun = function(f, t) {
+    testthat::expect_is(tiler::tile(f, t, "0"), "NULL")
+  })
+  parallel::stopCluster(cl)
 })
