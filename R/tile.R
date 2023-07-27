@@ -94,6 +94,7 @@ tmprst <- function() {
 #' tiles <- file.path(tempdir(), "tiles")
 #' tile(x, tiles, "2-3")
 #'
+#' \dontrun{
 #' # unprojected map
 #' x <- system.file("maps/map_wgs84.tif", package = "tiler")
 #' tile(x, tiles, 0)
@@ -101,6 +102,7 @@ tmprst <- function() {
 #' # projected map
 #' x <- system.file("maps/map_albers.tif", package = "tiler")
 #' tile(x, tiles, 0)
+#' }
 #' \dontshow{
 #' unlink(c(tiles, file.path(tempdir(), "preview.html")), recursive = TRUE,
 #'        force = TRUE)
