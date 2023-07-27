@@ -97,6 +97,7 @@ test_that("tile works on different inputs", {
 
 test_that("tile works in parallel", {
   skip_on_cran()
+  skip_if_not_installed("tiler")
   skip_if_not_installed("parallel")
 
   files <- list.files(system.file("maps", package = "tiler"), full.names = TRUE, pattern = "[.]tif")
@@ -108,4 +109,6 @@ test_that("tile works in parallel", {
     testthat::expect_is(tiler::tile(f, t, "0"), "NULL")
   })
   parallel::stopCluster(cl)
+  unlink(tiles, recursive = TRUE, force = TRUE)
+  unlink(file.path(tempdir(), "preview.html"), force = TRUE)
 })
