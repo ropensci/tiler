@@ -1,14 +1,14 @@
-# tiler 0.2.9.9000
+# tiler 0.3.0
 
 * Removed `rgdal` from `Imports` and added `sf` to `Suggests` in `DESCRIPTION`.
 * Updated documentation and tests.
-* fixed another race condition in temp files running `tile()` in parallel (with #18; @achubaty)
+* Fixed another race condition in temp files running `tile()` in parallel (with #18; @achubaty).
 
 # tiler 0.2.6
 
-* try to automatically detect python path when setting tiler option (#19; @achubaty)
-* fixed a race condition in temp files running `tile()` in parallel (with #18; @achubaty)
-* use GitHub Actions for testing (#6; @achubaty)
+* Try to automatically detect python path when setting tiler option (#19; @achubaty).
+* Fixed a race condition in temp files running `tile()` in parallel (with #18; @achubaty).
+* Use GitHub Actions for testing (#6; @achubaty).
 
 # tiler 0.2.5
 
