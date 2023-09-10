@@ -7,10 +7,7 @@
 
 ## Update release
 
-* This update includes removal of `rgdal` in favor of `sf`.
-* A subset of examples had to be wrapped in `dontrun{}` to prevent examples 
-timings threshold `NOTE` locally and on win-builder. However, examples 
-are more thoroughly unit tested separately in `tests/testthat/`.
+* Added required package alias per CRAN request.
 
 ## R CMD check results
 

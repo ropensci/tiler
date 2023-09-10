@@ -20,4 +20,5 @@
 #'
 #' @docType package
 #' @name tiler
+#' @aliases tiler-package
 NULL

@@ -3,6 +3,7 @@
 \docType{package}
 \name{tiler}
 \alias{tiler}
+\alias{tiler-package}
 \title{tiler: Create map tiles from R}
 \description{
 The tiler package creates geographic map tiles from geospatial map files or

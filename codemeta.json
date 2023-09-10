@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -190,5 +190,5 @@
     },
     "SystemRequirements": "Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)\n  clipboard"
   },
-  "fileSize": "929.067KB"
+  "fileSize": "929.098KB"
 }

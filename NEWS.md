@@ -1,3 +1,7 @@
+# tiler 0.3.1
+
+* Added required package alias in documentation.
+
 # tiler 0.3.0
 
 * Removed `rgdal` from `Imports` and added `sf` to `Suggests` in `DESCRIPTION`.
