@@ -14,7 +14,7 @@
 #' The recommended way to have GDAL available to Python in Windows is to
 #' install \href{https://trac.osgeo.org/osgeo4w/}{OSGeo4W}. This is commonly
 #' installed along with
-#' \href{https://qgis.org/en/site/forusers/download.html}{QGIS}.
+#' \href{https://qgis.org/download/}{QGIS}.
 #'
 #' By default, `tiler_options()` is set on package load with
 #' `osgeo4w = "OSGeo4W.bat"`. It is expected that the user has added the path to
