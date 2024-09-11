@@ -1,13 +1,13 @@
 ## Test environments
 
-* local Windows 10 install, R 4.3.1
+* local Windows 10 install, R 4.4.1
 * win-builder
 * Ubuntu 20.04 (GitHub Actions), devel, oldrel, release
 * MacOS-latest (GitHub Actions), release
 
 ## Update release
 
-* Added required package alias per CRAN request.
+* Maintainer email address update and other documentation updates.
 
 ## R CMD check results
 

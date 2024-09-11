@@ -1,4 +1,7 @@
-#' tiler: Create map tiles from R
+#' @name tiler
+"_PACKAGE"
+
+#' tiler: Create Map Tiles from R
 #'
 #' The tiler package creates geographic map tiles from geospatial map files or
 #' non-geographic map tiles from simple image files.
@@ -17,8 +20,5 @@
 #' This package requires Python and the `gdal` library for Python. Windows users
 #' are recommended to install `OSGeo4W`: `https://trac.osgeo.org/osgeo4w/` as an
 #' easy way to obtain the required `gdal` support for Python in Windows.
-#'
-#' @docType package
-#' @name tiler
-#' @aliases tiler-package
+#' @name tiler-details
 NULL

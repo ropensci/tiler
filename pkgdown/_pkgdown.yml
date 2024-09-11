@@ -8,6 +8,7 @@ reference:
 - title: Package
   contents:
   - tiler
+  - tiler-details
 - title: Map tile generator
   contents:
   - tile

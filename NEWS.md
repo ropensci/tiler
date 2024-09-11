@@ -1,3 +1,7 @@
+# tiler 0.3.2
+
+* Documentation updates.
+
 # tiler 0.3.1
 
 * Added required package alias in documentation.

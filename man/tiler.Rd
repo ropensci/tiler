@@ -2,26 +2,29 @@
 % Please edit documentation in R/tiler.R
 \docType{package}
 \name{tiler}
-\alias{tiler}
 \alias{tiler-package}
-\title{tiler: Create map tiles from R}
+\alias{tiler}
+\title{tiler: Create Geographic and Non-Geographic Map Tiles}
 \description{
-The tiler package creates geographic map tiles from geospatial map files or
-non-geographic map tiles from simple image files.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Creates geographic map tiles from geospatial map files or non-geographic map tiles from simple image files. This package provides a tile generator function for creating map tile sets for use with packages such as 'leaflet'. In addition to generating map tiles based on a common raster layer source, it also handles the non-geographic edge case, producing map tiles from arbitrary images. These map tiles, which have a non-geographic, simple coordinate reference system (CRS), can also be used with 'leaflet' when applying the simple CRS option. Map tiles can be created from an input file with any of the following extensions: tif, grd and nc for spatial maps and png, jpg and bmp for basic images. This package requires 'Python' and the 'gdal' library for 'Python'. 'Windows' users are recommended to install 'OSGeo4W' (\url{https://trac.osgeo.org/osgeo4w/}) as an easy way to obtain the required 'gdal' support for 'Python'.
 }
-\details{
-This package provides a tile generator function for creating map tile sets
-for use with packages such as \code{leaflet}. In addition to generating map tiles
-based on a common raster layer source, it also handles the non-geographic
-edge case, producing map tiles from arbitrary images. These map tiles, which
-have a non-geographic simple coordinate reference system (CRS), can also be
-used with \code{leaflet} when applying the simple CRS option.
-\cr\cr
-Map tiles can be created from an input file with any of the following
-extensions: \code{tif}, \code{grd} and \code{nc} for spatial maps and \code{png}, \code{jpg} and \code{bmp}
-for basic images.
-\cr\cr
-This package requires Python and the \code{gdal} library for Python. Windows users
-are recommended to install \code{OSGeo4W}: \verb{https://trac.osgeo.org/osgeo4w/} as an
-easy way to obtain the required \code{gdal} support for Python in Windows.
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/tiler/}
+  \item \url{https://github.com/ropensci/tiler}
+  \item Report bugs at \url{https://github.com/ropensci/tiler/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Matthew Leonawicz \email{rpkgs@pm.me} (\href{https://orcid.org/0000-0001-9452-2771}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Alex M Chubaty \email{achubaty@for-cast.ca} (\href{https://orcid.org/0000-0001-7146-8135}{ORCID}) [contributor]
+}
+
 }

@@ -1,8 +1,8 @@
 Package: tiler
 Title: Create Geographic and Non-Geographic Map Tiles
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(
-    person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771")),
+    person("Matthew", "Leonawicz", email = "rpkgs@pm.me", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771")),
     person("Alex M", "Chubaty", email = "achubaty@for-cast.ca", role = "ctb", comment = c(ORCID = "0000-0001-7146-8135"))
     )
 Description: Creates geographic map tiles from geospatial map files or 
@@ -40,6 +40,6 @@ ByteCompile: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 SystemRequirements: Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)
   clipboard

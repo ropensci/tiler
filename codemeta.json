@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/tiler",
   "issueTracker": "https://github.com/ropensci/tiler/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16 ucrt)",
+  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -26,7 +26,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "mfleonawicz@gmail.com",
+      "email": "rpkgs@pm.me",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -44,7 +44,7 @@
       "@type": "Person",
       "givenName": "Matthew",
       "familyName": "Leonawicz",
-      "email": "mfleonawicz@gmail.com",
+      "email": "rpkgs@pm.me",
       "@id": "https://orcid.org/0000-0001-9452-2771"
     }
   ],
@@ -190,5 +190,5 @@
     },
     "SystemRequirements": "Python (>= 2.7), python-gdal library (For Windows, gdal installed via OSGeo4W <https://trac.osgeo.org/osgeo4w/> recommended)\n  clipboard"
   },
-  "fileSize": "929.098KB"
+  "fileSize": "930.827KB"
 }
