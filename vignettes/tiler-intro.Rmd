@@ -15,7 +15,7 @@ In addition to generating map tiles based on a common raster layer source, it al
 
 ## Setup (Windows users)
 
-Python is required as well as the `gdal` library for Python. An easy recommended way for Windows users to do this in Windows is to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/). It will bring all the required Python `gdal` library functionality along with it. OSGeo4W is also commonly installed along with [QGIS](https://qgis.org/en/site/forusers/download.html).
+Python is required as well as the `gdal` library for Python. An easy recommended way for Windows users to do this in Windows is to install [OSGeo4W](https://trac.osgeo.org/osgeo4w/). It will bring all the required Python `gdal` library functionality along with it. OSGeo4W is also commonly installed along with [QGIS](https://qgis.org/download/).
 
 On Windows, `tiler_options()` is set on package load with `osgeo4w = "OSgeo4W.bat"`. Make sure to add the path to this file to your system path variable. Otherwise it will not be found when calling `tile()`. You can set the full path to `OSGeo4W.bat` directly in your R session with `tiler_options()`. However, it is recommended to add the directory (e.g. `C:/OSGeo64` or wherever `OSGeo4W.bat` is located) to your system path so that you never had to deal with it in R.
 
