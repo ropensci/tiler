@@ -1,6 +1,6 @@
 Package: tiler
 Title: Create Geographic and Non-Geographic Map Tiles
-Version: 0.3.2
+Version: 0.3.3
 Authors@R: c(
     person("Matthew", "Leonawicz", email = "rpkgs@pm.me", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9452-2771")),
     person("Alex M", "Chubaty", email = "achubaty@for-cast.ca", role = "ctb", comment = c(ORCID = "0000-0001-7146-8135"))
